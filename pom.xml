@@ -263,6 +263,18 @@
             <version>0.5.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.ebaysf.web</groupId>
+            <artifactId>cors-filter</artifactId>
+            <version>1.0.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>servlet-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
         <!-- The PicketLink API provides a set of components and annotations to secure your CDI application. -->
         <dependency>
             <groupId>org.picketlink</groupId>
