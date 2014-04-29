@@ -15,18 +15,13 @@
  * limitations under the License.
  */
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import "AGValidationStrategy.h"
 
-@interface AGContact : NSObject
+@interface AGValidationTextfield : UITextField
 
-@property (nonatomic, copy, readwrite) NSString *recId;
-@property (nonatomic, copy, readwrite) NSString *firstname;
-@property (nonatomic, copy, readwrite) NSString *lastname;
-@property (nonatomic, copy, readwrite) NSString *phoneNumber;
-@property (nonatomic, copy, readwrite) NSString *email;
-@property (nonatomic, copy, readwrite) NSNumber *birthdate;
+@property (readwrite, nonatomic, strong) IBOutlet id<AGValidationStrategy> validationStrategy;
 
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
-- (NSDictionary *)asDictionary;
-    
+- (BOOL)validate;
+
 @end

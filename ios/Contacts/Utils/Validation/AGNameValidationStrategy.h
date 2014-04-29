@@ -16,17 +16,8 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "AGValidationStrategy.h"
 
-@interface AGContact : NSObject
+@interface AGNameValidationStrategy : NSObject <AGValidationStrategy>
 
-@property (nonatomic, copy, readwrite) NSString *recId;
-@property (nonatomic, copy, readwrite) NSString *firstname;
-@property (nonatomic, copy, readwrite) NSString *lastname;
-@property (nonatomic, copy, readwrite) NSString *phoneNumber;
-@property (nonatomic, copy, readwrite) NSString *email;
-@property (nonatomic, copy, readwrite) NSNumber *birthdate;
-
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
-- (NSDictionary *)asDictionary;
-    
 @end

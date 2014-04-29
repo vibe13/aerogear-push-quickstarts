@@ -15,21 +15,13 @@
  * limitations under the License.
  */
 
-#import "AGValidator.h"
+#import "AGEmailValidationStrategy.h"
 
-@implementation AGValidator
+@implementation AGEmailValidationStrategy
 
-+ (BOOL)isValidText:(NSString *)text {
-    if (text && ![text isEqualToString:@""]) {
-        return YES;
-    }
-    
-    return NO;
-}
-
-+ (BOOL)isValidEmail:(NSString *)email {
+- (BOOL)validate:(NSString *)input {
     NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:NULL];
-    NSArray *matches = [detector matchesInString:email options:0 range:NSMakeRange(0, email.length)];
+    NSArray *matches = [detector matchesInString:input options:0 range:NSMakeRange(0, input.length)];
     for (NSTextCheckingResult *match in matches) {
         if (match.resultType == NSTextCheckingTypeLink &&
             [match.URL.absoluteString rangeOfString:@"mailto:"].location != NSNotFound) {
@@ -38,16 +30,6 @@
     }
     
     return NO;
-}
-
-+ (BOOL)isValidPhone:(NSString *)phone {
-    NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypePhoneNumber error:NULL];
-    NSArray *matches = [detector matchesInString:phone options:0 range:NSMakeRange(0, phone.length)];
-    return (NSInteger)matches.count;
-}
-
-+ (BOOL)isValidBirthdate:(NSString *)birthdate {
-    return YES;
 }
 
 @end

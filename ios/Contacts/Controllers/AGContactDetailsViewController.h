@@ -17,9 +17,6 @@
 
 #import <UIKit/UIKit.h>
 
-#define kValidTextFieldColor   [UIColor colorWithHue:0.333 saturation:1 brightness:0.75 alpha:1]
-#define kInvalidTextFieldColor [UIColor colorWithHue:0 saturation:1 brightness:1 alpha:1]
-
 @class AGContactDetailsViewController;
 @class AGContact;
 

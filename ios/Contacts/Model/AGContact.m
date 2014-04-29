@@ -25,10 +25,12 @@
     if (!self)
         return nil;
     
+    self.recId = dictionary[@"id"];
     self.firstname = dictionary[@"firstName"];
     self.lastname = dictionary[@"lastName"];
     self.email = dictionary[@"email"];
-    self.phone = dictionary[@"phone"];
+    self.phoneNumber = dictionary[@"phoneNumber"];
+    self.birthdate = dictionary[@"birthDate"];
     
     return (self);
 }
@@ -38,7 +40,8 @@
     NSMutableDictionary *dictionary = [@{@"firstName": self.firstname,
                                          @"lastName": self.lastname,
                                          @"email": self.email,
-                                         @"phone": self.phone} mutableCopy];
+                                         @"phoneNumber": self.phoneNumber,
+                                         @"birthDate": self.birthdate} mutableCopy];
     
     if (self.recId) {
         dictionary[@"id"] = self.recId;

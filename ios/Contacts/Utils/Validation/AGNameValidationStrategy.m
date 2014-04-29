@@ -15,18 +15,12 @@
  * limitations under the License.
  */
 
-#import <Foundation/Foundation.h>
+#import "AGNameValidationStrategy.h"
 
-@interface AGContact : NSObject
+@implementation AGNameValidationStrategy
 
-@property (nonatomic, copy, readwrite) NSString *recId;
-@property (nonatomic, copy, readwrite) NSString *firstname;
-@property (nonatomic, copy, readwrite) NSString *lastname;
-@property (nonatomic, copy, readwrite) NSString *phoneNumber;
-@property (nonatomic, copy, readwrite) NSString *email;
-@property (nonatomic, copy, readwrite) NSNumber *birthdate;
+- (BOOL)validate:(NSString *)input {
+    return (input != NULL && ![input isEqualToString:@""]);
+}
 
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
-- (NSDictionary *)asDictionary;
-    
 @end

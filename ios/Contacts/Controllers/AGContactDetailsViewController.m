@@ -17,15 +17,17 @@
 
 #import "AGContactDetailsViewController.h"
 #import "AGContact.h"
-#import "AGValidator.h"
+#import "AGValidationTextfield.h"
 
 @interface AGContactDetailsViewController ()
 
-@property (weak, nonatomic) IBOutlet UITextField *firstnameTxtField;
-@property (weak, nonatomic) IBOutlet UITextField *lastnameTxtField;
-@property (weak, nonatomic) IBOutlet UITextField *phoneTxtField;
-@property (weak, nonatomic) IBOutlet UITextField *emailTxtField;
-@property (weak, nonatomic) IBOutlet UITextField *birthdateTxtField;
+@property (weak, nonatomic) IBOutlet AGValidationTextfield *firstnameTxtField;
+@property (weak, nonatomic) IBOutlet AGValidationTextfield *lastnameTxtField;
+@property (weak, nonatomic) IBOutlet AGValidationTextfield *phoneTxtField;
+@property (weak, nonatomic) IBOutlet AGValidationTextfield *emailTxtField;
+@property (weak, nonatomic) IBOutlet AGValidationTextfield *birthdateTxtField;
+
+@property (strong, nonatomic) NSArray *textfields;
 
 - (IBAction)cancel:(id)sender;
 - (IBAction)save:(id)sender;
@@ -41,10 +43,17 @@
     if (self.contact) {
         self.firstnameTxtField.text = self.contact.firstname;
         self.lastnameTxtField.text = self.contact.lastname;
-        self.phoneTxtField.text = self.contact.phone;
+        self.phoneTxtField.text = self.contact.phoneNumber;
         self.emailTxtField.text = self.contact.email;
-        self.birthdateTxtField.text = self.contact.birthdate;
+        // server returns epoch time for birthdate, need to convert to displayable format
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970:([self.contact.birthdate doubleValue] / 1000)];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"MM/dd/yyyy"];
+
+        self.birthdateTxtField.text = [dateFormatter stringFromDate:date];
     }
+    
+    self.textfields = @[self.firstnameTxtField, self.lastnameTxtField, self.phoneTxtField, self.emailTxtField, self.birthdateTxtField];
 }
 
 
@@ -55,75 +64,39 @@
 }
 
 - (IBAction)save:(id)sender {
-    NSString *firstname = self.firstnameTxtField.text;
+    __block BOOL invalidForm = NO;
     
-    // first name
-    if (![AGValidator isValidText:firstname]) {
-        [self toggleColorForTextField:self.firstnameTxtField withColor:kInvalidTextFieldColor];
+    // enumare all textfields and ask them to validate themselves
+    [self.textfields enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if (![(AGValidationTextfield *)obj validate]) {
+            invalidForm = YES;
+        }
+    }];
+    
+    // if invalid entries found, no need to continue
+    if (invalidForm)
         return;
-    } else {
-        [self toggleColorForTextField:self.firstnameTxtField withColor:kValidTextFieldColor];
-    }
-
-    // last name
-    NSString *lastname = self.lastnameTxtField.text;
-    if (![AGValidator isValidText:lastname]) {
-        [self toggleColorForTextField:self.lastnameTxtField withColor:kInvalidTextFieldColor];
-        return;
-    } else {
-        [self toggleColorForTextField:self.lastnameTxtField withColor:kValidTextFieldColor];
-    }
     
-    // phone
-    NSString *phone = self.phoneTxtField.text;
-    if (![AGValidator isValidPhone:phone]) {
-        [self toggleColorForTextField:self.phoneTxtField withColor:kInvalidTextFieldColor];
-        return;
-    } else {
-        [self toggleColorForTextField:self.phoneTxtField withColor:kValidTextFieldColor];
-    }
+    // else time to create contact
     
-    // email
-    NSString *email = self.emailTxtField.text;
-    if (![AGValidator isValidEmail:email]) {
-        [self toggleColorForTextField:self.emailTxtField withColor:kInvalidTextFieldColor];
-        return;
-    } else {
-        [self toggleColorForTextField:self.emailTxtField withColor:kValidTextFieldColor];
-    }
-    
-    // birthdate
-    NSString *birthdate = self.birthdateTxtField.text;
-    if (![AGValidator isValidBirthdate:birthdate]) {
-        [self toggleColorForTextField:self.birthdateTxtField withColor:kInvalidTextFieldColor];
-        return;
-    } else {
-        [self toggleColorForTextField:self.birthdateTxtField withColor:kValidTextFieldColor];
-    }
-    
-    AGContact *contact;
-    
-    // if we reach here, create contact
-    if (!self.contact) {
+    AGContact *contact = self.contact;
+  
+    if (!contact) {
         contact = [[AGContact alloc] init];
-        self.contact = contact;
     }
 
-    contact.firstname = firstname;
-    contact.lastname = lastname;
-    contact.phone = phone;
-    contact.email = email;
-    contact.birthdate = birthdate;
-
+    contact.firstname = self.firstnameTxtField.text;
+    contact.lastname = self.lastnameTxtField.text;
+    contact.phoneNumber = self.phoneTxtField.text;
+    contact.email = self.emailTxtField.text;
+    // since server expects epoch timestamp, we need to convert
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MM/dd/yyyy"];
+    NSDate *date = [dateFormatter dateFromString:self.birthdateTxtField.text];
+    contact.birthdate = [NSNumber numberWithDouble:floor(date.timeIntervalSince1970) * 1000 /* to millis */];
+    
     // call delegate to add it
     [self.delegate contactDetailsViewController:self didSave:contact];
-}
-
-#pragma mark - Utility method
-
-- (void)toggleColorForTextField:(UITextField *)textfield withColor:(UIColor *)color {
-    textfield.layer.borderWidth = 2.0;
-    textfield.layer.borderColor = color.CGColor;
 }
 
 @end

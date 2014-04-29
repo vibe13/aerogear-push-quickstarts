@@ -15,18 +15,20 @@
  * limitations under the License.
  */
 
-#import <Foundation/Foundation.h>
+#import "AGBirthdateValidationStrategy.h"
 
-@interface AGContact : NSObject
+@implementation AGBirthdateValidationStrategy
 
-@property (nonatomic, copy, readwrite) NSString *recId;
-@property (nonatomic, copy, readwrite) NSString *firstname;
-@property (nonatomic, copy, readwrite) NSString *lastname;
-@property (nonatomic, copy, readwrite) NSString *phoneNumber;
-@property (nonatomic, copy, readwrite) NSString *email;
-@property (nonatomic, copy, readwrite) NSNumber *birthdate;
-
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
-- (NSDictionary *)asDictionary;
+- (BOOL)validate:(NSString *)input {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MM/dd/yyyy"];
     
+    NSDate *date = [dateFormatter dateFromString:input];
+
+    if (date) // if successfully parsed
+        return YES;
+    
+    return NO;
+}
+
 @end

@@ -15,13 +15,14 @@
  * limitations under the License.
  */
 
-#import <Foundation/Foundation.h>
+#import "AGPhoneValidationStrategy.h"
 
-@interface AGValidator : NSObject
+@implementation AGPhoneValidationStrategy
 
-+ (BOOL)isValidText:(NSString *)text;
-+ (BOOL)isValidEmail:(NSString *)email;
-+ (BOOL)isValidPhone:(NSString *)phone;
-+ (BOOL)isValidBirthdate:(NSString *)birthdate;
+- (BOOL)validate:(NSString *)input {
+    NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypePhoneNumber error:NULL];
+    NSArray *matches = [detector matchesInString:input options:0 range:NSMakeRange(0, input.length)];
+    return (NSInteger)matches.count;
+}
 
 @end

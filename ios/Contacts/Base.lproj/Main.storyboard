@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="d1j-Ba-1TR">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="d1j-Ba-1TR">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -28,7 +28,7 @@
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter your username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jvd-xC-5JL">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="duke" placeholder="Enter your username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jvd-xC-5JL">
                                                     <rect key="frame" x="86" y="7" width="225" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -50,11 +50,11 @@
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter your password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GpJ-UV-jxc">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="duke" placeholder="Enter your password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GpJ-UV-jxc">
                                                     <rect key="frame" x="85" y="7" width="225" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                 </textField>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -118,12 +118,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Search for a Contact" id="hQe-iE-avz">
+                            <rect key="frame" x="0.0" y="64" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="cNq-gc-VDh" id="PzG-Gm-NRu"/>
+                            </connections>
+                        </searchBar>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="Cfc-HO-FRN" detailTextLabel="3js-yp-WBM" style="IBUITableViewCellStyleSubtitle" id="cjQ-Hu-0yh">
-                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="Cfc-HO-FRN" detailTextLabel="3js-yp-WBM" style="IBUITableViewCellStyleSubtitle" id="cjQ-Hu-0yh">
+                                <rect key="frame" x="0.0" y="130" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cjQ-Hu-0yh" id="TCL-b4-gyz">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="253" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Cfc-HO-FRN">
@@ -142,6 +150,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="IBT-P2-uo0" kind="modal" identifier="EditContactSegue" trigger="accessoryAction" id="VeG-Fv-XRT"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -158,17 +169,30 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="IBT-P2-uo0" kind="modal" identifier="ContactDetailSegue" id="8oo-L6-Sck"/>
+                                    <segue destination="IBT-P2-uo0" kind="modal" identifier="AddContactSegue" id="8oo-L6-Sck"/>
                                 </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="contactsSearchBar" destination="hQe-iE-avz" id="iQy-rC-R7t"/>
+                        <outlet property="searchDisplayController" destination="QYG-Ge-dOH" id="J1S-2f-SM6"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oYC-dl-UZK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="QYG-Ge-dOH">
+                    <connections>
+                        <outlet property="delegate" destination="cNq-gc-VDh" id="6cn-xL-FtI"/>
+                        <outlet property="searchBar" destination="hQe-iE-avz" id="JBj-6t-p4W"/>
+                        <outlet property="searchContentsController" destination="cNq-gc-VDh" id="hqv-go-oE9"/>
+                        <outlet property="searchResultsDataSource" destination="cNq-gc-VDh" id="FZa-Ow-Ogu"/>
+                        <outlet property="searchResultsDelegate" destination="cNq-gc-VDh" id="HpP-MT-Peo"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="960" y="87"/>
         </scene>
-        <!--Contact Details View Controller - Add Contact-->
+        <!--Contact Details View Controller - Contact Details-->
         <scene sceneID="fFG-XW-Ay5">
             <objects>
                 <tableViewController id="wBu-KA-dv6" customClass="AGContactDetailsViewController" sceneMemberID="viewController">
@@ -186,11 +210,14 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter a first name." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="M3d-Mv-5J0">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter a first name." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="M3d-Mv-5J0" customClass="AGValidationTextfield">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
+                                                    <connections>
+                                                        <outlet property="validationStrategy" destination="4vO-bJ-1gf" id="NCd-7H-Gg0"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -206,11 +233,14 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter a last name." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oz3-6H-4C8">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter a last name." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oz3-6H-4C8" customClass="AGValidationTextfield">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
+                                                    <connections>
+                                                        <outlet property="validationStrategy" destination="4vO-bJ-1gf" id="Yjj-r4-RUH"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -226,11 +256,14 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="(NNN) NNN-NNNN" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dqJ-D8-0ju">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="(NNN) NNN-NNNN" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dqJ-D8-0ju" customClass="AGValidationTextfield">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
+                                                    <connections>
+                                                        <outlet property="validationStrategy" destination="Fdb-WH-1pt" id="Nwz-1B-uY9"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -246,11 +279,14 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="name@company.domain" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wjy-Yz-YyY">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="name@company.domain" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wjy-Yz-YyY" customClass="AGValidationTextfield">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
+                                                    <connections>
+                                                        <outlet property="validationStrategy" destination="u6N-Go-2fj" id="yen-4d-Sw7"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -266,11 +302,14 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="YYYY-MM-DD" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tww-DD-cFa">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="MM/DD/YYYY" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tww-DD-cFa" customClass="AGValidationTextfield">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
+                                                    <connections>
+                                                        <outlet property="validationStrategy" destination="fc8-OW-xzL" id="rIW-UB-Fck"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -283,7 +322,7 @@
                             <outlet property="delegate" destination="wBu-KA-dv6" id="9ub-tT-0e8"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Add Contact" id="UOb-l6-JP1">
+                    <navigationItem key="navigationItem" title="Contact Details" id="UOb-l6-JP1">
                         <barButtonItem key="leftBarButtonItem" style="done" id="7xE-OS-n2v">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="E3T-9j-gNS">
                                 <rect key="frame" x="16" y="5" width="71" height="33"/>
@@ -320,8 +359,12 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ipi-TR-YEo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="4vO-bJ-1gf" customClass="AGNameValidationStrategy"/>
+                <customObject id="Fdb-WH-1pt" customClass="AGPhoneValidationStrategy"/>
+                <customObject id="u6N-Go-2fj" customClass="AGEmailValidationStrategy"/>
+                <customObject id="fc8-OW-xzL" customClass="AGBirthdateValidationStrategy"/>
             </objects>
-            <point key="canvasLocation" x="1964" y="-301"/>
+            <point key="canvasLocation" x="2016" y="-552"/>
         </scene>
         <!--Navigation Controller - Contacts-->
         <scene sceneID="Wuw-Vl-MSr">
@@ -346,6 +389,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="IBT-P2-uo0" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="F82-re-wMM"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Wyi-Gf-Usy">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -357,7 +401,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dna-gX-uHa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1514" y="-301"/>
+            <point key="canvasLocation" x="1505" y="-552"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -365,4 +409,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="8oo-L6-Sck"/>
+    </inferredMetricsTieBreakers>
 </document>
