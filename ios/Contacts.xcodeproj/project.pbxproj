@@ -9,8 +9,12 @@
 /* Begin PBXBuildFile section */
 		6F341588190105A100718353 /* AGContactDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F341587190105A100718353 /* AGContactDetailsViewController.m */; };
 		6F34158B19010E9000718353 /* AGContact.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F34158A19010E9000718353 /* AGContact.m */; };
-		6F34158F1901227A00718353 /* AGValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F34158E1901227A00718353 /* AGValidator.m */; };
 		6F600DFE19000BEF009BD17E /* AGContactsNetworker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F600DFD19000BEF009BD17E /* AGContactsNetworker.m */; };
+		6F6C4706190A57DD00991DB8 /* AGValidationTextfield.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F6C4705190A57DD00991DB8 /* AGValidationTextfield.m */; };
+		6F6C470D190A74E900991DB8 /* AGEmailValidationStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F6C470C190A74E900991DB8 /* AGEmailValidationStrategy.m */; };
+		6F6C4710190A759D00991DB8 /* AGPhoneValidationStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F6C470F190A759D00991DB8 /* AGPhoneValidationStrategy.m */; };
+		6F6C4713190A763500991DB8 /* AGBirthdateValidationStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F6C4712190A763500991DB8 /* AGBirthdateValidationStrategy.m */; };
+		6F6C4716190A768C00991DB8 /* AGNameValidationStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F6C4715190A768C00991DB8 /* AGNameValidationStrategy.m */; };
 		6F7B078218FE88F100F7A686 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F7B078118FE88F100F7A686 /* Foundation.framework */; };
 		6F7B078418FE88F100F7A686 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F7B078318FE88F100F7A686 /* CoreGraphics.framework */; };
 		6F7B078618FE88F100F7A686 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F7B078518FE88F100F7A686 /* UIKit.framework */; };
@@ -45,10 +49,19 @@
 		6F341587190105A100718353 /* AGContactDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AGContactDetailsViewController.m; path = Controllers/AGContactDetailsViewController.m; sourceTree = "<group>"; };
 		6F34158919010E9000718353 /* AGContact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AGContact.h; path = Model/AGContact.h; sourceTree = "<group>"; };
 		6F34158A19010E9000718353 /* AGContact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AGContact.m; path = Model/AGContact.m; sourceTree = "<group>"; };
-		6F34158D1901227A00718353 /* AGValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AGValidator.h; path = Utils/AGValidator.h; sourceTree = "<group>"; };
-		6F34158E1901227A00718353 /* AGValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AGValidator.m; path = Utils/AGValidator.m; sourceTree = "<group>"; };
 		6F600DFC19000BEF009BD17E /* AGContactsNetworker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AGContactsNetworker.h; path = Networking/AGContactsNetworker.h; sourceTree = "<group>"; };
 		6F600DFD19000BEF009BD17E /* AGContactsNetworker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AGContactsNetworker.m; path = Networking/AGContactsNetworker.m; sourceTree = "<group>"; };
+		6F6C4704190A57DD00991DB8 /* AGValidationTextfield.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AGValidationTextfield.h; path = Utils/AGValidationTextfield.h; sourceTree = "<group>"; };
+		6F6C4705190A57DD00991DB8 /* AGValidationTextfield.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AGValidationTextfield.m; path = Utils/AGValidationTextfield.m; sourceTree = "<group>"; };
+		6F6C4708190A741000991DB8 /* AGValidationStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AGValidationStrategy.h; path = Utils/Validation/AGValidationStrategy.h; sourceTree = "<group>"; };
+		6F6C470B190A74E900991DB8 /* AGEmailValidationStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AGEmailValidationStrategy.h; path = Utils/Validation/AGEmailValidationStrategy.h; sourceTree = "<group>"; };
+		6F6C470C190A74E900991DB8 /* AGEmailValidationStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AGEmailValidationStrategy.m; path = Utils/Validation/AGEmailValidationStrategy.m; sourceTree = "<group>"; };
+		6F6C470E190A759D00991DB8 /* AGPhoneValidationStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AGPhoneValidationStrategy.h; path = Utils/Validation/AGPhoneValidationStrategy.h; sourceTree = "<group>"; };
+		6F6C470F190A759D00991DB8 /* AGPhoneValidationStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AGPhoneValidationStrategy.m; path = Utils/Validation/AGPhoneValidationStrategy.m; sourceTree = "<group>"; };
+		6F6C4711190A763500991DB8 /* AGBirthdateValidationStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AGBirthdateValidationStrategy.h; path = Utils/Validation/AGBirthdateValidationStrategy.h; sourceTree = "<group>"; };
+		6F6C4712190A763500991DB8 /* AGBirthdateValidationStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AGBirthdateValidationStrategy.m; path = Utils/Validation/AGBirthdateValidationStrategy.m; sourceTree = "<group>"; };
+		6F6C4714190A768C00991DB8 /* AGNameValidationStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AGNameValidationStrategy.h; path = Utils/Validation/AGNameValidationStrategy.h; sourceTree = "<group>"; };
+		6F6C4715190A768C00991DB8 /* AGNameValidationStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AGNameValidationStrategy.m; path = Utils/Validation/AGNameValidationStrategy.m; sourceTree = "<group>"; };
 		6F7B077E18FE88F100F7A686 /* Contacts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Contacts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F7B078118FE88F100F7A686 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6F7B078318FE88F100F7A686 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -103,10 +116,27 @@
 		6F34158C1901225C00718353 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				6F34158D1901227A00718353 /* AGValidator.h */,
-				6F34158E1901227A00718353 /* AGValidator.m */,
+				6F6C4707190A73F700991DB8 /* Validation */,
+				6F6C4704190A57DD00991DB8 /* AGValidationTextfield.h */,
+				6F6C4705190A57DD00991DB8 /* AGValidationTextfield.m */,
 			);
 			name = Utils;
+			sourceTree = "<group>";
+		};
+		6F6C4707190A73F700991DB8 /* Validation */ = {
+			isa = PBXGroup;
+			children = (
+				6F6C4708190A741000991DB8 /* AGValidationStrategy.h */,
+				6F6C470B190A74E900991DB8 /* AGEmailValidationStrategy.h */,
+				6F6C470C190A74E900991DB8 /* AGEmailValidationStrategy.m */,
+				6F6C470E190A759D00991DB8 /* AGPhoneValidationStrategy.h */,
+				6F6C470F190A759D00991DB8 /* AGPhoneValidationStrategy.m */,
+				6F6C4711190A763500991DB8 /* AGBirthdateValidationStrategy.h */,
+				6F6C4712190A763500991DB8 /* AGBirthdateValidationStrategy.m */,
+				6F6C4714190A768C00991DB8 /* AGNameValidationStrategy.h */,
+				6F6C4715190A768C00991DB8 /* AGNameValidationStrategy.m */,
+			);
+			name = Validation;
 			sourceTree = "<group>";
 		};
 		6F7B077518FE88F100F7A686 = {
@@ -317,13 +347,17 @@
 			files = (
 				6F7B079218FE88F100F7A686 /* AGAppDelegate.m in Sources */,
 				6F7B078E18FE88F100F7A686 /* main.m in Sources */,
-				6F34158F1901227A00718353 /* AGValidator.m in Sources */,
 				6F34158B19010E9000718353 /* AGContact.m in Sources */,
 				6F600DFE19000BEF009BD17E /* AGContactsNetworker.m in Sources */,
 				6F7B07C318FE8B2000F7A686 /* AGLoginViewController.m in Sources */,
 				6FFCF92818FFCF830002A9C4 /* AGRestNetworker.m in Sources */,
 				6F341588190105A100718353 /* AGContactDetailsViewController.m in Sources */,
+				6F6C4710190A759D00991DB8 /* AGPhoneValidationStrategy.m in Sources */,
+				6F6C4706190A57DD00991DB8 /* AGValidationTextfield.m in Sources */,
+				6F6C470D190A74E900991DB8 /* AGEmailValidationStrategy.m in Sources */,
 				6F7B07C218FE8B2000F7A686 /* AGContactsViewController.m in Sources */,
+				6F6C4713190A763500991DB8 /* AGBirthdateValidationStrategy.m in Sources */,
+				6F6C4716190A768C00991DB8 /* AGNameValidationStrategy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
