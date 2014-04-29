@@ -19,6 +19,6 @@
 
 #import "AGContactDetailsViewController.h"
 
-@interface AGContactsViewController : UITableViewController <AGContactDetailsViewControllerDelegate>
+@interface AGContactsViewController : UITableViewController <UISearchBarDelegate, UISearchDisplayDelegate,AGContactDetailsViewControllerDelegate>
 
 @end

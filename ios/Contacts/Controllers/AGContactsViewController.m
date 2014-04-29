@@ -21,6 +21,10 @@
 
 @interface AGContactsViewController ()
 @property (readwrite, nonatomic, strong) NSMutableArray *contacts;
+@property (readwrite, nonatomic, strong) NSMutableArray *filteredContacts;
+
+@property (weak, nonatomic) IBOutlet UISearchBar *contactsSearchBar;
+
 @end
 
 @implementation AGContactsViewController
@@ -45,13 +49,23 @@
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.contacts count];
+    if (self.searchDisplayController.active) {
+        return [self.filteredContacts count];
+    } else {
+        return [self.contacts count];
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+
+    AGContact *contact;
     
-    AGContact *contact = self.contacts[indexPath.row];
+    if (self.searchDisplayController.active) {
+        contact = self.filteredContacts[indexPath.row];
+    } else {
+        contact = self.contacts[indexPath.row];
+    }
     
     cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", contact.firstname, contact.lastname];
     cell.detailTextLabel.text = contact.email;
@@ -71,8 +85,11 @@
     id completionHandler = ^(NSURLResponse *response, id responseObject, NSError *error) {
 
         if (error) { // if an error occured
+            
+            NSLog(@"%@", error);
+            
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops!"
-                                                            message:[error description]
+                                                            message:[error localizedDescription]
                                                            delegate:nil
                                                   cancelButtonTitle:@"Bummer"
                                                   otherButtonTitles:nil];
@@ -83,10 +100,17 @@
             [self dismissViewControllerAnimated:YES completion:nil];
             
             // add to our local modal
-            [self.contacts addObject:contact];
+            if (!contact.recId) {
+                contact.recId = responseObject[@"id"];
+                [self.contacts addObject:contact];
+            }
             
             // ask table to refresh
-            [self.tableView reloadData];
+            if (self.searchDisplayController.active) {
+                [self.searchDisplayController.searchResultsTableView reloadData];
+            } else {
+                [self.tableView reloadData];
+            }
         }
     };
 
@@ -98,13 +122,51 @@
     }
 }
 
+#pragma mark - filtering
+
+-(void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope {
+    [self.filteredContacts removeAllObjects];
+
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"firstname contains[c] $name OR lastname contains[c] $name"];
+    self.filteredContacts = [NSMutableArray arrayWithArray:[self.contacts filteredArrayUsingPredicate:[predicate predicateWithSubstitutionVariables:@{@"name": searchText}]]];
+}
+
+#pragma mark - UISearchDisplayController Delegate Methods
+
+-(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
+    [self filterContentForSearchText:searchString scope:
+     [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:[self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
+ 
+    return YES;
+}
+
+-(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption {
+    [self filterContentForSearchText:self.searchDisplayController.searchBar.text scope:
+     [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:searchOption]];
+
+    return YES;
+}
+
 #pragma mark - Seque methods
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"ContactDetailSegue"]) {
-        UINavigationController *navigationController = segue.destinationViewController;
-        AGContactDetailsViewController *contactDetailsViewController = [navigationController viewControllers][0];
-        contactDetailsViewController.delegate = self;
+    UINavigationController *navigationController = segue.destinationViewController;
+    AGContactDetailsViewController *contactDetailsViewController = [navigationController viewControllers][0];
+    contactDetailsViewController.delegate = self;
+
+    if ([segue.identifier isEqualToString:@"EditContactSegue"]) {
+        
+        AGContact *contact;
+        
+        if (self.searchDisplayController.active) {
+            NSIndexPath *indexPath = [self.searchDisplayController.searchResultsTableView indexPathForCell:sender];
+            contact = self.filteredContacts[indexPath.row];
+        } else {
+            NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+            contact = self.contacts[indexPath.row];
+        }
+        
+        contactDetailsViewController.contact = contact;
     }
 }
 
