@@ -19,6 +19,8 @@
 #import "AGContactsNetworker.h"
 #import "AGUser.h"
 
+#import <AeroGearPush/AeroGearPush.h>
+
 @interface AGLoginViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *usernameTxtField;
@@ -52,13 +54,65 @@
         return;
     }
     
-    // attempt to login
+    // attempt to login to backend
     [[AGContactsNetworker shared] loginWithUsername:username password:password
                                   completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
-        
-        if (!error) { //success
-            // move to the Contacts view
-            [self performSegueWithIdentifier:@"ContactsViewSegue" sender:self];
+
+        if (!error) { // success
+            
+            // time to register user with the "AeroGear UnifiedPush Server"
+            
+            // initialize "Registration helper" object using the
+            // base URL where the "AeroGear Unified Push Server" is running.
+            AGDeviceRegistration *registration = [[AGDeviceRegistration alloc]
+                                                  initWithServerURL:[NSURL URLWithString:@"https://quickstartsups-sblanc.rhcloud.com"]];
+            
+            // perform registration of this device
+            [registration registerWithClientInfo:^(id<AGClientDeviceInformation> clientInfo) {
+                // set up configuration parameters
+                
+                // retrieve the deviceToken
+                NSData *deviceToken = [[NSUserDefaults standardUserDefaults] dataForKey:@"deviceToken"];
+                // set it
+                [clientInfo setDeviceToken:deviceToken];
+                
+                // You need to fill the 'Variant Id' together with the 'Variant Secret'
+                // both received when performing the variant registration with the server.
+                // See section "Register an iOS Variant" in the guide:
+                // http://aerogear.org/docs/guides/aerogear-push-ios/unified-push-server/
+                [clientInfo setVariantID:@"87753288-f2a9-465c-8f29-94cc3c94fa45"];
+                [clientInfo setVariantSecret:@"bc965952-5d01-4965-9dda-a199019414ef"];
+                
+                // NOTE: the username is used as the "alias"
+                [clientInfo setAlias:username];
+                
+                // --optional config--
+                // set some 'useful' hardware information params
+                UIDevice *currentDevice = [UIDevice currentDevice];
+                
+                [clientInfo setOperatingSystem:[currentDevice systemName]];
+                [clientInfo setOsVersion:[currentDevice systemVersion]];
+                [clientInfo setDeviceType: [currentDevice model]];
+                
+            } success:^() {
+                // successfully registered!
+                NSLog(@"successfully registered with UPS!");
+                
+                // if we reach here, time to move to the main Contacts view
+                [self performSegueWithIdentifier:@"ContactsViewSegue" sender:self];
+                
+            } failure:^(NSError *error) {
+                // An error occurred during registration.
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops!"
+                                                                message:@"Failed to register with UPS!"
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"Bummer"
+                                                      otherButtonTitles:nil];
+                
+                [alert show];
+                
+            }];
+            
         } else {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops!"
                                                             message:@"Authentication failed!"

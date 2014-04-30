@@ -18,8 +18,8 @@
 #import <Foundation/Foundation.h>
 
 extern NSString * const AGRestNetworkerErrorDomain;
-extern NSString * const AGNetworkingOperationFailingURLRequestErrorKey;
-extern NSString * const AGNetworkingOperationFailingURLResponseErrorKey;
+extern NSString * const AGNetworkOperationFailingURLRequestErrorKey;
+extern NSString * const AGNetworkOperationFailingURLResponseErrorKey;
 
 @interface AGRestNetworker : NSObject
 

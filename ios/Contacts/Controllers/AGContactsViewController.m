@@ -16,6 +16,7 @@
  */
 
 #import "AGContactsViewController.h"
+#import "AGContactPushMessageViewController.h"
 #import "AGContactsNetworker.h"
 #import "AGContact.h"
 
@@ -24,6 +25,8 @@
 @property (readwrite, nonatomic, strong) NSMutableArray *filteredContacts;
 
 @property (weak, nonatomic) IBOutlet UISearchBar *contactsSearchBar;
+
+- (IBAction)logoutPressed:(id)sender;
 
 @end
 
@@ -171,24 +174,42 @@
 #pragma mark - Seque methods
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    UINavigationController *navigationController = segue.destinationViewController;
-    AGContactDetailsViewController *contactDetailsViewController = [navigationController viewControllers][0];
-    contactDetailsViewController.delegate = self;
-
-    if ([segue.identifier isEqualToString:@"EditContactSegue"]) {
+    if ([segue.identifier isEqualToString:@"AddContactSegue"] || [segue.identifier isEqualToString:@"EditContactSegue"]) {
+        // for both "Add" and "Edit" mode, attach delegate to self
+        UINavigationController *navigationController = segue.destinationViewController;
+        AGContactDetailsViewController *contactDetailsViewController = [navigationController viewControllers][0];
+        contactDetailsViewController.delegate = self;
         
-        AGContact *contact;
-        
-        if (self.searchDisplayController.active) {
-            NSIndexPath *indexPath = [self.searchDisplayController.searchResultsTableView indexPathForCell:sender];
-            contact = self.filteredContacts[indexPath.row];
-        } else {
-            NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
-            contact = self.contacts[indexPath.row];
+        // for "Edit", pass the Contact to the controller
+        if ([segue.identifier isEqualToString:@"EditContactSegue"]) {
+            AGContact *contact = [self activeContactFromCell:sender];
+            contactDetailsViewController.contact = contact;
         }
         
-        contactDetailsViewController.contact = contact;
+    } else if ([segue.identifier isEqualToString:@"SendMessageSegue"]) {
+        AGContactPushMessageViewController *contactMessageViewControler = segue.destinationViewController;
+        
+        AGContact *contact = [self activeContactFromCell:sender];
+        contactMessageViewControler.contact = contact;
     }
+}
+
+#pragma mark - utility method
+
+- (AGContact *)activeContactFromCell:(UITableViewCell *)cell {
+    AGContact *contact;
+    
+    if (self.searchDisplayController.active) { // if we are in 'search' mode
+        // retrieve active contact from search tableview
+        NSIndexPath *indexPath = [self.searchDisplayController.searchResultsTableView indexPathForCell:cell];
+        contact = self.filteredContacts[indexPath.row];
+    } else {
+        // just normal tableview
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+        contact = self.contacts[indexPath.row];
+    }
+
+    return contact;
 }
 
 @end

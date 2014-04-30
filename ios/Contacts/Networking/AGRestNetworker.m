@@ -18,8 +18,8 @@
 #import "AGRestNetworker.h"
 
 NSString * const AGRestNetworkerErrorDomain = @"AGRestNetworkerErrorDomain";
-NSString * const AGNetworkingOperationFailingURLRequestErrorKey = @"AGNetworkingOperationFailingURLRequestErrorKey";
-NSString * const AGNetworkingOperationFailingURLResponseErrorKey = @"AGNetworkingOperationFailingURLResponseErrorKey";
+NSString * const AGNetworkOperationFailingURLRequestErrorKey = @"AGNetworkingOperationFailingURLRequestErrorKey";
+NSString * const AGNetworkOperationFailingURLResponseErrorKey = @"AGNetworkingOperationFailingURLResponseErrorKey";
 
 
 @interface AGRestNetworker ()
@@ -138,7 +138,7 @@ NSString * const AGNetworkingOperationFailingURLResponseErrorKey = @"AGNetworkin
     NSURLSessionDataTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (!error) {
             NSHTTPURLResponse *httpResp = (NSHTTPURLResponse *) response;
-            if (httpResp.statusCode == 200) { // if success
+            if (httpResp.statusCode == 200 || httpResp.statusCode == 204 /* No content */) { // if success
 
                 id result;
                 
@@ -153,8 +153,8 @@ NSString * const AGNetworkingOperationFailingURLResponseErrorKey = @"AGNetworkin
             } else { // bad response
                 NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
                 [userInfo setValue:[NSHTTPURLResponse localizedStringForStatusCode:httpResp.statusCode] forKey:NSLocalizedDescriptionKey];
-                [userInfo setValue:request forKey:AGNetworkingOperationFailingURLRequestErrorKey];
-                [userInfo setValue:response forKey:AGNetworkingOperationFailingURLResponseErrorKey];
+                [userInfo setValue:request forKey:AGNetworkOperationFailingURLRequestErrorKey];
+                [userInfo setValue:response forKey:AGNetworkOperationFailingURLResponseErrorKey];
                 
                 error = [[NSError alloc] initWithDomain:AGRestNetworkerErrorDomain code:NSURLErrorBadServerResponse userInfo:userInfo];
                 

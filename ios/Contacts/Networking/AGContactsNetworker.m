@@ -17,7 +17,13 @@
 
 #import "AGContactsNetworker.h"
 
-static NSString * const kAPIBaseURLString = @"http://localhost:8080/jboss-contacts-mobile-basic/rest";
+static NSString * const kAPIBaseURLString = @"http://contacts-edewit.rhcloud.com/rest";
+
+@interface AGContactsNetworker ()
+
+@property (nonatomic, copy, readwrite) NSString *username;
+
+@end
 
 @implementation AGContactsNetworker
 
@@ -33,6 +39,8 @@ static NSString * const kAPIBaseURLString = @"http://localhost:8080/jboss-contac
 
 - (void)loginWithUsername:(NSString *)username password:(NSString *)password
         completionHandler:(void (^)(NSURLResponse *response, id responseObject, NSError *error))completionHandler {
+    
+    self.username = username;
     
     // set up our request
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[self.baseURL URLByAppendingPathComponent:@"/security/user/info"]];

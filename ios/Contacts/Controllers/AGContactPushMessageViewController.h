@@ -15,19 +15,12 @@
  * limitations under the License.
  */
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-#import "AGRestNetworker.h"
+@class AGContact;
 
-@interface AGContactsNetworker : AGRestNetworker
+@interface AGContactPushMessageViewController : UITableViewController
 
-@property (nonatomic, copy, readonly) NSString *username;
-
-+ (instancetype)shared;
-
-- (void)loginWithUsername:(NSString *)username password:(NSString *)password
-        completionHandler:(void (^)(NSURLResponse *response, id responseObject, NSError *error))completionHandler;
-
-- (void)logout:(void (^)(NSURLResponse *response, id responseObject, NSError *error))completionHandler;
+@property (readwrite, nonatomic, strong) AGContact *contact;
 
 @end

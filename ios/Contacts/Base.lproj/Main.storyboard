@@ -15,7 +15,7 @@
                         <sections>
                             <tableViewSection id="mWq-HF-MbV">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Coo-lr-SQx">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Coo-lr-SQx">
                                         <rect key="frame" x="0.0" y="99" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Coo-lr-SQx" id="5dY-4U-pR7">
@@ -28,7 +28,7 @@
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="duke" placeholder="Enter your email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jvd-xC-5JL">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="smith@somewhere.com" placeholder="Enter your email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jvd-xC-5JL">
                                                     <rect key="frame" x="86" y="7" width="225" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -37,7 +37,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="ixE-T3-yxo">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="ixE-T3-yxo">
                                         <rect key="frame" x="0.0" y="143" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ixE-T3-yxo" id="mWS-JN-c0R">
@@ -50,7 +50,7 @@
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="duke" placeholder="Enter your password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GpJ-UV-jxc">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="123456" placeholder="Enter your password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GpJ-UV-jxc">
                                                     <rect key="frame" x="85" y="7" width="225" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -89,7 +89,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Contacts" id="7f3-gi-ZkV">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="iPt-sZ-8NZ">
+                        <barButtonItem key="rightBarButtonItem" id="iPt-sZ-8NZ">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="WU0-kV-IjB">
                                 <rect key="frame" x="233" y="5" width="71" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -155,6 +155,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <segue destination="IBT-P2-uo0" kind="modal" identifier="EditContactSegue" trigger="accessoryAction" id="VeG-Fv-XRT"/>
+                                    <segue destination="nWh-o6-2O4" kind="push" identifier="SendMessageSegue" id="JTp-fH-lyb"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -164,7 +165,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Contacts" id="17e-HH-6gc">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="bi9-zQ-9ac">
+                        <barButtonItem key="leftBarButtonItem" style="done" id="bi9-zQ-9ac">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="QL1-ef-5gW">
                                 <rect key="frame" x="16" y="5" width="71" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -207,6 +208,65 @@
                 </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="964" y="87"/>
+        </scene>
+        <!--Contact Push Message View Controller-->
+        <scene sceneID="k0Q-0K-2Kv">
+            <objects>
+                <tableViewController id="nWh-o6-2O4" customClass="AGContactPushMessageViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="uTt-KZ-fo3">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <sections>
+                            <tableViewSection headerTitle="Message" id="dHc-v6-cmj">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="172" id="dOG-Vv-KiK">
+                                        <rect key="frame" x="0.0" y="119" width="320" height="172"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dOG-Vv-KiK" id="ktM-n8-wDF">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="171"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Enter your message.." translatesAutoresizingMaskIntoConstraints="NO" id="dS4-bA-Kz0">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="171"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="nWh-o6-2O4" id="tkL-fB-Gaf"/>
+                            <outlet property="delegate" destination="nWh-o6-2O4" id="i3r-sV-mbg"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="oLF-RF-eWL">
+                        <barButtonItem key="rightBarButtonItem" style="done" id="Htg-Xe-hze">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="350-8X-IKR">
+                                <rect key="frame" x="233" y="5" width="71" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="Send">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="send:" destination="nWh-o6-2O4" eventType="touchUpInside" id="b2u-Hn-TDX"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="messageTxtField" destination="dS4-bA-Kz0" id="fMu-V7-Kwy"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jJt-Ui-jtZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1517" y="87"/>
         </scene>
         <!--Contact Details View Controller - Contact Details-->
         <scene sceneID="fFG-XW-Ay5">
@@ -643,6 +703,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="8oo-L6-Sck"/>
+        <segue reference="VeG-Fv-XRT"/>
     </inferredMetricsTieBreakers>
 </document>

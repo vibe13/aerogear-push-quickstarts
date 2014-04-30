@@ -30,6 +30,9 @@
 
 @property (strong, nonatomic) NSArray *textfields;
 
+- (IBAction)cancel:(id)sender;
+- (IBAction)save:(id)sender;
+
 @end
 
 @implementation AGUserRegistrationViewController
