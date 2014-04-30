@@ -32,6 +32,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.navigationItem.hidesBackButton = YES;
+    
     [[AGContactsNetworker shared] GET:@"/contacts" parameters:nil
                     completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
                         
@@ -120,6 +122,25 @@
     } else { // create new
         [[AGContactsNetworker shared] POST:@"/contacts" parameters:[contact asDictionary] completionHandler:completionHandler];
     }
+}
+
+- (IBAction)logoutPressed:(id)sender {
+    [[AGContactsNetworker shared] logout:^(NSURLResponse *response, id responseObject, NSError *error) {
+        if (error) { // if an error occured
+            NSLog(@"%@", error);
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops!"
+                                                            message:[error localizedDescription]
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"Bummer"
+                                                  otherButtonTitles:nil];
+            [alert show];
+            
+        } else {
+            // back to login screen
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }];
 }
 
 #pragma mark - filtering

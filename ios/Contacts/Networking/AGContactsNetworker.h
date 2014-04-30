@@ -26,4 +26,6 @@
 - (void)loginWithUsername:(NSString *)username password:(NSString *)password
         completionHandler:(void (^)(NSURLResponse *response, id responseObject, NSError *error))completionHandler;
 
+- (void)logout:(void (^)(NSURLResponse *response, id responseObject, NSError *error))completionHandler;
+
 @end

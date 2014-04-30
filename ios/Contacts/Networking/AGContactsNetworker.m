@@ -17,7 +17,7 @@
 
 #import "AGContactsNetworker.h"
 
-static NSString * const kAPIBaseURLString = @"http://contacts-sblanc.rhcloud.com/rest";
+static NSString * const kAPIBaseURLString = @"http://localhost:8080/jboss-contacts-mobile-basic/rest";
 
 @implementation AGContactsNetworker
 
@@ -47,6 +47,12 @@ static NSString * const kAPIBaseURLString = @"http://contacts-sblanc.rhcloud.com
     NSURLSessionDataTask *task = [self dataTaskWithRequest:request completionHandler:completionHandler];
     
     [task resume];
+}
+
+- (void)logout:(void (^)(NSURLResponse *response, id responseObject, NSError *error))completionHandler {
+    // simply do an empty POST on the logout endpoint which will result any
+    // cookies held on this session to be wiped out.
+    [self POST:@"/security/logout" parameters:nil completionHandler:completionHandler];
 }
 
 @end

@@ -139,9 +139,12 @@ NSString * const AGNetworkingOperationFailingURLResponseErrorKey = @"AGNetworkin
         if (!error) {
             NSHTTPURLResponse *httpResp = (NSHTTPURLResponse *) response;
             if (httpResp.statusCode == 200) { // if success
+
+                id result;
                 
-                // deserialze from json
-                id result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+                if (data && data.length > 0) {  // if there is actual response, try to deserialize from json
+                    result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+                }
                 
                 if (completionHandler) {
                     completionHandler(response, result, error);
