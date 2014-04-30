@@ -15,18 +15,19 @@
  * limitations under the License.
  */
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-@interface AGContact : NSObject
+@class AGUserRegistrationViewController;
+@class AGUser;
 
-@property (nonatomic, copy, readwrite) NSString *recId;
-@property (nonatomic, copy, readwrite) NSString *firstname;
-@property (nonatomic, copy, readwrite) NSString *lastname;
-@property (nonatomic, copy, readwrite) NSString *phoneNumber;
-@property (nonatomic, copy, readwrite) NSString *email;
-@property (nonatomic, copy, readwrite) NSNumber *birthdate;
+@protocol AGUserRegistrationViewControllerDelegate <NSObject>
+- (void)userRegistrationViewControllerDidCancel:(AGUserRegistrationViewController *)controller;
+- (void)userRegistrationViewController:(AGUserRegistrationViewController *)controller didSave:(AGUser *)user;
+@end
 
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
-- (NSMutableDictionary *)asDictionary;
-    
+@interface AGUserRegistrationViewController : UITableViewController
+
+@property (readwrite, nonatomic, weak) id <AGUserRegistrationViewControllerDelegate> delegate;
+@property (readwrite, nonatomic, strong) AGUser *contact;
+
 @end

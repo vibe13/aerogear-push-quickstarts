@@ -17,6 +17,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AGLoginViewController : UITableViewController
+#import "AGUserRegistrationViewController.h"
+
+@interface AGLoginViewController : UITableViewController <AGUserRegistrationViewControllerDelegate>
 
 @end

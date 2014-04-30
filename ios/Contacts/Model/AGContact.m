@@ -35,7 +35,7 @@
     return (self);
 }
 
-- (NSDictionary *)asDictionary {
+- (NSMutableDictionary *)asDictionary {
     
     NSMutableDictionary *dictionary = [@{@"firstName": self.firstname,
                                          @"lastName": self.lastname,

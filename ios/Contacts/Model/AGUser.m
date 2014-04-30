@@ -15,18 +15,27 @@
  * limitations under the License.
  */
 
-#import <Foundation/Foundation.h>
+#import "AGUser.h"
 
-@interface AGContact : NSObject
+@implementation AGUser
 
-@property (nonatomic, copy, readwrite) NSString *recId;
-@property (nonatomic, copy, readwrite) NSString *firstname;
-@property (nonatomic, copy, readwrite) NSString *lastname;
-@property (nonatomic, copy, readwrite) NSString *phoneNumber;
-@property (nonatomic, copy, readwrite) NSString *email;
-@property (nonatomic, copy, readwrite) NSNumber *birthdate;
-
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
-- (NSMutableDictionary *)asDictionary;
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
+    self = [super initWithDictionary:dictionary];
     
+    if (!self)
+        return nil;
+    
+    self.password = dictionary[@"password"];
+    
+    return (self);
+}
+
+- (NSMutableDictionary *)asDictionary {
+    NSMutableDictionary *dictionary = [super asDictionary];
+    
+    dictionary[@"password"] = self.password;
+    
+    return dictionary;
+}
+
 @end

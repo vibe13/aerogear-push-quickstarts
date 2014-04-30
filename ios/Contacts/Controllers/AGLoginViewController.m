@@ -17,8 +17,10 @@
 
 #import "AGLoginViewController.h"
 #import "AGContactsNetworker.h"
+#import "AGUser.h"
 
 @interface AGLoginViewController ()
+
 @property (weak, nonatomic) IBOutlet UITextField *usernameTxtField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTxtField;
 
@@ -66,6 +68,52 @@
             [alert show];
         }
     }];
+}
+
+#pragma mark - AGUserRegistrationViewControllerDelegate methods
+
+- (void)userRegistrationViewControllerDidCancel:(AGUserRegistrationViewController *)controller {
+     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)userRegistrationViewController:(AGUserRegistrationViewController *)controller didSave:(AGUser *)user {
+    // time to register user to server
+    [[AGContactsNetworker shared] POST:@"/security/registration" parameters:[user asDictionary]
+                     completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+                
+             if (error) { // if an error occured
+                 
+                 NSLog(@"%@", error);
+                 
+                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops!"
+                                                                 message:[error localizedDescription]
+                                                                delegate:nil
+                                                       cancelButtonTitle:@"Bummer"
+                                                       otherButtonTitles:nil];
+                 [alert show];
+                 
+             } else {
+                 // dismiss modal dialog
+                 [self dismissViewControllerAnimated:YES completion:nil];
+                 
+                 // auto fill username for convienience
+                 self.usernameTxtField.text = user.email;
+                 // clear password text field
+                 self.passwordTxtField.text = @"";
+             }
+
+    }];
+}
+
+#pragma mark - Seque methods
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"RegisterUserSegue"]) {
+        
+        UINavigationController *navigationController = segue.destinationViewController;
+        AGUserRegistrationViewController *userRegistrationViewController = [navigationController viewControllers][0];
+        userRegistrationViewController.delegate = self;
+    }
 }
 
 @end
