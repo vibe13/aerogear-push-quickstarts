@@ -34,21 +34,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
+    // setup "pull to refresh" control
+    UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
+    [refresh addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
+    self.refreshControl = refresh;
+
+    // hide the back button, logout button is used instead
     self.navigationItem.hidesBackButton = YES;
-    
-    [[AGContactsNetworker shared] GET:@"/contacts" parameters:nil
-                    completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
-                        
-                        self.contacts = [[NSMutableArray alloc] init];
-                        
-                        [responseObject enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                            AGContact *contact = [[AGContact alloc] initWithDictionary:obj];
-                            [self.contacts addObject:contact];
-                        }];
-                        
-                        [self.tableView reloadData];
-    }];
+
+    // load initial data
+    [self refresh];
 }
 
 #pragma mark - Table view data source
@@ -189,6 +185,25 @@
     } else { // create new
         [[AGContactsNetworker shared] POST:@"/contacts" parameters:[contact asDictionary] completionHandler:completionHandler];
     }
+}
+
+# pragma mark - Actions
+
+- (void)refresh {
+    [[AGContactsNetworker shared] GET:@"/contacts" parameters:nil
+                    completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+
+            [self.refreshControl endRefreshing];
+
+            self.contacts = [[NSMutableArray alloc] init];
+
+            [responseObject enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                AGContact *contact = [[AGContact alloc] initWithDictionary:obj];
+                [self.contacts addObject:contact];
+            }];
+
+            [self.tableView reloadData];
+        }];
 }
 
 - (IBAction)logoutPressed:(id)sender {
