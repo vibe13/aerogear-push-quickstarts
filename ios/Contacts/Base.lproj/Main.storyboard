@@ -111,7 +111,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tpa-SB-GJV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="441" y="87"/>
+            <point key="canvasLocation" x="441" y="-525"/>
         </scene>
         <!--Contacts View Controller - Contacts-->
         <scene sceneID="1Mt-Ec-uw2">
@@ -207,7 +207,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="964" y="87"/>
+            <point key="canvasLocation" x="964" y="-525"/>
         </scene>
         <!--Contact Push Message View Controller-->
         <scene sceneID="k0Q-0K-2Kv">
@@ -266,7 +266,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jJt-Ui-jtZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1517" y="87"/>
+            <point key="canvasLocation" x="1517" y="-525"/>
         </scene>
         <!--Contact Details View Controller - Contact Details-->
         <scene sceneID="fFG-XW-Ay5">
@@ -440,7 +440,7 @@
                 <customObject id="u6N-Go-2fj" customClass="AGEmailValidationStrategy"/>
                 <customObject id="fc8-OW-xzL" customClass="AGBirthdateValidationStrategy"/>
             </objects>
-            <point key="canvasLocation" x="2028" y="-598"/>
+            <point key="canvasLocation" x="2028" y="-1210"/>
         </scene>
         <!--Navigation Controller - Contacts-->
         <scene sceneID="Wuw-Vl-MSr">
@@ -458,7 +458,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AKa-Y6-Exf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-85" y="87"/>
+            <point key="canvasLocation" x="-85" y="-525"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="iOs-wR-a4f">
@@ -477,7 +477,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dna-gX-uHa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1517" y="-598"/>
+            <point key="canvasLocation" x="1517" y="-1210"/>
         </scene>
         <!--User Registration View Controller - Register User-->
         <scene sceneID="k7c-bb-2i4">
@@ -675,7 +675,7 @@
                 <customObject id="9Tm-rj-GCL" customClass="AGEmailValidationStrategy"/>
                 <customObject id="aC0-qa-U22" customClass="AGBirthdateValidationStrategy"/>
             </objects>
-            <point key="canvasLocation" x="678" y="860"/>
+            <point key="canvasLocation" x="678" y="248"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="i9B-Gd-iGZ">
@@ -694,7 +694,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D8L-3G-9pp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="205" y="860"/>
+            <point key="canvasLocation" x="205" y="248"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
