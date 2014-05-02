@@ -54,7 +54,7 @@
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (self.searchDisplayController.active) {
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
         return [self.filteredContacts count];
     } else {
         return [self.contacts count];
@@ -65,17 +65,81 @@
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
 
     AGContact *contact;
-    
-    if (self.searchDisplayController.active) {
+
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
         contact = self.filteredContacts[indexPath.row];
     } else {
         contact = self.contacts[indexPath.row];
     }
-    
+
     cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", contact.firstname, contact.lastname];
     cell.detailTextLabel.text = contact.email;
     
     return cell;
+}
+
+#pragma mark - Table delete
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    AGContact *contact;
+
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        contact = self.filteredContacts[indexPath.row];
+    } else {
+        contact = self.contacts[indexPath.row];
+    }
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        // attempt to delete
+        [[AGContactsNetworker shared] DELETE:@"/contacts" parameters:[contact asDictionary] completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+
+            if (error) { // if an error occured
+                NSLog(@"%@", error);
+
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops!"
+                                                                message:[error localizedDescription]
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"Bummer"
+                                                      otherButtonTitles:nil];
+                [alert show];
+
+            } else { // success
+
+                // care if delete was performed under search mode
+                if (tableView == self.searchDisplayController.searchResultsTableView) {
+                    // remove from filtered local model
+                    [self.filteredContacts removeObjectAtIndex:indexPath.row];
+
+                    // we also need to remove from local model
+
+                    // determine the row using the contact id
+                    __block NSInteger index;
+                    [self.contacts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                        AGContact *current = (AGContact *)obj;
+
+                        if ([contact.recId isEqualToNumber:current.recId]) {
+                            index = idx;
+                            *stop = YES; // no need to continue
+                        }
+                    }];
+
+                    // time to delete it
+                    [self.contacts removeObjectAtIndex:index];
+
+                    // remove from search tableview
+                    NSArray *paths = [NSArray arrayWithObject: [NSIndexPath indexPathForRow:indexPath.row inSection:0]];
+                    [self.searchDisplayController.searchResultsTableView deleteRowsAtIndexPaths:paths withRowAnimation:UITableViewRowAnimationTop];
+
+                } else {
+                    // delete from local model
+                    [self.contacts removeObjectAtIndex:indexPath.row];
+
+                    // remove from tableview
+                    NSArray *paths = [NSArray arrayWithObject: [NSIndexPath indexPathForRow:indexPath.row inSection:0]];
+                    [self.tableView deleteRowsAtIndexPaths:paths withRowAnimation:UITableViewRowAnimationTop];
+                }
+            }
+        }];
+    }
 }
 
 #pragma mark - AGContactDetailsViewControllerDelegate methods
@@ -153,6 +217,13 @@
 
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"firstname contains[c] $name OR lastname contains[c] $name"];
     self.filteredContacts = [NSMutableArray arrayWithArray:[self.contacts filteredArrayUsingPredicate:[predicate predicateWithSubstitutionVariables:@{@"name": searchText}]]];
+}
+
+
+#pragma mark - UISearchBarDelegate Delegate Methods
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    [self.tableView reloadData];
 }
 
 #pragma mark - UISearchDisplayController Delegate Methods

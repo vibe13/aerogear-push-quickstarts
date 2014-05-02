@@ -19,7 +19,7 @@
 
 @interface AGContact : NSObject
 
-@property (nonatomic, copy, readwrite) NSString *recId;
+@property (nonatomic, copy, readwrite) NSNumber *recId;
 @property (nonatomic, copy, readwrite) NSString *firstname;
 @property (nonatomic, copy, readwrite) NSString *lastname;
 @property (nonatomic, copy, readwrite) NSString *phoneNumber;
