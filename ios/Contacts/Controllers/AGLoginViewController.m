@@ -65,7 +65,7 @@
             // initialize "Registration helper" object using the
             // base URL where the "AeroGear Unified Push Server" is running.
             AGDeviceRegistration *registration = [[AGDeviceRegistration alloc]
-                                                  initWithServerURL:[NSURL URLWithString:@"https://quickstartsups-sblanc.rhcloud.com"]];
+                                                  initWithServerURL:[NSURL URLWithString:@"<# URL of the running AeroGear UnifiedPush Server #>"]];
             
             // perform registration of this device
             [registration registerWithClientInfo:^(id<AGClientDeviceInformation> clientInfo) {
@@ -80,8 +80,8 @@
                 // both received when performing the variant registration with the server.
                 // See section "Register an iOS Variant" in the guide:
                 // http://aerogear.org/docs/guides/aerogear-push-ios/unified-push-server/
-                [clientInfo setVariantID:@"87753288-f2a9-465c-8f29-94cc3c94fa45"];
-                [clientInfo setVariantSecret:@"bc965952-5d01-4965-9dda-a199019414ef"];
+                [clientInfo setVariantID:@"<# Variant Id #>"];
+                [clientInfo setVariantSecret:@"<# Variant Secret #>"];
                 
                 // NOTE: the username is used as the "alias"
                 [clientInfo setAlias:username];

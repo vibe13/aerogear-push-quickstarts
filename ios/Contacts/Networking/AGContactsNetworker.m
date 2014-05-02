@@ -17,7 +17,7 @@
 
 #import "AGContactsNetworker.h"
 
-static NSString * const kAPIBaseURLString = @"https://contacts-edewit.rhcloud.com/rest";
+static NSString * const kAPIBaseURLString = @"<# URL of the Contacts application backend #>";
 
 @interface AGContactsNetworker ()
 
