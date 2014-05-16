@@ -33,9 +33,9 @@ import java.util.logging.Logger;
 public class ContactCreationPushNotifier {
     private static final Logger logger = Logger.getLogger(ContactCreationPushNotifier.class.getName());
 
-    public static final String SERVER_URL = "https://quickstartsups-sblanc.rhcloud.com";
-    public static final String PUSH_APPLICATION_ID = "ce517535-be7d-4c12-8668-34783009cc83";
-    public static final String MASTER_SECRET = "246739a2-0050-4cd3-9383-c572d25161bf";
+    public static final String SERVER_URL = "<pushServerURL e.g http(s)//host:port/context >";
+    public static final String PUSH_APPLICATION_ID = "<push application id e.g. 1234456-234320>";
+    public static final String MASTER_SECRET = "<master secret e.g. 1234456-234320>";
 
     private JavaSender javaSender;
 
