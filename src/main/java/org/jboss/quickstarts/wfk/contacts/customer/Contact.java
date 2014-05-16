@@ -16,28 +16,18 @@
  */
 package org.jboss.quickstarts.wfk.contacts.customer;
 
-import java.io.Serializable;
-import java.util.Date;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.jboss.quickstarts.wfk.contacts.ContactCreationPushNotifier;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * This is a Domain Object.   
@@ -56,6 +46,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 })
 @XmlRootElement
 @Table(name = "Contact", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+@EntityListeners(ContactCreationPushNotifier.class)
 public class Contact implements Serializable {
     /** Default value included to remove warning. Remove or modify at will. **/
     private static final long serialVersionUID = 1L;
