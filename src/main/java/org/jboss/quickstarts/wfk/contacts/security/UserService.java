@@ -53,6 +53,11 @@ public class UserService {
     @Inject
     private AuthorizationManager authorizationManager;
 
+    /**
+     * 
+     * 
+     * @return Response
+     */
     @Path("/info")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -63,6 +68,11 @@ public class UserService {
         return Response.ok().entity(authenticatedUser).build();
     }
 
+    /**
+     * 
+     * 
+     * @return Response
+     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @UserLoggedIn

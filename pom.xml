@@ -108,6 +108,11 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+<!--             <dependency> -->
+<!--                 <groupId>org.codehaus.jackson</groupId> -->
+<!--                 <artifactId>jackson-mapper-asl</artifactId> -->
+<!--                 <version>1.9.4</version> -->
+<!--             </dependency> -->
             <dependency>
                 <groupId>javax</groupId>
                 <artifactId>javaee-api</artifactId>
@@ -193,6 +198,11 @@
             <artifactId>resteasy-jackson-provider</artifactId>
             <scope>provided</scope>
         </dependency>
+        
+<!--         <dependency> -->
+<!--             <groupId>org.codehaus.jackson</groupId> -->
+<!--             <artifactId>jackson-mapper-asl</artifactId> -->
+<!--         </dependency> -->
 
         <!-- CORS filter so we can reach the server from remote javascript -->
         <dependency>
@@ -323,7 +333,7 @@
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
-        </dependency><dependency><groupId>org.codehaus.jackson</groupId><artifactId>jackson-mapper-asl</artifactId><version>1.9.4</version></dependency>
+        </dependency>
     </dependencies>
 
     <build>

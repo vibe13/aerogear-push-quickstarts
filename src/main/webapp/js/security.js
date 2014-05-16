@@ -54,32 +54,6 @@ $( document ).on( "pagecreate", function(mainEvent) {
      * The "e.handled" if statement used here and elsewhere is meant to keep jQM from running this code multiple 
      * times for one display. 
      */
-    // Log out
-    $("#logout-page").on( "pagebeforeshow", function(e) {
-    	if(e.handled !== true) {
-	    	console.log(getCurrentTime() + " [js/security.js] (#logout-page -> on pagebeforeshow) - start");
-	        
-	    	var jqxhr = $.ajax({
-	            url: restSecurityEndpoint + "logout",
-	            type: "POST"
-	        }).done(function(data, textStatus, jqXHR) {
-	        	console.log(getCurrentTime() + " [js/security.js] (#logout-page -> on pagebeforeshow) - Successfully logged out");
-	        	
-	        	// Once you have successfully logged out, redirect them to the log in page.
-	            $( "body" ).pagecontainer( "change", "#signin-page");
-	        }).fail(function(jqXHR, textStatus, errorThrown) {
-	            alert(errorThrown);
-	            console.log(getCurrentTime() + " [js/security.js] (#logout-page -> on pagebeforeshow) - error in ajax" +
-	            		" - jqXHR = " + jqXHR.status +
-	            		", errorThrown = " + errorThrown +
-	            		", responseText = " + jqXHR.responseText);
-	        });
-	        
-	        e.handled = true;
-	        console.log(getCurrentTime() + " [js/security.js] (#logout-page -> on pagebeforeshow) - end");
-    	}
-    });
-
     // Role Assignment
     $("#role-assignment-page").on( "pagebeforeshow", function(e) {
         if(e.handled !== true) {
@@ -154,38 +128,55 @@ $(document).ready(function() {
     var getCurrentTime = CONTACTS.util.getCurrentTime,
         restSecurityEndpoint = CONTACTS.security.restSecurityEndpoint;
 
-    // Register a handler to be called when Ajax requests complete with an error. Whenever an Ajax request completes 
-	// with an error, jQuery triggers the ajaxError event. Any and all handlers that have been registered with the 
-	// .ajaxError() method are executed at this time. Note: This handler is not called for cross-domain script and 
-	// cross-domain JSONP requests. - from the jQuery docs
+    /**
+     * Register a handler to be called when Ajax requests complete with an error. Whenever an Ajax request completes 
+     * with an error, jQuery triggers the ajaxError event. Any and all handlers that have been registered with the 
+     * .ajaxError() method are executed at this time. Note: This handler is not called for cross-domain script and 
+     * cross-domain JSONP requests. - from the jQuery docs
+     * 
+     * This will be overridden by any ajax call that handles these errors it's self.
+     */
 	$(document).ajaxError(function( event, jqXHR, settings, errorThrown ) {
 		// Whenever there is an AJAX event the authentication and authorization is verified. If the user is denied, then
 		// the system will return an error instead of data. This is a "universal" error catcher for those denials.
         if (jqXHR.status == 403) {
-        	// Authorization denied. (Do not permissions)
-            $( "body" ).pagecontainer( "change", "#access-denied-dialog", { transition: "pop" });
+        	// Authorization denied. (Does not have permissions)
+//            $("body").pagecontainer("change", "#access-denied-dialog", { transition: "pop" });
             console.log(getCurrentTime() + " [js/security.js] (document.ajaxError) - error in ajax" +
                     " - jqXHR = " + jqXHR.status +
-                    ", errorThrown = " + errorThrown +
-                    ", responseText = " + jqXHR.responseText);
-            console.log(getCurrentTime() + " [js/security.js] (document.ajaxError) - error in ajax - Event Object ->");
-            console.dir(event);
-            console.log(getCurrentTime() + " [js/security.js] (document.ajaxError) - error in ajax - Settings Object ->");
-    		console.dir(settings);
+                    ", errorThrown = " + errorThrown);
         } else if (jqXHR.status == 401) {
         	// Authentication denied. (Not logged in)
-            $( "body" ).pagecontainer( "change", "#signin-page");
+            $("body").pagecontainer("change", "#signin-page");
             console.log(getCurrentTime() + " [js/security.js] (document.ajaxError) - error in ajax" +
             		" - jqXHR = " + jqXHR.status +
-            		", errorThrown = " + errorThrown +
-            		", responseText = " + jqXHR.responseText);
-            console.log(getCurrentTime() + " [js/security.js] (document.ajaxError) - error in ajax - Event Object ->");
-            console.dir(event);
-            console.log(getCurrentTime() + " [js/security.js] (document.ajaxError) - error in ajax - Settings Object ->");
-            console.dir(settings);
+            		", errorThrown = " + errorThrown);
         }
     });
 
+	// Log out when the 'Log out' button is clicked.
+    $(".security-logout-btn").click(function(e) {
+    	console.log(getCurrentTime() + " [js/security.js] (#security-logout-btn -> click) - start");
+        
+    	var jqxhr = $.ajax({
+            url: restSecurityEndpoint + "logout",
+            type: "POST"
+        }).done(function(data, textStatus, jqXHR) {
+        	console.log(getCurrentTime() + " [js/security.js] (#security-logout-btn -> click) - Successfully logged out");
+        	
+        	// Once you have successfully logged out, redirect them to the log in page.
+            $("body").pagecontainer("change", "#signin-page");
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+            alert(errorThrown);
+            console.log(getCurrentTime() + " [js/security.js] (#security-logout-btn -> click) - error in ajax" +
+            		" - jqXHR = " + jqXHR.status +
+            		", errorThrown = " + errorThrown +
+            		", responseText = " + jqXHR.responseText);
+        });
+        
+        console.log(getCurrentTime() + " [js/security.js] (#security-logout-btn -> click) - end");
+    });
+    
     //Initialize all the AJAX form events.
     var initSecurity = function () {
     	console.log(getCurrentTime() + " [js/security.js] (initSecurity) - start");
@@ -232,7 +223,7 @@ $(document).ready(function() {
                 	// Clear the form or else the next time you go to sign up the last one will still be there.
                     $("#signup-form")[0].reset();
                     
-                    // Remove errors display as a part of the validation system.
+                    // Remove errors displayed as a part of the validation system.
                     $(".invalid").remove();
 
                     // Because we turned off the automatic page transition to catch server side error we need to do it ourselves.
@@ -288,9 +279,9 @@ $(document).ready(function() {
                         CONTACTS.validation.displayServerSideErrors("#signup-form", errorMsg);
                     }
                 });
+                console.log(getCurrentTime() + " [js/security.js] (submitSignUp) - submit event) - end");
             }
         });
-        console.log(getCurrentTime() + " [js/security.js] (submitSignUp) - end");
     };
 
     /**
@@ -341,8 +332,12 @@ $(document).ready(function() {
 
                 	if (jqXHR.status === 401) {
                 		
-                		// If the log in fails then send them to a pop-up telling them the log in attempt was invalid.
-                        $("body").pagecontainer("change", "#invalid-credentials-dialog", { transition: "pop" });
+                        // The name value must match a form name value exactly or else the message will be displayed at 
+                		// the top of the form. If it does match an form input name then it will be displayed with the input.
+                        var errorMsg = {invalid: "Invalid username and/or password. Do I need me to type if for you? Please try again."};
+                        
+                        // If the log in fails then post an error on the form telling them the log in attempt was invalid.
+                        CONTACTS.validation.displayServerSideErrors("#signin-form", errorMsg);
                         
                         console.log(getCurrentTime() + " [js/security.js] (submitSignIn) - error in ajax " +
                                 " - jqXHR = " + jqXHR.status +
@@ -364,9 +359,9 @@ $(document).ready(function() {
 	                    CONTACTS.validation.displayServerSideErrors("#signin-form", errorMsg);
 	                }
                 });
+                console.log(getCurrentTime() + " [js/security.js] (submitSignIn) - submit event) - end");
             }
         });
-        console.log(getCurrentTime() + " [js/security.js] (submitSignIn) - end");
     };
 
     /**
@@ -394,7 +389,8 @@ $(document).ready(function() {
                 	console.log(getCurrentTime() + " [js/security.js] (submitAssignRole) - ajax done");
                 	
                 	// Because we turned off the automatic page transition to catch server side error we need to do it ourselves.
-                    $( "body" ).pagecontainer( "change", "#role-assignment-dialog", { transition: "pop" });
+                	// Call the pop-up if the role gets assigned.
+                    $("body").pagecontainer("change", "#role-assignment-popup", { transition: "pop" });
                     
                 }).fail(function(jqXHR, textStatus, errorThrown) {
                     alert("Could not assign role, please select an user and a role.");
@@ -405,9 +401,9 @@ $(document).ready(function() {
                             ", errorThrown = " + errorThrown +
                             ", responseText = " + jqXHR.responseText);
                 });
+                console.log(getCurrentTime() + " [js/security.js] (submitAssignRole) - submit event) - end");
             }
         });
-        console.log(getCurrentTime() + " [js/security.js] (submitAssignRole) - end");
     };
 
     /**

@@ -66,8 +66,10 @@ $( document ).on( "pagecreate", function(mainEvent) {
                 $("#user-name-page-message").text(CONTACTS.security.currentUser.account.loginName);
                 if (!CONTACTS.security.currentUser.admin) {
                     $(".role-assignment-menu").addClass("ui-screen-hidden");
+                    $("#role-assignment-form").addClass("ui-screen-hidden");
                 } else {
                     $(".role-assignment-menu").removeClass("ui-screen-hidden");
+                    $("#role-assignment-form").removeClass("ui-screen-hidden");
                 }
             }
             

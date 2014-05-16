@@ -204,9 +204,9 @@ $(document).ready(function() {
                         CONTACTS.validation.displayServerSideErrors("#contacts-add-form", errorMsg);
                     }
                 });
+                console.log(getCurrentTime() + " [js/submissions.js] (submitCreate) - submit event) - end");
             }
         });
-        console.log(getCurrentTime() + " [js/submissions.js] (submitCreate) - end");
     };
     
 
@@ -355,9 +355,9 @@ $(document).ready(function() {
                         CONTACTS.validation.displayServerSideErrors("#contacts-edit-form", errorMsg);
                     }
                 });
+                console.log(getCurrentTime() + " [js/submissions.js] (submitUpdate) - submit event) - end");
             }
         });
-        console.log(getCurrentTime() + " [js/submissions.js] (submitUpdate) - end");
     };
     
     /**
@@ -419,8 +419,8 @@ $(document).ready(function() {
                 // Apply the error to the form.
                 CONTACTS.validation.displayServerSideErrors("#contacts-edit-form", errorMsg);
             });
+            console.log(getCurrentTime() + " [js/submissions.js] (deleteContact) - submit event) - end");
         });
-        console.log(getCurrentTime() + " [js/submissions.js] (deleteContact) - end");
     };
     
     //Set up each of these event listeners.

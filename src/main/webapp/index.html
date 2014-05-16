@@ -74,7 +74,7 @@
                 <li class="role-assignment-menu"><a href="#role-assignment-page">Role Assignment</a></li>
                 <li><a href="#contacts-theming-dialog" data-rel="popup" data-position-to="window">Themes</a></li>
                 <li><a href="#about-page">About</a></li>
-                <li><a href="#logout-page">Logout</a></li>
+                <li><a class="security-logout-btn">Logout</a></li>
             </ul>
         </div>
         <div data-role="header" data-position="fixed" >
@@ -114,7 +114,7 @@
                 <li><a href="#contacts-list-page">List view</a></li>
                 <li class="role-assignment-menu"><a href="#role-assignment-page">Role Assignment</a></li>
                 <li><a href="#about-page">About</a></li>
-                <li><a href="#logout-page">Logout</a></li>
+                <li><a class="security-logout-btn">Logout</a></li>
             </ul>
         </div>
         <div data-role="header" data-position="fixed" >
@@ -143,7 +143,7 @@
                 <li><a href="#contacts-add-page">Add Contact</a></li>
                 <li><a href="#contacts-list-page">List view</a></li>
                 <li><a href="#about-page">About</a></li>
-                <li><a href="#logout-page">Logout</a></li>
+                <li><a class="security-logout-btn">Logout</a></li>
             </ul>
         </div>
         <div data-role="header" data-position="fixed" >
@@ -165,7 +165,7 @@
             <ul data-role="listview" id="contacts-add-page-menu-panel-listview">
                 <li><a href="#contacts-list-page">List view</a></li>
                 <li><a href="#about-page">About</a></li>
-                <li><a href="#logout-page">Logout</a></li>
+                <li><a class="security-logout-btn">Logout</a></li>
             </ul>
         </div>
         <div data-role="header" data-position="fixed" >
@@ -231,7 +231,7 @@
                 <li><a href="#contacts-add-page">Add Contact</a></li>
                 <li><a href="#contacts-list-page">List view</a></li>
                 <li><a href="#about-page">About</a></li>
-                <li><a href="#logout-page">Logout</a></li>
+                <li><a class="security-logout-btn">Logout</a></li>
             </ul>
         </div>
         <div data-role="header" data-position="fixed" >
@@ -388,14 +388,13 @@
                 <li><a href="#contacts-add-page">Add Contact</a></li>
                 <li><a href="#contacts-list-page">List view</a></li>
                 <li><a href="#about-page">About</a></li>
-                <li><a href="#logout-page">Logout</a></li>
+                <li><a class="security-logout-btn">Logout</a></li>
             </ul>
         </div>
         <div data-role="header" data-position="fixed" >
             <a href="#role-assignment-page-menu-panel" id="role-assignment-page-menu-button" class="ui-btn ui-corner-all ui-shadow ui-icon-bars ui-btn-icon-notext ui-mini ui-btn-inline">Menu</a>
             <h1>Role Assignment</h1>
             <a href="#contacts-list-page" id="contacts-list-role-assignment-page-button" class="ui-btn ui-corner-all ui-shadow ui-icon-arrow-d ui-btn-icon-right ui-mini ui-btn-inline">List</a>
-            
         </div>
         <div role="main" class="ui-content">
             <form name="role-assignment-form" id="role-assignment-form" class="contact_info" method="post" data-ajax="false">
@@ -412,44 +411,15 @@
         </div>
     </div>
 
-    <!-- Log out page. -->
-    <div data-role="page" id="logout-page" class="ui-page-theme-a" >
-        <div data-role="header" data-position="fixed" >
-            <h1>See you soon!</h1>
-        </div>
-        <div role="main" class="ui-content">
-        </div>
-    </div>
-
-    <!-- An access denied dialog. -->
-    <div data-role="page" data-dialog="true" id="access-denied-dialog" class="ui-page-theme-a" >
-        <div data-role="header">
-            <h1>Access Denied!</h1>
-        </div>
-        <div data-role="content">
-            <h3>You don't have permission to perform the operation.</h3>
-        </div>
-    </div>
-
-    <!-- An invalid credentials denied dialog. -->
-    <div data-role="page" data-dialog="true" id="invalid-credentials-dialog" class="ui-page-theme-a" >
-        <div data-role="header">
-            <h1>Invalid Credentials!</h1>
-        </div>
-        <div data-role="content">
-            <h3>Please, try again.</h3>
-            <a href="#signin-page" id="invalid-credentials-dialog-ok-btn" class="ui-btn ui-corner-all ui-shadow ui-btn-inline">Ok</a>
-        </div>
-    </div>
-
     <!-- A role assignment dialog. -->
-    <div data-role="page" data-dialog="true" id="role-assignment-dialog" class="ui-page-theme-a" >
+    <div data-role="page" data-dialog="true" id="role-assignment-popup" class="ui-page-theme-a" >
         <div data-role="header">
             <h1>Role Assignment</h1>
         </div>
         <div data-role="content">
-            <h3>Role successfuly assigned to user.</h3>
-            <a href="#contacts-list-page" id="role-assignment-dialog-ok-btn" class="ui-btn ui-corner-all ui-shadow ui-btn-inline">Ok</a>
+            <h3>Role successfuly assigned.</h3>
+            <a href="#contacts-list-page" id="role-assignment-popup-ok-btn" class="ui-btn ui-corner-all ui-shadow ui-btn-inline">Ok</a>
+            <a href="#role-assignment-page" id="role-assignment-popup-more-roles-btn" class="ui-btn ui-corner-all ui-shadow ui-btn-inline">Assign more roles</a>
         </div>
     </div>
 </body>

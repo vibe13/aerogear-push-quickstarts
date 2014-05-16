@@ -48,8 +48,8 @@ public class UserRegistrationService {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response create(UserRegistration userRegistration) {
-    	
-    	// Create a User based on the userName.
+        
+        // Create a User based on the userName.
         User newUser = new User(userRegistration.getUserName());
 
         // Add the first and last name of the user.
