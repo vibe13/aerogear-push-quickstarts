@@ -11,7 +11,7 @@ Source: https://github.com/aerogear/aerogear-push-quickstarts/cordova
 What is it?
 -----------
 
-This project is a very crud application where you can manage contacts integrated push notifications. There is a button next to each contact to send them a quick push notification.
+This project is a very crud application where you can manage contacts integrated push notifications. When a new Contact is created a notification is send to all the users.
 
 System requirements
 -------------------
@@ -61,10 +61,10 @@ You'll also need to install the war file and add the url of your jboss to the ww
 
 ```javascript
 //app.js    
-APPMODULE.app.restEndpoint = '< backend URL e.g http(s)//host:port/context >/rest/contacts';
+CONTACTS.app.restEndpoint = "< backend URL e.g http(s)//host:port >/jboss-contacts-mobile-picketlink-secured/rest/contacts";
 
 //security.js
-APPMODULE.security.base = '< backend URL e.g http(s)//host:port/context >';
+CONTACTS.security.restSecurityEndpoint = "< backend URL e.g http(s)//host:port >/jboss-contacts-mobile-picketlink-secured/rest/security/";
 ```
 
 Install platforms
