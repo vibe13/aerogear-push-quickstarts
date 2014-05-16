@@ -2,7 +2,9 @@ package org.jboss.aerogear.unifiedpush.quickstart;
 
 public interface Constants {
 
-    String URL_REGISTER = "http://contacts-sblanc.rhcloud.com/rest/security/registration";
-    String URL_LOGIN = "http://contacts-sblanc.rhcloud.com/rest/security/user/info";
+    String URL_REGISTER = "";
+    String URL_LOGIN = "";
+    String URL_LOGOUT = "";
+    String URL_CONTACTS = "";
 
 }
