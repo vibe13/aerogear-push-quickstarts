@@ -6,17 +6,43 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import org.jboss.aerogear.unifiedpush.quickstart.Constants;
 import org.jboss.aerogear.unifiedpush.quickstart.R;
+import org.jboss.aerogear.unifiedpush.quickstart.model.Contact;
 import org.jboss.aerogear.unifiedpush.quickstart.util.WebClient;
 
+import java.util.List;
+
 public class ContactsActivity extends ActionBarActivity {
+
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.contacts);
+
+        listView = (ListView) findViewById(R.id.contact_list);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        new AsyncTask<Void, Void, List<Contact>>() {
+            @Override
+            protected List<Contact> doInBackground(Void... voids) {
+                return new WebClient(Constants.URL_CONTACTS).contacts();
+            }
+
+            @Override
+            protected void onPostExecute(List<Contact> contactList) {
+                listView.setAdapter(new ArrayAdapter<Contact>(getApplicationContext(),
+                        android.R.layout.simple_list_item_1, contactList));
+
+            }
+        }.execute();
     }
 
     @Override
@@ -27,7 +53,7 @@ public class ContactsActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.logout) {
+        if (item.getItemId() == R.id.logout) {
             new AsyncTask<Void, Void, Void>() {
                 @Override
                 protected Void doInBackground(Void... voids) {
@@ -45,4 +71,5 @@ public class ContactsActivity extends ActionBarActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

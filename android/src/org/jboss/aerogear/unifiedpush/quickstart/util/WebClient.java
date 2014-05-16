@@ -1,19 +1,32 @@
 package org.jboss.aerogear.unifiedpush.quickstart.util;
 
+import android.util.Log;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.apache.http.HttpResponse;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.CookieStore;
 import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.jboss.aerogear.unifiedpush.quickstart.model.Contact;
+
+import java.util.List;
 
 public final class WebClient {
 
     private final String url;
+    private final static DefaultHttpClient httpClient;
+
+    static {
+        httpClient = new DefaultHttpClient();
+    }
 
     public WebClient(String url) {
         this.url = url;
@@ -21,8 +34,6 @@ public final class WebClient {
 
     public String register(String json) {
         try {
-            DefaultHttpClient httpClient = new DefaultHttpClient();
-
             HttpPost post = new HttpPost(url);
             post.setEntity(new StringEntity(json));
 
@@ -46,7 +57,6 @@ public final class WebClient {
             credProvider.setCredentials(new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT),
                     new UsernamePasswordCredentials(username, password));
 
-            DefaultHttpClient httpClient = new DefaultHttpClient();
             httpClient.setCredentialsProvider(credProvider);
 
             HttpGet get = new HttpGet(url);
@@ -66,8 +76,6 @@ public final class WebClient {
 
     public void logout() {
         try {
-            DefaultHttpClient httpClient = new DefaultHttpClient();
-
             HttpPost post = new HttpPost(url);
 
             post.setHeader("Accept", "application/json");
@@ -79,4 +87,23 @@ public final class WebClient {
         }
 
     }
+
+    public List<Contact> contacts() {
+
+        try {
+            HttpGet get = new HttpGet(url);
+
+            get.setHeader("Accept", "application/json");
+            get.setHeader("Content-type", "application/json");
+
+            HttpResponse response = httpClient.execute(get);
+            String responseData = EntityUtils.toString(response.getEntity());
+
+            return new Gson().fromJson(responseData, new TypeToken<List<Contact>>(){}.getType());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
 }
