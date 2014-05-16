@@ -64,4 +64,19 @@ public final class WebClient {
 
     }
 
+    public void logout() {
+        try {
+            DefaultHttpClient httpClient = new DefaultHttpClient();
+
+            HttpPost post = new HttpPost(url);
+
+            post.setHeader("Accept", "application/json");
+            post.setHeader("Content-type", "application/json");
+
+            HttpResponse response = httpClient.execute(post);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 }
