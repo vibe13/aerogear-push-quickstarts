@@ -11,4 +11,5 @@
     <string name="save">Save</string>
     <string name="register_successful">Registration successful</string>
     <string name="login_successful">Login successful</string>
+    <string name="logout">Logout</string>
 </resources>
