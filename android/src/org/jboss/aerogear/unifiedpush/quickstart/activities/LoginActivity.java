@@ -51,7 +51,6 @@ public class LoginActivity extends Activity {
 
             @Override
             protected void onPostExecute(Void aVoid) {
-                Toast.makeText(getApplicationContext(), getString(R.string.login_successful), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(), ContactsActivity.class);
                 startActivity(intent);
                 finish();
