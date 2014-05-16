@@ -199,34 +199,6 @@
             <scope>provided</scope>
         </dependency>
         
-<!--         <dependency> -->
-<!--             <groupId>org.codehaus.jackson</groupId> -->
-<!--             <artifactId>jackson-mapper-asl</artifactId> -->
-<!--         </dependency> -->
-<<<<<<< HEAD
-
-        <!-- CORS filter so we can reach the server from remote javascript -->
-        <dependency>
-            <groupId>org.ebaysf.web</groupId>
-            <artifactId>cors-filter</artifactId>
-            <version>1.0.0</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>javax.servlet</groupId>
-                    <artifactId>servlet-api</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <!-- The Java UPS Sender Client to send UnifiedPush messages -->
-        <dependency>
-            <groupId>org.jboss.aerogear</groupId>
-            <artifactId>unifiedpush-java-client</artifactId>
-            <version>0.5.0</version>
-        </dependency>
-=======
->>>>>>> [WFK2-600] - Update the failed log-in error handling to display a message instead of a pop-up in contacts-mobile-picketlink-secured.
-
         <!-- CORS filter so we can reach the server from remote javascript -->
         <dependency>
             <groupId>org.ebaysf.web</groupId>
