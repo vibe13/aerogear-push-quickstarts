@@ -254,18 +254,18 @@ $( document ).on( "pagecreate", function(mainEvent) {
 
 $( document ).on( "deviceready", function() {
     var pushConfig = {
-        pushServerURL: "https://quickstartsups-sblanc.rhcloud.com",
+        pushServerURL: "<pushServerURL e.g http(s)//host:port/context >",
+        alias: "<alias e.g. a username or an email address optional>",
         android: {
-            senderID: "517285908032",
-            variantID: "3590d758-bba9-4c73-a2b8-9311c9dae946",
-            variantSecret: "80505bf6-b2dd-4849-9f81-315d4d248e3d"
+          senderID: "<senderID e.g Google Project ID only for android>",
+          variantID: "<variantID e.g. 1234456-234320>",
+          variantSecret: "<variantSecret e.g. 1234456-234320>"
         },
         ios: {
-            variantID: "<variantID e.g. 1234456-234320>",
-            variantSecret: "<variantSecret e.g. 1234456-234320>"
+          variantID: "<variantID e.g. 1234456-234320>",
+          variantSecret: "<variantSecret e.g. 1234456-234320>"
         }
-    }
-
+    };
     push.register(CONTACTS.app.onNotification, successHandler, errorHandler, pushConfig);
     
     function successHandler() {
