@@ -203,6 +203,7 @@
 <!--             <groupId>org.codehaus.jackson</groupId> -->
 <!--             <artifactId>jackson-mapper-asl</artifactId> -->
 <!--         </dependency> -->
+<<<<<<< HEAD
 
         <!-- CORS filter so we can reach the server from remote javascript -->
         <dependency>
@@ -223,6 +224,8 @@
             <artifactId>unifiedpush-java-client</artifactId>
             <version>0.5.0</version>
         </dependency>
+=======
+>>>>>>> [WFK2-600] - Update the failed log-in error handling to display a message instead of a pop-up in contacts-mobile-picketlink-secured.
 
         <!-- The PicketLink API provides a set of components and annotations to secure your CDI application. -->
         <dependency>
