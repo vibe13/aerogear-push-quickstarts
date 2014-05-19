@@ -21,8 +21,10 @@
 #import "AGContact.h"
 
 @interface AGContactsViewController ()
-@property (readwrite, nonatomic, strong) NSMutableArray *contacts;
+@property (readwrite, nonatomic, strong) NSMutableDictionary *contacts;
 @property (readwrite, nonatomic, strong) NSMutableArray *filteredContacts;
+
+@property (readwrite, nonatomic, strong) NSMutableArray *contactsSectionTitles;
 
 @property (weak, nonatomic) IBOutlet UISearchBar *contactsSearchBar;
 
@@ -42,30 +44,62 @@
 
     // hide the back button, logout button is used instead
     self.navigationItem.hidesBackButton = YES;
-
-    // load initial data
+    
+     // load initial data
     [self refresh];
 }
 
 #pragma mark - Table view data source
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        return 1;
+    } else {
+        return [self.contactsSectionTitles count];
+    }
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        return nil;
+    } else {
+        return self.contactsSectionTitles[section];
+    }
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (tableView == self.searchDisplayController.searchResultsTableView) {
         return [self.filteredContacts count];
     } else {
-        return [self.contacts count];
+        NSString *sectionTitle = self.contactsSectionTitles[section];
+        
+        return [self.contacts[sectionTitle] count];
     }
 }
 
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        return nil;
+    } else {
+        // user-locale alphabet list
+        return [[UILocalizedIndexedCollation currentCollation] sectionIndexTitles];
+    }
+}
+
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
+    return [self.contactsSectionTitles indexOfObject:title];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell"];
 
     AGContact *contact;
 
     if (tableView == self.searchDisplayController.searchResultsTableView) {
         contact = self.filteredContacts[indexPath.row];
     } else {
-        contact = self.contacts[indexPath.row];
+        NSString *sectionTitle = self.contactsSectionTitles[indexPath.section];
+        contact = self.contacts[sectionTitle][indexPath.row];
     }
 
     cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", contact.firstname, contact.lastname];
@@ -82,8 +116,10 @@
     if (tableView == self.searchDisplayController.searchResultsTableView) {
         contact = self.filteredContacts[indexPath.row];
     } else {
-        contact = self.contacts[indexPath.row];
+        NSString *sectionTitle = self.contactsSectionTitles[indexPath.section] ;
+        contact = self.contacts[sectionTitle][indexPath.row];
     }
+    
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // attempt to delete
         [[AGContactsNetworker shared] DELETE:@"/contacts" parameters:[contact asDictionary] completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
@@ -100,6 +136,8 @@
 
             } else { // success
 
+                NSMutableArray *contacts = self.contacts[self.contactsSectionTitles[indexPath.section]];
+                
                 // care if delete was performed under search mode
                 if (tableView == self.searchDisplayController.searchResultsTableView) {
                     // remove from filtered local model
@@ -109,7 +147,7 @@
 
                     // determine the row using the contact id
                     __block NSInteger index;
-                    [self.contacts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                    [contacts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                         AGContact *current = (AGContact *)obj;
 
                         if ([contact.recId isEqualToNumber:current.recId]) {
@@ -119,15 +157,15 @@
                     }];
 
                     // time to delete it
-                    [self.contacts removeObjectAtIndex:index];
+                    [contacts removeObjectAtIndex:index];
 
                     // remove from search tableview
-                    NSArray *paths = [NSArray arrayWithObject: [NSIndexPath indexPathForRow:indexPath.row inSection:0]];
+                    NSArray *paths = [NSArray arrayWithObject: [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section]];
                     [self.searchDisplayController.searchResultsTableView deleteRowsAtIndexPaths:paths withRowAnimation:UITableViewRowAnimationTop];
 
                 } else {
                     // delete from local model
-                    [self.contacts removeObjectAtIndex:indexPath.row];
+                    [contacts removeObjectAtIndex:indexPath.row];
 
                     // remove from tableview
                     NSArray *paths = [NSArray arrayWithObject: [NSIndexPath indexPathForRow:indexPath.row inSection:0]];
@@ -145,7 +183,6 @@
 }
 
 - (void)contactDetailsViewController:(AGContactDetailsViewController *)controller didSave:(AGContact *)contact {
-
     // since completionhandler logic is common, define upfront
     id completionHandler = ^(NSURLResponse *response, id responseObject, NSError *error) {
 
@@ -167,7 +204,8 @@
             // add to our local modal
             if (!contact.recId) {
                 contact.recId = responseObject[@"id"];
-                [self.contacts addObject:contact];
+                
+                [self addContact:contact];
             }
             
             // ask table to refresh
@@ -195,13 +233,19 @@
 
             [self.refreshControl endRefreshing];
 
-            self.contacts = [[NSMutableArray alloc] init];
-
+            self.contacts = [[NSMutableDictionary alloc] init];
+            
             [responseObject enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                 AGContact *contact = [[AGContact alloc] initWithDictionary:obj];
-                [self.contacts addObject:contact];
+                
+                [self addContact:contact];
+                
             }];
-
+                        
+            // refresh section alphabet
+            self.contactsSectionTitles = [[self.contacts allKeys] mutableCopy];
+            [self.contactsSectionTitles sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+                        
             [self.tableView reloadData];
         }];
 }
@@ -227,13 +271,22 @@
 
 #pragma mark - filtering
 
--(void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope {
+- (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope {
     [self.filteredContacts removeAllObjects];
 
+    // will store the filtered results
+    __block NSMutableArray *results = [[NSMutableArray alloc] init];
+    
+    // apply predicate to each array
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"firstname contains[c] $name OR lastname contains[c] $name"];
-    self.filteredContacts = [NSMutableArray arrayWithArray:[self.contacts filteredArrayUsingPredicate:[predicate predicateWithSubstitutionVariables:@{@"name": searchText}]]];
+    
+    [[self.contacts allValues] enumerateObjectsUsingBlock:^(id arr, NSUInteger idx, BOOL *stop) {
+        [results addObjectsFromArray:[arr filteredArrayUsingPredicate:
+                                      [predicate predicateWithSubstitutionVariables:@{@"name": searchText}]]];
+    }];
+    
+    self.filteredContacts = results;
 }
-
 
 #pragma mark - UISearchBarDelegate Delegate Methods
 
@@ -243,14 +296,14 @@
 
 #pragma mark - UISearchDisplayController Delegate Methods
 
--(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
     [self filterContentForSearchText:searchString scope:
      [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:[self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
  
     return YES;
 }
 
--(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption {
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption {
     [self filterContentForSearchText:self.searchDisplayController.searchBar.text scope:
      [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:searchOption]];
 
@@ -292,10 +345,37 @@
     } else {
         // just normal tableview
         NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-        contact = self.contacts[indexPath.row];
+
+        NSString *sectionTitle = self.contactsSectionTitles[indexPath.section];
+        contact = self.contacts[sectionTitle][indexPath.row];
     }
 
     return contact;
+}
+
+- (void)addContact:(AGContact *)contact {
+    // determine section by first letter of "first name"
+    NSString *letter = [contact.firstname substringToIndex:1];
+    NSMutableArray *contactsInSection = self.contacts[letter];
+    
+    // if the section doesn't exist
+    if (!contactsInSection) {
+        // create it
+        [self.contactsSectionTitles addObject:letter];
+        // sort newly inserted section name
+        [self.contactsSectionTitles sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+        
+        // create arr to hold contacts in section
+        contactsInSection = [[NSMutableArray alloc] init];
+        
+        // assign
+        self.contacts[letter] = contactsInSection;
+    }
+    
+    /// add it
+    [contactsInSection addObject:contact];
+    // sort contacts "section" by "first name" (see :compare on AGContact)
+    [contactsInSection sortUsingSelector:@selector(compare:)];
 }
 
 @end

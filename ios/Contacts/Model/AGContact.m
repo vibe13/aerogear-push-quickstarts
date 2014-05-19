@@ -50,4 +50,9 @@
     return dictionary;
 }
 
+- (NSComparisonResult)compare:(AGContact *)other {
+    // compare by first name
+    return [self.firstname compare:other.firstname];
+}
+
 @end
