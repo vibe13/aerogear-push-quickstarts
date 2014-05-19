@@ -403,6 +403,10 @@ $(document).ready(function() {
                 // Remove errors display as a part of the validation system.
                 $(".invalid").remove();
                 
+                // Since we need to keep the user on the Edit page if it fails we need to manually move them to the List
+                // page if it succeeds. 
+                $("body").pagecontainer("change", "#contacts-list-page");
+                
             }).fail(function(jqXHR, textStatus, errorThrown) {
                 // Remove any errors that are not a part of the validation system.
                 $(".invalid").remove();
@@ -418,6 +422,9 @@ $(document).ready(function() {
                 
                 // Apply the error to the form.
                 CONTACTS.validation.displayServerSideErrors("#contacts-edit-form", errorMsg);
+                
+                // Send them back to the Edit page so they can see their error.
+                $("body").pagecontainer("change", "#contacts-edit-page");
             });
             console.log(getCurrentTime() + " [js/submissions.js] (deleteContact) - submit event) - end");
         });
