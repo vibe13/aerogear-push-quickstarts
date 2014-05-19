@@ -334,7 +334,7 @@ $(document).ready(function() {
                 		
                         // The name value must match a form name value exactly or else the message will be displayed at 
                 		// the top of the form. If it does match an form input name then it will be displayed with the input.
-                        var errorMsg = {invalid: "Invalid username and/or password. Do I need me to type it for you? Please try again."};
+                        var errorMsg = {invalid: "Invalid username and/or password. Do you need me to type it for you? Please try again."};
                         
                         // If the log in fails then post an error on the form telling them the log in attempt was invalid.
                         CONTACTS.validation.displayServerSideErrors("#signin-form", errorMsg);
