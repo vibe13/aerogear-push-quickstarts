@@ -20,20 +20,24 @@
 @implementation AGUser
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary {
-    self = [super initWithDictionary:dictionary];
+    self = [super init];
     
     if (!self)
         return nil;
     
+    self.firstname = dictionary[@"firstName"];
+    self.lastname = dictionary[@"lastName"];
+    self.username = dictionary[@"loginName"];
     self.password = dictionary[@"password"];
     
     return (self);
 }
 
-- (NSMutableDictionary *)asDictionary {
-    NSMutableDictionary *dictionary = [super asDictionary];
-    
-    dictionary[@"password"] = self.password;
+- (NSDictionary *)asDictionary {
+    NSDictionary *dictionary = @{@"firstName": self.firstname,
+                                 @"lastName": self.lastname,
+                                 @"userName": self.username,
+                                 @"password": self.password};
     
     return dictionary;
 }

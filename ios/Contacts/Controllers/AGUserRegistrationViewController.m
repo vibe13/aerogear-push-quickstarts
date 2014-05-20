@@ -25,8 +25,6 @@
 @property (weak, nonatomic) IBOutlet AGValidationTextfield *passwordTxtField;
 @property (weak, nonatomic) IBOutlet AGValidationTextfield *firstnameTxtField;
 @property (weak, nonatomic) IBOutlet AGValidationTextfield *lastnameTxtField;
-@property (weak, nonatomic) IBOutlet AGValidationTextfield *phoneTxtField;
-@property (weak, nonatomic) IBOutlet AGValidationTextfield *birthdateTxtField;
 
 @property (strong, nonatomic) NSArray *textfields;
 
@@ -40,7 +38,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.textfields = @[self.usernameTxtField, self.passwordTxtField, self.firstnameTxtField, self.lastnameTxtField, self.phoneTxtField, self.birthdateTxtField];
+    self.textfields = @[self.usernameTxtField, self.passwordTxtField, self.firstnameTxtField, self.lastnameTxtField];
 }
 
 #pragma mark - Action methods
@@ -67,18 +65,11 @@
     
     AGUser *user = [[AGUser alloc] init];
     
+    user.username = self.usernameTxtField.text;
+    user.password = self.passwordTxtField.text;
     user.firstname = self.firstnameTxtField.text;
     user.lastname = self.lastnameTxtField.text;
-    user.phoneNumber = self.phoneTxtField.text;
-    user.email = self.usernameTxtField.text;
-    user.password = self.passwordTxtField.text;
-    
-    // since server expects epoch timestamp, we need to convert
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"MM/dd/yyyy"];
-    NSDate *date = [dateFormatter dateFromString:self.birthdateTxtField.text];
-    user.birthdate = [NSNumber numberWithDouble:floor(date.timeIntervalSince1970) * 1000 /* to millis */];
-    
+
     // call delegate to add it
     [self.delegate userRegistrationViewController:self didSave:user];
 }

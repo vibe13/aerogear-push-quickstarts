@@ -151,7 +151,7 @@
                  [self dismissViewControllerAnimated:YES completion:nil];
                  
                  // auto fill username for convienience
-                 self.usernameTxtField.text = user.email;
+                 self.usernameTxtField.text = user.username;
                  // clear password text field
                  self.passwordTxtField.text = @"";
              }

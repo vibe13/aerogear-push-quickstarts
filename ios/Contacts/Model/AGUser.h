@@ -19,8 +19,14 @@
 
 #import "AGContact.h"
 
-@interface AGUser : AGContact
+@interface AGUser : NSObject
 
+@property (nonatomic, copy, readwrite) NSString *firstname;
+@property (nonatomic, copy, readwrite) NSString *lastname;
+@property (nonatomic, copy, readwrite) NSString *username;
 @property (nonatomic, copy, readwrite) NSString *password;
+
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
+- (NSMutableDictionary *)asDictionary;
 
 @end

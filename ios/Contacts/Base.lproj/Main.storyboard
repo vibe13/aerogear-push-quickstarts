@@ -520,52 +520,6 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="PHONE" id="D48-Hf-cDi">
-                                <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="bGB-lh-AsK">
-                                        <rect key="frame" x="0.0" y="487" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bGB-lh-AsK" id="ThG-50-gvf">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="(NNN) NNN-NNNN" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="biK-JE-pHG" customClass="AGValidationTextfield">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
-                                                    <connections>
-                                                        <outlet property="validationStrategy" destination="bY1-Rj-Kf4" id="Oqr-j2-1y6"/>
-                                                    </connections>
-                                                </textField>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                            <tableViewSection headerTitle="Birth Date" id="ueu-rn-hDR">
-                                <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="JBA-AG-PuH">
-                                        <rect key="frame" x="0.0" y="579" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JBA-AG-PuH" id="ZGP-fZ-yjD">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="MM/DD/YYYY" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Umu-hC-man" customClass="AGValidationTextfield">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
-                                                    <connections>
-                                                        <outlet property="validationStrategy" destination="aC0-qa-U22" id="dpm-mc-Nrs"/>
-                                                    </connections>
-                                                </textField>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="EjZ-Bt-VUX" id="m8X-2u-d1T"/>
@@ -601,19 +555,15 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="birthdateTxtField" destination="Umu-hC-man" id="UN4-8y-Ete"/>
                         <outlet property="firstnameTxtField" destination="LlW-vn-Ykk" id="4wq-du-WBM"/>
                         <outlet property="lastnameTxtField" destination="pZj-F8-kUC" id="VWN-bM-RRk"/>
                         <outlet property="passwordTxtField" destination="gGR-tX-peG" id="r7H-LC-ssH"/>
-                        <outlet property="phoneTxtField" destination="biK-JE-pHG" id="cOj-fP-cDN"/>
                         <outlet property="usernameTxtField" destination="cwc-3c-czd" id="50g-gA-iTr"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PZN-jC-r4L" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <customObject id="nhw-7d-iO6" customClass="AGNameValidationStrategy"/>
-                <customObject id="bY1-Rj-Kf4" customClass="AGPhoneValidationStrategy"/>
                 <customObject id="9Tm-rj-GCL" customClass="AGEmailValidationStrategy"/>
-                <customObject id="aC0-qa-U22" customClass="AGBirthdateValidationStrategy"/>
             </objects>
             <point key="canvasLocation" x="1437" y="388"/>
         </scene>
