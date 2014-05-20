@@ -1,6 +1,8 @@
 package org.jboss.aerogear.unifiedpush.quickstart.model;
 
-public class Contact {
+import java.io.Serializable;
+
+public class Contact implements Serializable {
 
     private Long id;
     private String firstName;
@@ -61,4 +63,5 @@ public class Contact {
     public String toString() {
         return firstName + " " + lastName;
     }
+
 }

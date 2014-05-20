@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import org.jboss.aerogear.unifiedpush.quickstart.Constants;
 import org.jboss.aerogear.unifiedpush.quickstart.R;
@@ -25,6 +27,16 @@ public class ContactsActivity extends ActionBarActivity {
         setContentView(R.layout.contacts);
 
         listView = (ListView) findViewById(R.id.contact_list);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Contact contact = (Contact) parent.getItemAtPosition(position);
+
+                Intent intent = new Intent(getApplicationContext(), MessageActivity.class);
+                intent.putExtra(Constants.USER, contact);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
