@@ -1,6 +1,7 @@
 package org.jboss.aerogear.unifiedpush.quickstart.activities;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import org.jboss.aerogear.unifiedpush.quickstart.Constants;
+import org.jboss.aerogear.unifiedpush.quickstart.QuickstartApplication;
 import org.jboss.aerogear.unifiedpush.quickstart.R;
 import org.jboss.aerogear.unifiedpush.quickstart.model.User;
 import org.jboss.aerogear.unifiedpush.quickstart.util.WebClient;
@@ -41,16 +43,21 @@ public class LoginActivity extends Activity {
         });
     }
 
+    public void storeUserInApplication(User loggedUser) {
+        QuickstartApplication application = (QuickstartApplication) this.getApplication();
+        application.setLoggedUser(loggedUser);
+    }
+
     private void login(final String username, final String password) {
-        new AsyncTask<Void, Void, Void>() {
+        new AsyncTask<Void, Void, User>() {
             @Override
-            protected Void doInBackground(Void... voids) {
-                new WebClient(Constants.URL_LOGIN).authenticate(username, password);
-                return null;
+            protected User doInBackground(Void... voids) {
+                return new WebClient(Constants.URL_LOGIN).authenticate(username, password);
             }
 
             @Override
-            protected void onPostExecute(Void aVoid) {
+            protected void onPostExecute(User loggedUser) {
+                storeUserInApplication(loggedUser);
                 Intent intent = new Intent(getApplicationContext(), ContactsActivity.class);
                 startActivity(intent);
                 finish();

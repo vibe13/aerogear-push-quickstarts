@@ -2,6 +2,7 @@ package org.jboss.aerogear.unifiedpush.quickstart.util;
 
 import android.util.Log;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import org.apache.http.HttpResponse;
 import org.apache.http.auth.AuthScope;
@@ -16,8 +17,10 @@ import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.jboss.aerogear.unifiedpush.quickstart.model.Contact;
+import org.jboss.aerogear.unifiedpush.quickstart.model.User;
 
 import java.util.List;
+import java.util.Map;
 
 public final class WebClient {
 
@@ -49,7 +52,7 @@ public final class WebClient {
         }
     }
 
-    public String authenticate(String username, String password) {
+    public User authenticate(String username, String password) {
 
         try {
 
@@ -67,7 +70,13 @@ public final class WebClient {
             HttpResponse response = httpClient.execute(get);
             String responseData = EntityUtils.toString(response.getEntity());
 
-            return responseData;
+            Gson gson = new GsonBuilder().create();
+
+            Map<String,Object> rootNode = gson.fromJson(responseData, Map.class);
+            String innerJson = gson.toJson(rootNode.get("account"));
+            User user = gson.fromJson(innerJson, User.class);
+
+            return user;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
