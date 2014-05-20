@@ -11,4 +11,9 @@
     <string name="save">Save</string>
     <string name="register_successful">Registration successful</string>
     <string name="logout">Logout</string>
+    <string name="message">Message</string>
+    <string name="enter_your_message">Enter your message</string>
+    <string name="send">Send</string>
+    <string name="message_sent">Message sent successfully!</string>
+    <string name="an_error_occurred">An error occurred</string>
 </resources>
