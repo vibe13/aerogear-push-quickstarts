@@ -122,7 +122,8 @@
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // attempt to delete
-        [[AGContactsNetworker shared] DELETE:@"/contacts" parameters:[contact asDictionary] completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        [[AGContactsNetworker shared] DELETE:[NSString stringWithFormat:@"/contacts/%@", contact.recId] // append contact id
+                                  parameters:[contact asDictionary] completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
 
             if (error) { // if an error occured
                 NSLog(@"%@", error);
@@ -136,17 +137,25 @@
 
             } else { // success
 
-                NSMutableArray *contacts = self.contacts[self.contactsSectionTitles[indexPath.section]];
+                // the section that this contact resides
+                NSString *section = self.contactsSectionTitles[indexPath.section];
+                // the contacts in that section
+                NSMutableArray *contacts = self.contacts[section];
+
+                // the path to the contact
+                NSArray *path = [NSArray arrayWithObject: [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section]];
+
+                // time to delete
                 
-                // care if delete was performed under search mode
+                // we need to determine the index of the contact in the model
+                __block NSInteger index;
+
+                // if delete was performed under search mode
                 if (tableView == self.searchDisplayController.searchResultsTableView) {
                     // remove from filtered local model
                     [self.filteredContacts removeObjectAtIndex:indexPath.row];
 
-                    // we also need to remove from local model
-
-                    // determine the row using the contact id
-                    __block NSInteger index;
+                    // determine the row of local model using the contact id
                     [contacts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                         AGContact *current = (AGContact *)obj;
 
@@ -156,21 +165,24 @@
                         }
                     }];
 
-                    // time to delete it
-                    [contacts removeObjectAtIndex:index];
-
-                    // remove from search tableview
-                    NSArray *paths = [NSArray arrayWithObject: [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section]];
-                    [self.searchDisplayController.searchResultsTableView deleteRowsAtIndexPaths:paths withRowAnimation:UITableViewRowAnimationTop];
-
                 } else {
-                    // delete from local model
-                    [contacts removeObjectAtIndex:indexPath.row];
-
-                    // remove from tableview
-                    NSArray *paths = [NSArray arrayWithObject: [NSIndexPath indexPathForRow:indexPath.row inSection:0]];
-                    [self.tableView deleteRowsAtIndexPaths:paths withRowAnimation:UITableViewRowAnimationTop];
+                    // the row in the local model that this contact resides
+                    index = indexPath.row;
                 }
+
+                // time to delete it from local model
+                [contacts removeObjectAtIndex:index];
+
+                // remove it from the appropriate tableview
+                [tableView deleteRowsAtIndexPaths:path withRowAnimation:UITableViewRowAnimationTop];
+
+                // if it was the last contact in the section, delete the section too
+                if (contacts.count == 0) {
+                    [self.contactsSectionTitles removeObject:section];
+                    [self.contacts removeObjectForKey:section];
+                }
+                
+                [tableView reloadData];
             }
         }];
     }
@@ -218,7 +230,8 @@
     };
 
     if (contact.recId) { // update existing
-        [[AGContactsNetworker shared] PUT:@"/contacts" parameters:[contact asDictionary] completionHandler:completionHandler];
+        [[AGContactsNetworker shared] PUT:[NSString stringWithFormat:@"/contacts/%@", contact.recId] // append contact id
+                               parameters:[contact asDictionary] completionHandler:completionHandler];
         
     } else { // create new
         [[AGContactsNetworker shared] POST:@"/contacts" parameters:[contact asDictionary] completionHandler:completionHandler];
