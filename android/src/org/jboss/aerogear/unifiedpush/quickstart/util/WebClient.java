@@ -36,7 +36,7 @@ public final class WebClient {
         this.url = url;
     }
 
-    public String register(String json) {
+    public boolean register(String json) {
         try {
             HttpPost post = new HttpPost(url);
             post.setEntity(new StringEntity(json));
@@ -44,10 +44,9 @@ public final class WebClient {
             post.setHeader("Accept", "application/json");
             post.setHeader("Content-type", "application/json");
 
-            HttpResponse response = httpClient.execute(post);
-            String responseData = EntityUtils.toString(response.getEntity());
+            httpClient.execute(post);
 
-            return responseData;
+            return true;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

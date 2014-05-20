@@ -12,6 +12,8 @@ import org.jboss.aerogear.unifiedpush.quickstart.R;
 import org.jboss.aerogear.unifiedpush.quickstart.model.User;
 import org.jboss.aerogear.unifiedpush.quickstart.util.WebClient;
 
+import static android.widget.Toast.LENGTH_SHORT;
+
 public class RegisterActivity extends Activity {
 
     private EditText firstName;
@@ -35,7 +37,6 @@ public class RegisterActivity extends Activity {
             public void onClick(View view) {
                 User user = retriveUserFromForm();
                 register(user);
-                finish();
             }
         });
     }
@@ -50,16 +51,20 @@ public class RegisterActivity extends Activity {
     }
 
     private void register(final User user) {
-        new AsyncTask<Void, Void, Void>() {
+        new AsyncTask<Void, Void, Boolean>() {
             @Override
-            protected Void doInBackground(Void... voids) {
-                new WebClient(Constants.URL_REGISTER).register(user.toJSON());
-                return null;
+            protected Boolean doInBackground(Void... voids) {
+                return new WebClient(Constants.URL_REGISTER).register(user.toJSON());
             }
 
             @Override
-            protected void onPostExecute(Void aVoid) {
-                Toast.makeText(getApplicationContext(), getString(R.string.register_successful), Toast.LENGTH_SHORT);
+            protected void onPostExecute(Boolean registered) {
+                if (registered) {
+                    Toast.makeText(getApplicationContext(), getString(R.string.register_successful), LENGTH_SHORT).show();
+                    finish();
+                } else {
+                    Toast.makeText(getApplicationContext(), getString(R.string.an_error_occurred), LENGTH_SHORT).show();
+                }
             }
         }.execute();
     }
