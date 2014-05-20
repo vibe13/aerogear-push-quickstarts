@@ -28,7 +28,7 @@
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="duke" placeholder="Enter your email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jvd-xC-5JL">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="admin" placeholder="Enter your email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jvd-xC-5JL">
                                                     <rect key="frame" x="86" y="7" width="225" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -50,7 +50,7 @@
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="duke" placeholder="Enter your password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GpJ-UV-jxc">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="admin" placeholder="Enter your password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GpJ-UV-jxc">
                                                     <rect key="frame" x="85" y="7" width="225" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -130,11 +130,11 @@
                             </connections>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="Cfc-HO-FRN" detailTextLabel="3js-yp-WBM" style="IBUITableViewCellStyleSubtitle" id="cjQ-Hu-0yh">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="detailButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="Cfc-HO-FRN" detailTextLabel="3js-yp-WBM" style="IBUITableViewCellStyleSubtitle" id="cjQ-Hu-0yh">
                                 <rect key="frame" x="0.0" y="163" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cjQ-Hu-0yh" id="TCL-b4-gyz">
-                                    <rect key="frame" x="0.0" y="0.0" width="253" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="273" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Cfc-HO-FRN">
@@ -154,8 +154,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="IBT-P2-uo0" kind="modal" identifier="EditContactSegue" trigger="accessoryAction" id="VeG-Fv-XRT"/>
-                                    <segue destination="nWh-o6-2O4" kind="push" identifier="SendMessageSegue" id="JTp-fH-lyb"/>
+                                    <segue destination="IBT-P2-uo0" kind="modal" identifier="EditContactSegue" id="QHe-a4-jfm"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -208,65 +207,6 @@
                 </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="964" y="-525"/>
-        </scene>
-        <!--Contact Push Message View Controller-->
-        <scene sceneID="k0Q-0K-2Kv">
-            <objects>
-                <tableViewController id="nWh-o6-2O4" customClass="AGContactPushMessageViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="uTt-KZ-fo3">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <sections>
-                            <tableViewSection headerTitle="Message" id="dHc-v6-cmj">
-                                <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="172" id="dOG-Vv-KiK">
-                                        <rect key="frame" x="0.0" y="119" width="320" height="172"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dOG-Vv-KiK" id="ktM-n8-wDF">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="171"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Enter your message.." translatesAutoresizingMaskIntoConstraints="NO" id="dS4-bA-Kz0">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="171"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                </textView>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                        </sections>
-                        <connections>
-                            <outlet property="dataSource" destination="nWh-o6-2O4" id="tkL-fB-Gaf"/>
-                            <outlet property="delegate" destination="nWh-o6-2O4" id="i3r-sV-mbg"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="oLF-RF-eWL">
-                        <barButtonItem key="rightBarButtonItem" style="done" id="Htg-Xe-hze">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="350-8X-IKR">
-                                <rect key="frame" x="233" y="5" width="71" height="33"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <state key="normal" title="Send">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="send:" destination="nWh-o6-2O4" eventType="touchUpInside" id="b2u-Hn-TDX"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="messageTxtField" destination="dS4-bA-Kz0" id="fMu-V7-Kwy"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="jJt-Ui-jtZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1517" y="-525"/>
         </scene>
         <!--Contact Details View Controller - Contact Details-->
         <scene sceneID="fFG-XW-Ay5">
@@ -440,7 +380,7 @@
                 <customObject id="u6N-Go-2fj" customClass="AGEmailValidationStrategy"/>
                 <customObject id="fc8-OW-xzL" customClass="AGBirthdateValidationStrategy"/>
             </objects>
-            <point key="canvasLocation" x="2028" y="-1210"/>
+            <point key="canvasLocation" x="2016" y="-525"/>
         </scene>
         <!--Navigation Controller - Contacts-->
         <scene sceneID="Wuw-Vl-MSr">
@@ -477,7 +417,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dna-gX-uHa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1517" y="-1210"/>
+            <point key="canvasLocation" x="1497" y="-525"/>
         </scene>
         <!--User Registration View Controller - Register User-->
         <scene sceneID="k7c-bb-2i4">
@@ -675,7 +615,7 @@
                 <customObject id="9Tm-rj-GCL" customClass="AGEmailValidationStrategy"/>
                 <customObject id="aC0-qa-U22" customClass="AGBirthdateValidationStrategy"/>
             </objects>
-            <point key="canvasLocation" x="678" y="248"/>
+            <point key="canvasLocation" x="1437" y="388"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="i9B-Gd-iGZ">
@@ -694,7 +634,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D8L-3G-9pp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="205" y="248"/>
+            <point key="canvasLocation" x="964" y="388"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -703,6 +643,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="VeG-Fv-XRT"/>
+        <segue reference="QHe-a4-jfm"/>
     </inferredMetricsTieBreakers>
 </document>

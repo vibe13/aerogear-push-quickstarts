@@ -16,7 +16,6 @@
  */
 
 #import "AGContactsViewController.h"
-#import "AGContactPushMessageViewController.h"
 #import "AGContactsNetworker.h"
 #import "AGContact.h"
 
@@ -106,6 +105,10 @@
     cell.detailTextLabel.text = contact.email;
     
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+    [self performSegueWithIdentifier:@"EditContactSegue" sender:[tableView cellForRowAtIndexPath:indexPath]];
 }
 
 #pragma mark - Table delete
@@ -337,12 +340,6 @@
             AGContact *contact = [self activeContactFromCell:sender];
             contactDetailsViewController.contact = contact;
         }
-        
-    } else if ([segue.identifier isEqualToString:@"SendMessageSegue"]) {
-        AGContactPushMessageViewController *contactMessageViewControler = segue.destinationViewController;
-        
-        AGContact *contact = [self activeContactFromCell:sender];
-        contactMessageViewControler.contact = contact;
     }
 }
 
