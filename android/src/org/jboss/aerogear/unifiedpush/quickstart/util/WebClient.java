@@ -111,4 +111,20 @@ public final class WebClient {
 
     }
 
+    public Boolean newContact(Contact contact) {
+        try {
+            HttpPost post = new HttpPost(url);
+            post.setEntity(new StringEntity(new Gson().toJson(contact)));
+
+            post.setHeader("Accept", "application/json");
+            post.setHeader("Content-type", "application/json");
+
+            httpClient.execute(post);
+
+            return true;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
