@@ -334,18 +334,17 @@
 
 - (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope {
     [self.filteredContacts removeAllObjects];
-
+    
     // will store the filtered results
-    __block NSMutableArray *results = [[NSMutableArray alloc] init];
+    NSMutableArray *results;
     
     // the predicate to search
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"firstname contains[c] $name OR lastname contains[c] $name"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"firstname CONTAINS[c] $name OR lastname CONTAINS[c] $name"];
     
-    // apply predicate to each array
-    [[self.contacts allValues] enumerateObjectsUsingBlock:^(id arr, NSUInteger idx, BOOL *stop) {
-        [results addObjectsFromArray:[arr filteredArrayUsingPredicate:
-                                      [predicate predicateWithSubstitutionVariables:@{@"name": searchText}]]];
-    }];
+    // apply predicate
+    NSArray *collapsedContacts = [[self.contacts allValues] valueForKeyPath:@"@unionOfArrays.self"];
+    results = [[collapsedContacts filteredArrayUsingPredicate:
+                [predicate predicateWithSubstitutionVariables:@{@"name": searchText}]] mutableCopy];
     
     self.filteredContacts = results;
 }
