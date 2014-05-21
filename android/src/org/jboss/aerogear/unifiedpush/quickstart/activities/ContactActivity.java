@@ -3,6 +3,7 @@ package org.jboss.aerogear.unifiedpush.quickstart.activities;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,6 +29,8 @@ public class ContactActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.contact);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         firstName = (EditText) findViewById(R.id.first_name);
         lastName = (EditText) findViewById(R.id.last_name);
         phone = (EditText) findViewById(R.id.phone);
@@ -43,6 +46,11 @@ public class ContactActivity extends ActionBarActivity {
             }
         });
 
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        finish();
+        return super.onOptionsItemSelected(item);
     }
 
     private Contact retriveContactFromForm() {
