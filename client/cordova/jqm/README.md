@@ -57,14 +57,12 @@ var pushConfig = {
 ```
 You can also copy/paste these settings from your UnifiedPush console
 
-You'll also need to install the war file and add the url of your jboss to the www/js/app.js and www/js/security.js file. Be sure that it must be reachable from your device so start jboss-as with `-b 0.0.0.0` and use and ip or hostname and not `localhost`
+You'll also need to install the war file and add the url of your jboss to the www/js/app.js file. Be sure that it must be reachable from your device so start jboss-as with `-b 0.0.0.0` and use and ip or hostname and not `localhost`
 
 ```javascript
 //app.js    
-CONTACTS.app.restEndpoint = "< backend URL e.g http(s)//host:port >/jboss-contacts-mobile-picketlink-secured/rest/contacts";
+CONTACTS.app.baseUrl = "< backend URL e.g http(s)//host:port >";
 
-//security.js
-CONTACTS.security.restSecurityEndpoint = "< backend URL e.g http(s)//host:port >/jboss-contacts-mobile-picketlink-secured/rest/security/";
 ```
 
 Install platforms
