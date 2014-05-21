@@ -7,11 +7,18 @@
   </ion-nav-buttons>
   <ion-content class="has-header">
     <ion-list show-delete="contacts.showDelete">
-      <ion-item ng-repeat="contact in contacts" href="#/app/playlists/{{playlist.id}}">
+
+      <ion-item class="item-divider" ng-repeat-start="(letter, contacts) in groupedContacts">
+        {{letter}}
+      </ion-item>
+
+      <ion-item href="#/app/playlists/{{contact.id}}" ng-repeat="contact in contacts">
+        {{contact.firstName}} {{contact.lastName}}
         <ion-delete-button class="ion-minus-circled" ng-click="onItemDelete(contact)">
         </ion-delete-button>
-        {{contact.firstName}} {{contact.lastName}}
       </ion-item>
+
+      <div ng-repeat-end></div>
     </ion-list>
   </ion-content>
 </ion-view>
