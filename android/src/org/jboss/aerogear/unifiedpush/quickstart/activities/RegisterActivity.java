@@ -3,6 +3,8 @@ package org.jboss.aerogear.unifiedpush.quickstart.activities;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,7 +16,7 @@ import org.jboss.aerogear.unifiedpush.quickstart.util.WebClient;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
-public class RegisterActivity extends Activity {
+public class RegisterActivity extends ActionBarActivity {
 
     private EditText firstName;
     private EditText lastName;
@@ -25,6 +27,8 @@ public class RegisterActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         firstName = (EditText) findViewById(R.id.first_name);
         lastName = (EditText) findViewById(R.id.last_name);
@@ -39,6 +43,11 @@ public class RegisterActivity extends Activity {
                 register(user);
             }
         });
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        finish();
+        return super.onOptionsItemSelected(item);
     }
 
     private User retriveUserFromForm() {
