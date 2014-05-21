@@ -58,7 +58,10 @@ public class ContactsActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.logout) {
+        if (item.getItemId() == R.id.new_contact) {
+            Intent intent = new Intent(this, ContactActivity.class);
+            startActivity(intent);
+        } else if (item.getItemId() == R.id.logout) {
             new AsyncTask<Void, Void, Void>() {
                 @Override
                 protected Void doInBackground(Void... voids) {

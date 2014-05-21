@@ -7,6 +7,7 @@
     <string name="first_name">First name</string>
     <string name="last_name">Last name</string>
     <string name="phone">Phone</string>
+    <string name="email">Email</string>
     <string name="birth_date">Birth date</string>
     <string name="save">Save</string>
     <string name="register_successful">Registration successful</string>
@@ -16,4 +17,5 @@
     <string name="send">Send</string>
     <string name="message_sent">Message sent successfully!</string>
     <string name="an_error_occurred">An error occurred</string>
+    <string name="new_contact">New contact</string>
 </resources>

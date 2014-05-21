@@ -4,6 +4,11 @@
     xmlns:support="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/new_contact"
+        android:title="@string/new_contact"
+        support:showAsAction="always" />
+
+    <item
         android:id="@+id/logout"
         android:title="@string/logout"
         support:showAsAction="always" />
