@@ -48,6 +48,51 @@
     [self refresh];
 }
 
+#pragma mark - Remote Notification handler methods
+
+- (void)performFetchWithUserInfo:(NSDictionary *)userinfo completionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    // fetch the newly created contact
+    [[AGContactsNetworker shared] GET:[NSString stringWithFormat:@"/contacts/%@", userinfo[@"id"]] parameters:nil
+                    completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+                        
+                        if (error) { // if an error occured
+                            NSLog(@"%@", error);
+                            
+                            // IMPORTANT:
+                            // always let the system know we are done so 'UI snapshot' can be taken
+                            completionHandler(UIBackgroundFetchResultFailed);
+                            
+                        } else { // success
+                            
+                            AGContact *contact = [[AGContact alloc] initWithDictionary:responseObject];
+                            
+                            // add to model
+                            [self addContact:contact];
+                            
+                            // refresh tableview
+                            [self.tableView reloadData];
+                            
+                            // IMPORTANT:
+                            // always let the system know we are done so 'UI snapshot' can be taken
+                            completionHandler(UIBackgroundFetchResultNewData);
+                        }
+                    }];
+}
+
+- (void)displayDetailsForContactWithId:(NSNumber *)recId {
+    // determine the Contact given the id
+    
+    // collapse all contacts
+    NSArray *collapsedContacts = [[self.contacts allValues] valueForKeyPath:@"@unionOfArrays.self"];
+    // search for given id
+    NSArray *results = [collapsedContacts filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"recId == %@", recId]];
+    
+    // if found
+    if (results.count == 1)
+        // display details screen
+        [self performSegueWithIdentifier:@"EditContactSegue" sender:results[0]];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -293,9 +338,10 @@
     // will store the filtered results
     __block NSMutableArray *results = [[NSMutableArray alloc] init];
     
-    // apply predicate to each array
+    // the predicate to search
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"firstname contains[c] $name OR lastname contains[c] $name"];
     
+    // apply predicate to each array
     [[self.contacts allValues] enumerateObjectsUsingBlock:^(id arr, NSUInteger idx, BOOL *stop) {
         [results addObjectsFromArray:[arr filteredArrayUsingPredicate:
                                       [predicate predicateWithSubstitutionVariables:@{@"name": searchText}]]];
@@ -337,7 +383,17 @@
         
         // for "Edit", pass the Contact to the controller
         if ([segue.identifier isEqualToString:@"EditContactSegue"]) {
-            AGContact *contact = [self activeContactFromCell:sender];
+            
+            // determine the 'sender'
+            AGContact *contact;
+
+            // if instance is a cell (which means it was clicked) determine AGContact from cell
+            if ([sender isKindOfClass:[UITableViewCell class]])
+                contact = [self activeContactFromCell:sender];
+            else // // otherwise a straight AGContact instance was passed (manually asked to display a contact)
+                contact = (AGContact *)sender;
+            
+            // assign it
             contactDetailsViewController.contact = contact;
         }
     }

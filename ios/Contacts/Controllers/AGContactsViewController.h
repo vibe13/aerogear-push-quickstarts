@@ -21,4 +21,7 @@
 
 @interface AGContactsViewController : UITableViewController <UISearchBarDelegate, UISearchDisplayDelegate,AGContactDetailsViewControllerDelegate>
 
+- (void)performFetchWithUserInfo:(NSDictionary *)userinfo completionHandler:(void (^)(UIBackgroundFetchResult))completionHandler;
+- (void)displayDetailsForContactWithId:(NSNumber *)recId;
+
 @end

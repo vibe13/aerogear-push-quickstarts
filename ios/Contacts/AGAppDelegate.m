@@ -17,6 +17,8 @@
 
 #import "AGAppDelegate.h"
 
+#import "AGContactsViewController.h"
+
 @implementation AGAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -42,16 +44,28 @@
     NSLog(@"APNs Error: %@", error);
 }
 
-// When the program is in the foreground, this callback receives the Payload of the received Push Notification message
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-    // simply echo the message
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Received notification!"
-                                                    message:userInfo[@"aps"][@"alert"]
-                                                   delegate:nil
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil];
-    
-    [alert show];
+// Callback called after receiving push notification
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+        fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+   
+    // ensure the user has logged in
+    UINavigationController *navigationController = (UINavigationController*)self.window.rootViewController;
+    id topViewController = navigationController.topViewController;
+
+     // are we logged in ?
+    if ([topViewController isKindOfClass:[AGContactsViewController class]]) {
+        
+        // if the user clicked the notification, we know that the Contact
+        // has already been fetched so we just ask the controller to
+        // diplay the details screen for this Contact.
+        if (application.applicationState == UIApplicationStateInactive) {
+            [(AGContactsViewController *)topViewController displayDetailsForContactWithId:
+                                                            [NSNumber numberWithInteger:[userInfo[@"id"] integerValue]]];
+        } else { // fetch it
+            // attempt to fetch new contact
+            [(AGContactsViewController *)topViewController performFetchWithUserInfo:userInfo completionHandler:completionHandler];
+        }
+    }
 }
 
 @end
