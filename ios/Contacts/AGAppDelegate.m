@@ -57,7 +57,7 @@
         
         // if the user clicked the notification, we know that the Contact
         // has already been fetched so we just ask the controller to
-        // diplay the details screen for this Contact.
+        // display the details screen for this Contact.
         if (application.applicationState == UIApplicationStateInactive) {
             [(AGContactsViewController *)topViewController displayDetailsForContactWithId:
                                                             [NSNumber numberWithInteger:[userInfo[@"id"] integerValue]]];
