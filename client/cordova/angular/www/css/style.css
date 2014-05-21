@@ -1,0 +1,6 @@
+input.ng-invalid {
+  border-left: 5px solid #cc2511; 
+}
+.error {
+  color: #cc2511;
+}

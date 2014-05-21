@@ -1,0 +1,24 @@
+<ion-view title="Welcome to JBoss Contacts">
+  <ion-content class="has-header">
+    <ion-list>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">User name</span>
+        <input type="text" placeholder="Enter your username" ng-model="user.name">
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Password</span>
+        <input type="password" placeholder="Enter your password" ng-model="user.password">
+      </label>
+      <div class="row">
+        <div class="col col-33 col-offset-33">
+          <button class="button button-block">Sign Up</button>
+        </div>
+        <div class="col col-33">
+          <button class="button button-block icon-right ion-chevron-right button-calm" ng-click="login(user)">
+            Log In
+          </button>
+        </div>
+      </div>
+    </ion-list>
+  </ion-content>
+</ion-view>

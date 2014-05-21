@@ -1,0 +1,40 @@
+<ion-view title="Sign Up">
+  <form novalidate name="form">
+    <ion-content class="has-header">
+      <ion-list>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">First Name</span>
+          <input type="text" placeholder="Enter your first name" ng-model="model.firstName" name=name required>
+          <div ng-show="form.name.$dirty && form.name.$invalid">
+            <span ng-show="form.name.$error.required" class="error">Please specify a first name.</span>
+          </div>
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Last Name</span>
+          <input type="text" placeholder="Enter your last name" ng-model="model.lastName" required>
+          <span ng-show="form.name.$error.required" class="error">Please specify a last name.</span>
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">User Name</span>
+          <input type="text" placeholder="Enter your user name" ng-model="model.userName" required>
+          <span ng-show="form.name.$error.required" class="error">Please specify a user name.</span>
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Password</span>
+          <input type="password" placeholder="Enter your password" ng-model="model.password" required>
+          <span ng-show="form.name.$error.required" class="error">Please specify a password.</span>
+        </label>
+        <div class="row">
+          <div class="col col-33 col-offset-33">
+            <a href="#/app/playlists" class="button button-block">Cancel</a>
+          </div>
+          <div class="col col-33">
+            <button class="button button-block icon-right ion-chevron-right button-calm" ng-click="signup(model)" ng-disabled="form.$invalid">
+              Save
+            </button>
+          </div>
+        </div>
+      </ion-list>
+    </ion-content>
+  </form>
+</ion-view>
