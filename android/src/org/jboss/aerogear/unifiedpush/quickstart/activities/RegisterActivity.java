@@ -54,7 +54,7 @@ public class RegisterActivity extends Activity {
         new AsyncTask<Void, Void, Boolean>() {
             @Override
             protected Boolean doInBackground(Void... voids) {
-                return new WebClient(Constants.URL_REGISTER).register(user.toJSON());
+                return new WebClient(Constants.URL_REGISTER).register(user);
             }
 
             @Override

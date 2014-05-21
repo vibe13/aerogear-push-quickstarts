@@ -32,10 +32,10 @@ public final class WebClient {
         this.url = url;
     }
 
-    public boolean register(String json) {
+    public boolean register(User user) {
         try {
             HttpPost post = new HttpPost(url);
-            post.setEntity(new StringEntity(json));
+            post.setEntity(new StringEntity(new Gson().toJson(user)));
 
             post.setHeader("Accept", "application/json");
             post.setHeader("Content-type", "application/json");

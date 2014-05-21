@@ -41,8 +41,4 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String toJSON() {
-        return new Gson().toJson(this);
-    }
-
 }
