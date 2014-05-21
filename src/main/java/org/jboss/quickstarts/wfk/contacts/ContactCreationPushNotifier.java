@@ -58,6 +58,8 @@ public class ContactCreationPushNotifier {
                 .masterSecret(MASTER_SECRET)
                 .attribute("id", String.valueOf(id))
                 .alert(message)
+                .sound("default")
+                .contentAvailable()
                 .build();
 
         javaSender.send(unifiedMessage, new MessageResponseCallback() {
