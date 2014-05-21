@@ -30,11 +30,6 @@ public class ContactsActivity extends ActionBarActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Contact contact = (Contact) parent.getItemAtPosition(position);
-
-                Intent intent = new Intent(getApplicationContext(), MessageActivity.class);
-                intent.putExtra(Constants.USER, contact);
-                startActivity(intent);
             }
         });
     }
