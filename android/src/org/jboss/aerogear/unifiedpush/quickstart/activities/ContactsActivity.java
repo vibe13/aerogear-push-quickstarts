@@ -16,6 +16,7 @@ import org.jboss.aerogear.android.unifiedpush.Registrations;
 import org.jboss.aerogear.unifiedpush.quickstart.Constants;
 import org.jboss.aerogear.unifiedpush.quickstart.R;
 import org.jboss.aerogear.unifiedpush.quickstart.adapter.ContactAdapeter;
+import org.jboss.aerogear.unifiedpush.quickstart.handler.NotificationBarMessageHandler;
 import org.jboss.aerogear.unifiedpush.quickstart.model.Contact;
 import org.jboss.aerogear.unifiedpush.quickstart.util.WebClient;
 
@@ -62,12 +63,14 @@ public class ContactsActivity extends ActionBarActivity implements MessageHandle
     protected void onResume() {
         super.onResume();
         Registrations.registerMainThreadHandler(this);
+        Registrations.unregisterBackgroundThreadHandler(NotificationBarMessageHandler.instance);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         Registrations.unregisterMainThreadHandler(this);
+        Registrations.registerBackgroundThreadHandler(NotificationBarMessageHandler.instance);
     }
 
     @Override
