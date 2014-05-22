@@ -125,9 +125,13 @@ public final class WebClient {
             post.setHeader("Accept", "application/json");
             post.setHeader("Content-type", "application/json");
 
-            httpClient.execute(post);
+            HttpResponse response = httpClient.execute(post);
 
-            return true;
+            if(response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+                return true;
+            } else {
+                return false;
+            }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
