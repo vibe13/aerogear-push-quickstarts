@@ -296,21 +296,35 @@
                     completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
 
             [self.refreshControl endRefreshing];
+                        
+            if (error) { // if an error occured
+                
+                NSLog(@"%@", error);
+                
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops!"
+                                                                message:[error localizedDescription]
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"Bummer"
+                                                      otherButtonTitles:nil];
+                [alert show];
+                
+            } else { // success
 
-            self.contacts = [[NSMutableDictionary alloc] init];
-            
-            [responseObject enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                AGContact *contact = [[AGContact alloc] initWithDictionary:obj];
+                self.contacts = [[NSMutableDictionary alloc] init];
                 
-                [self addContact:contact];
-                
-            }];
-                        
-            // refresh section alphabet
-            self.contactsSectionTitles = [[self.contacts allKeys] mutableCopy];
-            [self.contactsSectionTitles sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
-                        
-            [self.tableView reloadData];
+                [responseObject enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                    AGContact *contact = [[AGContact alloc] initWithDictionary:obj];
+                    
+                    [self addContact:contact];
+                    
+                }];
+                            
+                // refresh section alphabet
+                self.contactsSectionTitles = [[self.contacts allKeys] mutableCopy];
+                [self.contactsSectionTitles sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+                            
+                [self.tableView reloadData];
+            }
         }];
 }
 
