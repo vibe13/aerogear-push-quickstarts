@@ -1,5 +1,6 @@
 package org.jboss.aerogear.unifiedpush.quickstart.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,6 +10,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
+import org.jboss.aerogear.android.unifiedpush.MessageHandler;
+import org.jboss.aerogear.android.unifiedpush.Registrations;
 import org.jboss.aerogear.unifiedpush.quickstart.Constants;
 import org.jboss.aerogear.unifiedpush.quickstart.R;
 import org.jboss.aerogear.unifiedpush.quickstart.adapter.ContactAdapeter;
@@ -17,7 +21,7 @@ import org.jboss.aerogear.unifiedpush.quickstart.util.WebClient;
 
 import java.util.List;
 
-public class ContactsActivity extends ActionBarActivity {
+public class ContactsActivity extends ActionBarActivity implements MessageHandler {
 
     private ListView listView;
 
@@ -37,6 +41,10 @@ public class ContactsActivity extends ActionBarActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        retrieveContacts();
+    }
+
+    private void retrieveContacts() {
         new AsyncTask<Void, Void, List<Contact>>() {
             @Override
             protected List<Contact> doInBackground(Void... voids) {
@@ -48,6 +56,18 @@ public class ContactsActivity extends ActionBarActivity {
                 listView.setAdapter(new ContactAdapeter(getApplicationContext(), contactList));
             }
         }.execute();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Registrations.registerMainThreadHandler(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Registrations.unregisterMainThreadHandler(this);
     }
 
     @Override
@@ -78,6 +98,21 @@ public class ContactsActivity extends ActionBarActivity {
             }.execute();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onMessage(Context context, Bundle message) {
+        Toast.makeText(getApplicationContext(), message.getString("alert"), Toast.LENGTH_SHORT).show();
+        retrieveContacts();
+
+    }
+
+    @Override
+    public void onDeleteMessage(Context context, Bundle message) {
+    }
+
+    @Override
+    public void onError() {
     }
 
 }

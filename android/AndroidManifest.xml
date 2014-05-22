@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
-    package="org.jboss.aerogear.unifiedpush.quickstart"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.jboss.aerogear.unifiedpush.quickstart"
     android:versionCode="1"
     android:versionName="1.0">
 
@@ -9,7 +9,15 @@
         android:minSdkVersion="10"
         android:targetSdkVersion="19" />
 
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="org.jboss.aerogear.unifiedpush.quickstart.permission.C2D_MESSAGE" />
+
+    <permission
+        android:name="org.jboss.aerogear.unifiedpush.quickstart.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
 
     <application
         android:icon="@drawable/ic_launcher"
@@ -26,5 +34,15 @@
         <activity android:name=".activities.RegisterActivity" />
         <activity android:name=".activities.ContactsActivity" />
         <activity android:name=".activities.ContactActivity" />
+        <receiver
+            android:name="org.jboss.aerogear.android.unifiedpush.AeroGearGCMMessageReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+                <category android:name="org.jboss.aerogear.unifiedpush.quickstart" />
+            </intent-filter>
+        </receiver>
     </application>
 </manifest>
