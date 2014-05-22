@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.CredentialsProvider;
@@ -13,6 +14,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.jboss.aerogear.android.http.HttpException;
 import org.jboss.aerogear.unifiedpush.quickstart.model.Contact;
 import org.jboss.aerogear.unifiedpush.quickstart.model.User;
 
@@ -64,15 +66,19 @@ public final class WebClient {
             get.setHeader("Content-type", "application/json");
 
             HttpResponse response = httpClient.execute(get);
-            String responseData = EntityUtils.toString(response.getEntity());
 
-            Gson gson = new GsonBuilder().create();
+            if(response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+                String responseData = EntityUtils.toString(response.getEntity());
 
-            Map<String,Object> rootNode = gson.fromJson(responseData, Map.class);
-            String innerJson = gson.toJson(rootNode.get("account"));
-            User user = gson.fromJson(innerJson, User.class);
+                Gson gson = new GsonBuilder().create();
 
-            return user;
+                Map<String, Object> rootNode = gson.fromJson(responseData, Map.class);
+                String innerJson = gson.toJson(rootNode.get("account"));
+                return gson.fromJson(innerJson, User.class);
+            } else {
+                return null;
+            }
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

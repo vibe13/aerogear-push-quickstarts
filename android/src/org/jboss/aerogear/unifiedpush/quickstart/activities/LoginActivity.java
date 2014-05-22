@@ -59,7 +59,12 @@ public class LoginActivity extends Activity {
 
             @Override
             protected void onPostExecute(User loggedUser) {
-                registerLoogedUserInUnifiedPushServer(loggedUser);
+                if (loggedUser != null) {
+                    registerLoogedUserInUnifiedPushServer(loggedUser);
+                } else {
+                    Toast.makeText(getApplicationContext(),
+                            getString(R.string.an_error_occurred), Toast.LENGTH_SHORT).show();
+                }
             }
         }.execute();
     }
