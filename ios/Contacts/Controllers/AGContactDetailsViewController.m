@@ -45,12 +45,7 @@
         self.lastnameTxtField.text = self.contact.lastname;
         self.phoneTxtField.text = self.contact.phoneNumber;
         self.emailTxtField.text = self.contact.email;
-        // server returns epoch time for birthdate, need to convert to displayable format
-        NSDate *date = [NSDate dateWithTimeIntervalSince1970:([self.contact.birthdate doubleValue] / 1000)];
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"MM/dd/yyyy"];
-
-        self.birthdateTxtField.text = [dateFormatter stringFromDate:date];
+        self.birthdateTxtField.text = self.contact.birthdate;
     }
     
     self.textfields = @[self.firstnameTxtField, self.lastnameTxtField, self.phoneTxtField, self.emailTxtField, self.birthdateTxtField];
@@ -89,11 +84,7 @@
     contact.lastname = self.lastnameTxtField.text;
     contact.phoneNumber = self.phoneTxtField.text;
     contact.email = self.emailTxtField.text;
-    // since server expects epoch timestamp, we need to convert
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"MM/dd/yyyy"];
-    NSDate *date = [dateFormatter dateFromString:self.birthdateTxtField.text];
-    contact.birthdate = [NSNumber numberWithDouble:floor(date.timeIntervalSince1970) * 1000 /* to millis */];
+    contact.birthdate = self.birthdateTxtField.text;
     
     // call delegate to add it
     [self.delegate contactDetailsViewController:self didSave:contact];

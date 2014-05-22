@@ -21,7 +21,7 @@
 
 - (BOOL)validate:(NSString *)input {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"MM/dd/yyyy"];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     
     NSDate *date = [dateFormatter dateFromString:input];
 

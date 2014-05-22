@@ -24,7 +24,7 @@
 @property (nonatomic, copy, readwrite) NSString *lastname;
 @property (nonatomic, copy, readwrite) NSString *phoneNumber;
 @property (nonatomic, copy, readwrite) NSString *email;
-@property (nonatomic, copy, readwrite) NSNumber *birthdate;
+@property (nonatomic, copy, readwrite) NSString *birthdate;
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 - (NSMutableDictionary *)asDictionary;
