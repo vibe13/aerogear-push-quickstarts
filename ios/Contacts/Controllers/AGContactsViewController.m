@@ -51,8 +51,15 @@
 #pragma mark - Remote Notification handler methods
 
 - (void)performFetchWithUserInfo:(NSDictionary *)userinfo completionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    // fetch the newly created contact
-    [[AGContactsNetworker shared] GET:[NSString stringWithFormat:@"/contacts/%@", userinfo[@"id"]] parameters:nil
+    // extract the id from the notification
+    NSNumber *recId = [NSNumber numberWithInteger:[userinfo[@"id"] integerValue]];
+    
+    // Note: in case the user created the contact locally, a notification will still be received by the server
+    //       Since we have already added, no need to fetch it again so simple return
+    if ([self contactWithId:recId] != nil)  // if exists
+        return;
+    
+    [[AGContactsNetworker shared] GET:[NSString stringWithFormat:@"/contacts/%@", recId] parameters:nil
                     completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
                         
                         if (error) { // if an error occured
@@ -81,16 +88,12 @@
 
 - (void)displayDetailsForContactWithId:(NSNumber *)recId {
     // determine the Contact given the id
+    AGContact *contact = [self contactWithId:recId];
     
-    // collapse all contacts
-    NSArray *collapsedContacts = [[self.contacts allValues] valueForKeyPath:@"@unionOfArrays.self"];
-    // search for given id
-    NSArray *results = [collapsedContacts filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"recId == %@", recId]];
-    
-    // if found
-    if (results.count == 1)
+    if (contact) { // if found
         // display details screen
-        [self performSegueWithIdentifier:@"EditContactSegue" sender:results[0]];
+        [self performSegueWithIdentifier:@"EditContactSegue" sender:contact];
+    }
 }
 
 #pragma mark - Table view data source
@@ -420,7 +423,7 @@
 
 - (void)addContact:(AGContact *)contact {
     // determine section by first letter of "first name"
-    NSString *letter = [contact.firstname substringToIndex:1];
+    NSString *letter = [[contact.firstname substringToIndex:1] uppercaseString];
     NSMutableArray *contactsInSection = self.contacts[letter];
     
     // if the section doesn't exist
@@ -441,6 +444,19 @@
     [contactsInSection addObject:contact];
     // sort contacts "section" by "first name" (see :compare on AGContact)
     [contactsInSection sortUsingSelector:@selector(compare:)];
+}
+
+- (AGContact *)contactWithId:(NSNumber *)recId {
+    // collapse all contacts
+    NSArray *collapsedContacts = [[self.contacts allValues] valueForKeyPath:@"@unionOfArrays.self"];
+    // search for given id
+    NSArray *results = [collapsedContacts filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"recId == %@", recId]];
+    
+    // if found
+    if (results.count == 1)
+        return results[0];
+    
+    return nil;
 }
 
 @end
