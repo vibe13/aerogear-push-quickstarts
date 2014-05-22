@@ -1,0 +1,5 @@
+{ "rulebase" : [
+    { "rule": "/contacts", "to": "http://localhost:9080/jboss-contacts-mobile-basic/rest/contacts"},
+    { "rule": "/contacts/{id}", "to": "http://localhost:9080/jboss-contacts-mobile-basic/rest/contacts/{id}"}
+  ]
+}
