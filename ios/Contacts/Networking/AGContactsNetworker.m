@@ -31,7 +31,9 @@ static NSString * const kAPIBaseURLString = @"<# URL of the Contacts application
     static AGContactsNetworker *_sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _sharedInstance = [[[self class] alloc] initWithBaseURL:[NSURL URLWithString:kAPIBaseURLString]];
+        _sharedInstance = [[[self class] alloc] initWithBaseURL:
+                           [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", kAPIBaseURLString, @"rest"]]];
+        
     });
     
     return _sharedInstance;
