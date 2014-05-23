@@ -11,7 +11,7 @@ Source: https://github.com/aerogear/aerogear-push-quickstarts/ios
 What is it?
 -----------
 
-This project is an iOS mobile front-end to the [Contacts](https://github.com/jboss-developer/jboss-wfk-quickstarts/contacts-mobile-picketlink-secured) server application found in the [quickstarts](https://github.com/jboss-developer/jboss-wfk-quickstarts) of the Red Hat [JBoss Web Framework Kit](http://www.jboss.org/jdf/). All CRUD features are supported, as well as integration with the Push notification mechanism to instantly retrieve a new Contact when it is created on the server. 
+This project is an iOS mobile front-end to the [Contacts](https://github.com/jboss-developer/jboss-wfk-quickstarts/contacts-mobile-picketlink-secured) server application found in the [quickstarts](https://github.com/jboss-developer/jboss-wfk-quickstarts) of the Red Hat [JBoss Web Framework Kit](http://www.jboss.org/jdf/). All CRUD features are supported, as well as integration with the Push notification mechanism to instantly retrieve a new Contact when it is created on the server. A video demonstrating the application 'in-action' can be found [here](https://vimeo.com/96095487). 
 
 System requirements
 -------------------
