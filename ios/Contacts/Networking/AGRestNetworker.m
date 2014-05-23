@@ -43,7 +43,7 @@ NSString * const AGNetworkOperationFailingURLResponseErrorKey = @"AGNetworkingOp
     
     // set session default headers
     sessionConfig.HTTPAdditionalHeaders = @{@"Content-Type": @"application/json",
-                                            @"Accepts": @"application/json"};
+                                            @"Accept": @"application/json"};
     
     self.session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
     
