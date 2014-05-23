@@ -35,10 +35,15 @@ backend.factory('users', function ($resource) {
 });
 
 backend.factory('contacts', function ($resource) {
-  return $resource(url + 'rest/contacts/', {}, {
+  return $resource(url + 'rest/contacts/:id', {
+    id: '@id'
+  }, {
     get: {
       method: 'GET',
       isArray: true
+    },
+    delete: {
+      method: 'DELETE'
     }
   });
 });

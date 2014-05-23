@@ -17,6 +17,9 @@ angular.module('quickstart.controllers', [])
       $scope.groupedContacts[first].push(data[i]);
     }
   });
+  $scope.delete = function(contact) {
+    contacts.delete({id: contact.id});
+  };
 })
 
 .controller('PlaylistCtrl', function ($scope, $stateParams) {})
