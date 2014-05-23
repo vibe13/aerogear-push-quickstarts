@@ -115,7 +115,7 @@
             
         } else {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Oops!"
-                                                            message:@"Authentication failed!"
+                                                            message:[error localizedDescription]
                                                            delegate:nil
                                                   cancelButtonTitle:@"Bummer"
                                                   otherButtonTitles:nil];
