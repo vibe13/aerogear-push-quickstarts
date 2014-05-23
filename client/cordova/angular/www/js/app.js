@@ -55,11 +55,11 @@ angular.module('quickstart', [
     }
   })
   
-  .state('app.search', {
-    url: "/search",
+  .state('app.contacts-add', {
+    url: "/contacts-add",
     views: {
       'menuContent': {
-        templateUrl: "templates/search.html"
+        templateUrl: "templates/contacts-add.html"
       }
     }
   })
