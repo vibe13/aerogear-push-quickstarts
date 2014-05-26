@@ -31,17 +31,9 @@ import javax.inject.Inject;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.ValidationException;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.WebApplicationException;
 
 /**
  * JAX-RS Example
@@ -106,13 +98,14 @@ public class ContactRESTService {
     /**
      * Search for just one Contact by it's ID.
      * 
-     * @param ID of the Contact
+     * @param id of the Contact
+     * @param timestamp of the Contact
      * @return Response
      */
     @GET
     @Path("/{id:[0-9][0-9]*}")
     @UserLoggedIn
-    public Response retrieveContactById(@PathParam("id") long id) {
+    public Response retrieveContactById(@PathParam("id") long id, @QueryParam("timestamp") long timestamp) {
         Contact contact = service.findById(id);
         if (contact == null) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
