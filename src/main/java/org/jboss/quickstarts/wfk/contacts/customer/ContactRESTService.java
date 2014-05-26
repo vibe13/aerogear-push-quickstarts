@@ -71,11 +71,8 @@ public class ContactRESTService {
      */
     @GET
     @UserLoggedIn
-    public Response retrieveAllContacts() {
+    public Response retrieveAllContacts(@QueryParam("timestamp") long timestamp) {
         List<Contact> contacts = service.findAllOrderedByName();
-        if (contacts.isEmpty()) {
-            throw new WebApplicationException(Response.Status.NOT_FOUND);
-        }
         return Response.ok(contacts).build();
     }
 
