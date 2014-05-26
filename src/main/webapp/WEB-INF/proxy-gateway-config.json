@@ -7,5 +7,6 @@
     { "rule": "/security/role/assign/{name}/{role}", "to": "http://localhost:9080/jboss-contacts-mobile-picketlink-secured/rest/security/role/assign/{name}/{role}"},
     { "rule": "/security/registration", "to": "http://localhost:9080/jboss-contacts-mobile-picketlink-secured/rest/security/registration"},
     { "rule": "/security/logout", "to": "http://localhost:9080/jboss-contacts-mobile-picketlink-secured/rest/security/logout"}
-  ]
+  ],
+  "cookiePath": "/jboss-contracts-mobile-proxy"
 }
