@@ -1,4 +1,4 @@
-input.ng-invalid {
+input.ng-dirty.ng-invalid {
   border-left: 5px solid #cc2511; 
 }
 .error {
