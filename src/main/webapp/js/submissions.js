@@ -405,7 +405,10 @@ $(document).ready(function() {
                 
                 // Remove errors display as a part of the validation system.
                 $(".invalid").remove();
-                
+
+                // Force the updating of the contacts list.
+                CONTACTS.app.getContacts();
+
             }).fail(function(jqXHR, textStatus, errorThrown) {
                 // Remove any errors that are not a part of the validation system.
                 $(".invalid").remove();
