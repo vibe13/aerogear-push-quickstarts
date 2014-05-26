@@ -22,6 +22,14 @@ angular.module('quickstart.controllers', [])
   };
 })
 
+.controller('ContactCtrl', function ($scope, contacts, $location) {
+  $scope.save = function(contact) {
+    contacts.save(contact, function() {
+      $location.url('/app/contacts');
+    });
+  };
+})
+
 .controller('PlaylistCtrl', function ($scope, $stateParams) {})
 
 .controller('LoginCtrl', function ($scope, $location, authz, users) {
