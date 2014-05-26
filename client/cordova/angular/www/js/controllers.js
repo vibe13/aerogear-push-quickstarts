@@ -1,7 +1,5 @@
 angular.module('quickstart.controllers', [])
 
-.controller('AppCtrl', function ($scope) {})
-
 .controller('ContactsCtrl', function ($scope, contacts) {
   contacts.query({}, function (data) {
     var first,
@@ -51,8 +49,6 @@ angular.module('quickstart.controllers', [])
     }
   };
 })
-
-.controller('PlaylistCtrl', function ($scope, $stateParams) {})
 
 .controller('LoginCtrl', function ($scope, $location, authz, users) {
   $scope.login = function (user) {
