@@ -12,8 +12,9 @@
         {{letter}}
       </ion-item>
 
-      <ion-item href="#/app/contact/{{contact.id}}" ng-repeat="contact in contacts">
+      <ion-item href="#/app/contact/{{contact.id}}" ng-repeat="contact in contacts" class="item-icon-right">
         {{contact.firstName}} {{contact.lastName}}
+        <i class="icon ion-chevron-right icon-accessory"></i>
         <ion-delete-button class="ion-minus-circled" ng-click="delete(contact)">
         </ion-delete-button>
       </ion-item>
