@@ -6,13 +6,19 @@
     <button class="button button-icon icon ion-ios7-minus-outline" ng-click="contacts.showDelete = !contacts.showDelete"></button>
   </ion-nav-buttons>
   <ion-content class="has-header">
+    <div class="list list-inset">
+      <label class="item item-input">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input type="text" placeholder="Search" ng-model="search">
+      </label>
+    </div>
     <ion-list show-delete="contacts.showDelete">
 
       <ion-item class="item-divider" ng-repeat-start="(letter, contacts) in groupedContacts">
         {{letter}}
       </ion-item>
 
-      <ion-item href="#/app/contact/{{contact.id}}" ng-repeat="contact in contacts" class="item-icon-right">
+      <ion-item href="#/app/contact/{{contact.id}}" ng-repeat="contact in contacts | filter:search" class="item-icon-right">
         {{contact.firstName}} {{contact.lastName}}
         <i class="icon ion-chevron-right icon-accessory"></i>
         <ion-delete-button class="ion-minus-circled" ng-click="delete(contact)">
