@@ -3,7 +3,7 @@ angular.module('quickstart.controllers', [])
 .controller('AppCtrl', function ($scope) {})
 
 .controller('ContactsCtrl', function ($scope, contacts) {
-  contacts.get({}, function (data) {
+  contacts.query({}, function (data) {
     var first,
       length = data.length;
     $scope.groupedContacts = {};
@@ -22,7 +22,12 @@ angular.module('quickstart.controllers', [])
   };
 })
 
-.controller('ContactCtrl', function ($scope, contacts, $location) {
+.controller('ContactCtrl', function ($scope, $stateParams, contacts, $location) {
+  if($stateParams.id) {
+    contacts.get({id: $stateParams.id}, function(contact) {
+      $scope.model = contact;
+    });
+  }
   $scope.save = function(contact) {
     contacts.save(contact, function() {
       $location.url('/app/contacts');

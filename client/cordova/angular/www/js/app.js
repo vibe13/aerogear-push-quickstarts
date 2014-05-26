@@ -56,7 +56,7 @@ angular.module('quickstart', [
   })
   
   .state('app.contact', {
-    url: "/contact",
+    url: "/contact/:id",
     views: {
       'menuContent': {
         templateUrl: "templates/contact.html",

@@ -39,6 +39,9 @@ backend.factory('contacts', function ($resource) {
     id: '@id'
   }, {
     get: {
+      method: 'GET'
+    },
+    query: {
       method: 'GET',
       isArray: true
     },
