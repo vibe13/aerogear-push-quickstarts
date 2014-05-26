@@ -67,3 +67,17 @@ angular.module('quickstart.controllers', [])
     });
   };
 })
+
+.controller('RoleCtrl', function ($scope, $location, users, roles) {
+  users.query({}, function(data) {
+    $scope.users = data;
+  });
+  roles.get(function(data) {
+    $scope.roles = data;
+  });
+  $scope.save = function (roleAssignment) {
+    roles.save(roleAssignment, function() {
+      //todo
+    });
+  };
+});

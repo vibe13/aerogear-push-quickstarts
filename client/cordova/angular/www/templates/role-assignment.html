@@ -1,0 +1,35 @@
+<ion-view title="Role Assignment">
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+  <ion-content class="has-header">
+    <form novalidate name="form">
+      <ion-list>
+        <label class="item item-input item-select">
+          <span class="input-label">Select an User</span>
+          <select ng-model="roleAssignment.userName" required>
+            <option value="">Select an user</option>
+            <option ng-repeat="user in users" value="{{user.loginName}}">{{ user.loginName }}</option>
+          </select>
+        </label>
+        <label class="item item-input item-select">
+          <span class="input-label">Assign a Role</span>
+          <select ng-model="roleAssignment.role" required>
+            <option value="">Select a role</option>
+            <option ng-repeat="role in roles" value="{{role}}">{{ role.toLowerCase() }}</option>
+          </select>
+        </label>
+        <div class="row">
+          <div class="col col-33 col-offset-33">
+            <a href="#/app/contacts" class="button button-block">Cancel</a>
+          </div>
+          <div class="col col-33">
+            <button class="button button-block icon-right ion-chevron-right button-calm" ng-click="save(roleAssignment)" ng-disabled="form.$invalid">
+              Assign
+            </button>
+          </div>
+        </div>
+      </ion-list>
+    </form>
+  </ion-content>
+</ion-view>

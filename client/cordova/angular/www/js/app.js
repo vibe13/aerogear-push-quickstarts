@@ -65,11 +65,12 @@ angular.module('quickstart', [
     }
   })
 
-  .state('app.browse', {
-    url: "/browse",
+  .state('app.role-assignment', {
+    url: "/role-assignment",
     views: {
       'menuContent': {
-        templateUrl: "templates/browse.html"
+        templateUrl: "templates/role-assignment.html",
+        controller: 'RoleCtrl'
       }
     }
   })

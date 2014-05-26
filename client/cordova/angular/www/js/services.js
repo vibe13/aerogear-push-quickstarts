@@ -30,8 +30,32 @@ backend.factory('users', function ($resource) {
       params: {
         method: 'registration'
       }
+    },
+    query: {
+      method: 'GET',
+      isArray: true,
+      params: {
+        method: 'user'
+      }
     }
   });
+});
+
+backend.factory('roles', function ($http) {
+  return {
+    get: function (callback) {
+      $http.get(url + 'rest/security/role')
+        .success(function (data) {
+          callback(data);
+        });
+    },
+    save: function (roleAssignment, callback) {
+      $http.post(url + 'rest/security/role/assign/' + roleAssignment.userName + '/' + roleAssignment.role, {})
+        .success(function () {
+          callback();
+        });
+    }
+  }
 });
 
 backend.factory('contacts', function ($resource) {
