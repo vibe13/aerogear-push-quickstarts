@@ -17,21 +17,31 @@ angular.module('quickstart.controllers', [])
       $scope.groupedContacts[first].push(data[i]);
     }
   });
-  $scope.delete = function(contact) {
-    contacts.delete({id: contact.id});
+  $scope.delete = function (contact) {
+    contacts.delete({
+      id: contact.id
+    });
   };
 })
 
 .controller('ContactCtrl', function ($scope, $stateParams, contacts, $location) {
-  if($stateParams.id) {
-    contacts.get({id: $stateParams.id}, function(contact) {
+  if ($stateParams.id) {
+    contacts.get({
+      id: $stateParams.id
+    }, function (contact) {
       $scope.model = contact;
     });
   }
-  $scope.save = function(contact) {
-    contacts.save(contact, function() {
+  $scope.save = function (contact) {
+    if ($stateParams.id) {
+      contacts.update(contact, onSuccess);
+    } else {
+      contacts.save(contact, onSuccess);
+    }
+
+    function onSuccess() {
       $location.url('/app/contacts');
-    });
+    }
   };
 })
 

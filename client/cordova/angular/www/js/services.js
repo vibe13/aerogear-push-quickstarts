@@ -47,6 +47,9 @@ backend.factory('contacts', function ($resource) {
     },
     delete: {
       method: 'DELETE'
+    },
+    update: {
+      method: 'PUT'
     }
   });
 });
