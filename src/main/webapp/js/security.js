@@ -26,7 +26,7 @@ CONTACTS.namespace("CONTACTS.security.restSecurityEndpoint");
 CONTACTS.security.currentUser = undefined;
 
 // Set this variable for all Security REST APIs base URL.
-CONTACTS.security.restSecurityEndpoint = "rest/security/";
+CONTACTS.security.restSecurityEndpoint = "http://localhost:8080/jboss-contacts-mobile-proxy/security/";
 
 /**
  * It is recommended to bind to this event instead of DOM ready() because this will work regardless of whether 
@@ -160,6 +160,9 @@ $(document).ready(function() {
         
     	var jqxhr = $.ajax({
             url: restSecurityEndpoint + "logout",
+            xhrFields: {withCredentials: true},
+            // required to meet CORS filter requirements
+            contentType: "application/json",
             type: "POST"
         }).done(function(data, textStatus, jqXHR) {
         	console.log(getCurrentTime() + " [js/security.js] (#security-logout-btn -> click) - Successfully logged out");
@@ -384,6 +387,7 @@ $(document).ready(function() {
 
                 var jqxhr = $.ajax({
                     url: restSecurityEndpoint + "role/assign/" + serializedForm.userName + "/" + serializedForm.roleName,
+                    xhrFields: {withCredentials: true},
                     type: "POST"
                 }).done(function(data, textStatus, jqXHR) {
                 	console.log(getCurrentTime() + " [js/security.js] (submitAssignRole) - ajax done");
@@ -417,6 +421,7 @@ $(document).ready(function() {
     	// The server knows which user is logged in for the session and will return that.
         var jqxhr = $.ajax({
             url: restSecurityEndpoint + "user/info",
+            xhrFields: {withCredentials: true},
             contentType: "application/json",
             dataType: "json",
             type: "GET",

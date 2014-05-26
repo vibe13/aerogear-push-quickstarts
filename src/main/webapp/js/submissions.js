@@ -116,6 +116,7 @@ $(document).ready(function() {
                  */
                 var jqxhr = $.ajax({
                     url: restEndpoint,
+                    xhrFields: {withCredentials: true},
                     contentType: "application/json",
 //                    dataType: "json",
                     data: contactData,
@@ -271,6 +272,7 @@ $(document).ready(function() {
                 var jqxhr = $.ajax({
                     url: restEndpoint + "/" + contactId,
                     contentType: "application/json",
+                    xhrFields: {withCredentials: true},
                     dataType: "json",
                     data: contactData,
                     type: "PUT"
@@ -389,6 +391,7 @@ $(document).ready(function() {
              */
             var jqxhr = $.ajax({
                 url: restEndpoint + "/" + contactId,
+                xhrFields: {withCredentials: true},
                 contentType: "application/json",
                 type: "DELETE"
             }).done(function(data, textStatus, jqXHR) {

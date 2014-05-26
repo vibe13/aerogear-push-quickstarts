@@ -21,9 +21,10 @@ CONTACTS.namespace("CONTACTS.app.getContactById");
 CONTACTS.namespace("CONTACTS.app.buildContactDetail");
 CONTACTS.namespace("CONTACTS.app.restEndpoint");
 
-//Set this variable for all Contacts REST APIs base URL.
+//Set this variable for all Contacts REST APIs base URL:
 //CONTACTS.app.restEndpoint = "http://localhost:9080/jboss-contacts-mobile-basic/rest/contacts";
-//Uncomment to use jboss-contacts-mobile-proxy
+
+//Uncomment to use jboss-contacts-mobile-proxy:
 CONTACTS.app.restEndpoint = "http://localhost:8080/jboss-contacts-mobile-proxy/contacts";
 
 /**
@@ -86,6 +87,7 @@ $( document ).on( "pagecreate", function(mainEvent) {
         console.log(getCurrentTime() + " [js/app.js] (getContacts) - start");
         var jqxhr = $.ajax({
             url: restEndpoint,
+            xhrFields: {withCredentials: true},
             cache: false,
             type: "GET"
         }).done(function(data, textStatus, jqXHR) {
@@ -203,6 +205,7 @@ $( document ).on( "pagecreate", function(mainEvent) {
     
         var jqxhr = $.ajax({
             url: restEndpoint + "/" + contactID.toString(),
+            xhrFields: {withCredentials: true},
             cache: false,
             type: "GET"
         }).done(function(data, textStatus, jqXHR) {
