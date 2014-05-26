@@ -46,6 +46,11 @@
             <param-name>cors.allowed.headers</param-name>
             <param-value>Origin,Accept,X-Requested-With,Content-Type,authorization</param-value>
         </init-param>
+        <init-param>
+            <description>A comma separated list of allowd HTTP methods</description>
+            <param-name>cors.allowed.methods</param-name>
+            <param-value>GET, POST, PUT, DELETE</param-value>
+        </init-param>
     </filter>
 
     <filter-mapping>
