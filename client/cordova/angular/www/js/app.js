@@ -84,12 +84,11 @@ angular.module('quickstart', [
       }
     })
 
-  .state('app.single', {
-    url: "/playlists/:playlistId",
+  .state('app.about', {
+    url: "/about",
     views: {
       'menuContent': {
-        templateUrl: "templates/playlist.html",
-        controller: 'PlaylistCtrl'
+        templateUrl: "templates/about.html"
       }
     }
   });
