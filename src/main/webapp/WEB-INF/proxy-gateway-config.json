@@ -1,5 +1,11 @@
 { "rulebase" : [
-    { "rule": "/contacts", "to": "http://localhost:9080/jboss-contacts-mobile-basic/rest/contacts"},
-    { "rule": "/contacts/{id}", "to": "http://localhost:9080/jboss-contacts-mobile-basic/rest/contacts/{id}"}
+    { "rule": "/contacts", "to": "http://localhost:9080/jboss-contacts-mobile-picketlink-secured/rest/contacts"},
+    { "rule": "/contacts/{id}", "to": "http://localhost:9080/jboss-contacts-mobile-picketlink-secured/rest/contacts/{id}"},
+    { "rule": "/security/user", "to": "http://localhost:9080/jboss-contacts-mobile-picketlink-secured/rest/security/user"},
+    { "rule": "/security/user/info", "to": "http://localhost:9080/jboss-contacts-mobile-picketlink-secured/rest/security/user/info"},
+    { "rule": "/security/role", "to": "http://localhost:9080/jboss-contacts-mobile-picketlink-secured/rest/security/role"},
+    { "rule": "/security/role/assign/{name}/{role}", "to": "http://localhost:9080/jboss-contacts-mobile-picketlink-secured/rest/security/role/assign/{name}/{role}"},
+    { "rule": "/security/registration", "to": "http://localhost:9080/jboss-contacts-mobile-picketlink-secured/rest/security/registration"},
+    { "rule": "/security/logout", "to": "http://localhost:9080/jboss-contacts-mobile-picketlink-secured/rest/security/logout"}
   ]
 }
