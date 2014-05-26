@@ -20,6 +20,13 @@ angular.module('quickstart.controllers', [])
   $scope.delete = function (contact) {
     contacts.delete({
       id: contact.id
+    }, function() {
+      var letter = contact.firstName.substring(0,1).toUpperCase();
+      $scope.groupedContacts[letter].splice($scope.groupedContacts[letter].indexOf(contact), 1);
+      if ($scope.groupedContacts[letter].length === 0) {
+        delete $scope.groupedContacts[letter];
+      }
+      $scope.contacts.showDelete = false;
     });
   };
 })
