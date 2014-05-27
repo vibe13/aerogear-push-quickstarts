@@ -25,7 +25,10 @@ CONTACTS.namespace("CONTACTS.security.restSecurityEndpoint");
 // app.js (#contacts-list-page -> pagebeforeshow)
 CONTACTS.security.currentUser = undefined;
 
-// Set this variable for all Security REST APIs base URL.
+//Set this variable to use the contacts-mobile-picketlink-secured backend:
+//CONTACTS.security.restSecurityEndpoint = "http://localhost:9080/jboss-contacts-mobile-picketlink-secured/rest/security/";
+
+//Set this variable to use the contacts-mobile-proxy backend:
 CONTACTS.security.restSecurityEndpoint = "http://localhost:8080/jboss-contacts-mobile-proxy/security/";
 
 /**
@@ -71,6 +74,7 @@ $( document ).on( "pagecreate", function(mainEvent) {
         	// Get the list of Users and add them to the selection list.
             $.ajax({
                 url: restSecurityEndpoint + "user",
+                xhrFields: {withCredentials: true},
                 cache: false,
                 type: "GET"
             }).done(function(data, textStatus, jqXHR) {
@@ -97,6 +101,7 @@ $( document ).on( "pagecreate", function(mainEvent) {
             // Get the list of Roles and add them to the selection list.
             $.ajax({
                 url: restSecurityEndpoint + "role",
+                xhrFields: {withCredentials: true},
                 cache: false,
                 type: "GET"
             }).done(function(data, textStatus, jqXHR) {
@@ -388,6 +393,7 @@ $(document).ready(function() {
                 var jqxhr = $.ajax({
                     url: restSecurityEndpoint + "role/assign/" + serializedForm.userName + "/" + serializedForm.roleName,
                     xhrFields: {withCredentials: true},
+                    contentType: "application/json",
                     type: "POST"
                 }).done(function(data, textStatus, jqXHR) {
                 	console.log(getCurrentTime() + " [js/security.js] (submitAssignRole) - ajax done");
