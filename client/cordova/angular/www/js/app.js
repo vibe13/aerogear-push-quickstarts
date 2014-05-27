@@ -66,7 +66,7 @@ angular.module('quickstart', [
       }
     }
   })
-  
+
   .state('app.contact', {
     url: "/contact/:id",
     views: {
@@ -104,27 +104,55 @@ angular.module('quickstart', [
       }
     }
   });
+
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/contacts');
 
   var interceptor = function ($q, $location) {
-      function success(response) {
-        return response;
-      }
+    function success(response) {
+      return response;
+    }
 
-      function error(response) {
-        var status = response.status;
-        if (status === 401) {
-          $location.url("/app/login");
-          return;
-        }
-        // otherwise
-        return $q.reject(response);
+    function error(response) {
+      var status = response.status;
+      if (status === 401) {
+        $location.url("/app/login");
+        return;
       }
-      return function (promise) {
-        return promise.then(success, error);
-      };
+      // otherwise
+      return $q.reject(response);
+    }
+    return function (promise) {
+      return promise.then(success, error);
     };
+  };
   $httpProvider.defaults.withCredentials = true;
   $httpProvider.responseInterceptors.push(interceptor);
 });
+
+var pushConfig = {
+  pushServerURL: "<pushServerURL e.g http(s)//host:port/context >",
+  android: {
+    senderID: "<senderID e.g Google Project ID only for android>",
+    variantID: "<variantID e.g. 1234456-234320>",
+    variantSecret: "<variantSecret e.g. 1234456-234320>"
+  },
+  ios: {
+    variantID: "<variantID e.g. 1234456-234320>",
+    variantSecret: "<variantSecret e.g. 1234456-234320>"
+  }
+};
+
+push.register(onNotification, successHandler, errorHandler, pushConfig);
+
+function successHandler() {
+  console.log('successful registered');
+}
+
+function errorHandler(error) {
+  console.log('error registering ' + error);
+}
+
+function onNotification(event) {
+  angular.element(document.getElementById('root')).scope().$broadcast('notification', event);
+}

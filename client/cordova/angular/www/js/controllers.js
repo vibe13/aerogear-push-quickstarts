@@ -70,7 +70,7 @@ angular.module('quickstart.controllers', [])
   };
 })
 
-.controller('LoginCtrl', function ($scope, $location, authz, users) {
+.controller('LoginCtrl', function ($scope, $location, $ionicPopup, authz, users) {
   $scope.login = function (user) {
     authz.setCredentials(user.name, user.password);
     users.login({}, function () {
@@ -87,6 +87,17 @@ angular.module('quickstart.controllers', [])
       $location.url('/app/login');
     });
   };
+
+  $scope.$on('notification', function (scope, event) {
+    $ionicPopup.confirm({
+      title: 'New contact',
+      content: event.alert
+    }).then(function (res) {
+      if (res) {
+        $location.url('/app/contact/' + event.payload.id);
+      }
+    });
+  });
 })
 
 .controller('RoleCtrl', function ($scope, $ionicPopup, users, roles) {
