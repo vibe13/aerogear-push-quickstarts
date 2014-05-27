@@ -82,8 +82,8 @@ Start the JBoss EAP Server
 If you are running multiple servers on the same machine you can use ```jboss.socket.binding.port-offset``` to avoid port
 conflicts:
 
-    For Linux:   EAP_HOME/bin/standalone.sh -b 0.0.0.0 -Djboss.socket.binding.port-offset=1000
-    For Windows: EAP_HOME\bin\standalone.bat -b 0.0.0.0 -Djboss.socket.binding.port-offset=1000
+        For Linux:   EAP_HOME/bin/standalone.sh -b 0.0.0.0 -Djboss.socket.binding.port-offset=1000
+        For Windows: EAP_HOME\bin\standalone.bat -b 0.0.0.0 -Djboss.socket.binding.port-offset=1000
 
 Configure the REST API server
 -----------------------------
@@ -92,9 +92,9 @@ REST API.
 
 To switch between backends update ```CONTACTS.app.serverUrl``` in ```src/main/webapp/js/app.js```:
 
-    CONTACTS.app.serverUrl = "http://localhost:9080/jboss-contacts-mobile-picketlink-secured";
-    or
-    CONTACTS.app.serverUrl = "http://localhost:8080/jboss-contacts-mobile-proxy";
+        CONTACTS.app.serverUrl = "http://localhost:9080/jboss-contacts-mobile-picketlink-secured";
+        or
+        CONTACTS.app.serverUrl = "http://localhost:8080/jboss-contacts-mobile-proxy";
 
 __Note that the port numbers above might be different for your current setup__.
 
