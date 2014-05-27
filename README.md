@@ -52,7 +52,7 @@ Start the JBoss EAP Server
         For Linux:   JBOSS_HOME/bin/standalone.sh -b 0.0.0.0
         For Windows: JBOSS_HOME\bin\standalone.bat -b 0.0.0.0
 
-Since this project proxies request to the ```contacts-mobile-basic``` quickstart you might have this quickstart deployed
+Since this project proxies request to the ```contacts-mobile-picketlink-secured``` quickstart you might have this quickstart deployed
 on the same machine but on a differerent instance of EAP. To avoid port conflicts you can start one of the server with
 
     -Djboss.socket.binding.port-offset=1000
@@ -70,15 +70,15 @@ is configured. The rules for the proxy can be found in
 This JSON file defines the mapping of URLs that the proxy can handle. You can define as many rules are you like and the
 basic single rule looks like this:
 
-    { "rule": "/contacts", "to": "http://localhost:9080/jboss-contacts-mobile-basic/rest/contacts"}
+    { "rule": "/rest/contacts", "to": "http://localhost:9080/jboss-contacts-mobile-picketlink-secured/rest/contacts"}
 
-The can be read as: any request with a request URI of ```contacts``` should be sent to the URI of ```to```.
+The can be read as: any request with a request URI of ```/rest/contacts``` should be sent to the URI of ```to```.
 You can also have path parameters in your rules. For example, we have the following rule in addition to the one above
 exists in this quickstart:
 
-    { "rule": "/contacts/{id}", "to": "http://localhost:9080/jboss-contacts-mobile-basic/rest/contacts{id}"}
+    { "rule": "/rest/contacts/{id}", "to": "http://localhost:9080/jboss-contacts-mobile-picketlink-secured/rest/contacts{id}"}
 
-With this rule, any request URI in the format ```contacts/10001``` will be proxied to the URI of ```to```.
+With this rule, any request URI in the format ```/rest/contacts/10001``` will be proxied to the URI of ```to```.
 
 
 Build and Deploy the Quickstart
@@ -90,12 +90,12 @@ Build and Deploy the Quickstart
 
         mvn clean package jboss-as:deploy
 
-4. This deploys `target/jboss-contacts-mobile-basic.war` to the running instance of the server.
+4. This deploys `target/jboss-contacts-mobile-proxy.war` to the running instance of the server.
 
 
 Access the application
 ----------------------
-With the ```contacts-mobile-basic``` quickstart deployed on a server listening to Http on port ```9080``` you can
+With the ```contacts-mobile-proxy``` quickstart deployed on a server listening to Http on port ```9080``` you can
 use the following curl commands:
 
 POST:
