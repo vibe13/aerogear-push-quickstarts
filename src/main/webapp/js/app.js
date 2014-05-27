@@ -21,11 +21,11 @@ CONTACTS.namespace("CONTACTS.app.getContactById");
 CONTACTS.namespace("CONTACTS.app.buildContactDetail");
 CONTACTS.namespace("CONTACTS.app.restEndpoint");
 
-//Set this variable for all Contacts REST APIs base URL:
-//CONTACTS.app.restEndpoint = "http://localhost:9080/jboss-contacts-mobile-basic/rest/contacts";
+//Set this variable to use the contacts-mobile-picketlink-secured backend for all Contacts REST APIs base URL:
+CONTACTS.app.restEndpoint = "http://localhost:9080/jboss-contacts-mobile-picketlink-secured/rest/contacts";
 
-//Uncomment to use jboss-contacts-mobile-proxy:
-CONTACTS.app.restEndpoint = "http://localhost:8080/jboss-contacts-mobile-proxy/contacts";
+//Set this variable to use the contacts-mobile-proxy for all Contacts REST APIs base URL:
+//CONTACTS.app.restEndpoint = "http://localhost:8080/jboss-contacts-mobile-proxy/contacts";
 
 /**
  * It is recommended to bind to this event instead of DOM ready() because this will work regardless of whether 

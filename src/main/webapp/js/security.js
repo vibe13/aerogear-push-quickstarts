@@ -26,10 +26,10 @@ CONTACTS.namespace("CONTACTS.security.restSecurityEndpoint");
 CONTACTS.security.currentUser = undefined;
 
 //Set this variable to use the contacts-mobile-picketlink-secured backend:
-//CONTACTS.security.restSecurityEndpoint = "http://localhost:9080/jboss-contacts-mobile-picketlink-secured/rest/security/";
+CONTACTS.security.restSecurityEndpoint = "http://localhost:9080/jboss-contacts-mobile-picketlink-secured/rest/security/";
 
 //Set this variable to use the contacts-mobile-proxy backend:
-CONTACTS.security.restSecurityEndpoint = "http://localhost:8080/jboss-contacts-mobile-proxy/security/";
+//CONTACTS.security.restSecurityEndpoint = "http://localhost:8080/jboss-contacts-mobile-proxy/security/";
 
 /**
  * It is recommended to bind to this event instead of DOM ready() because this will work regardless of whether 
