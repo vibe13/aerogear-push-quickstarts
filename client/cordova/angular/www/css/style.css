@@ -4,3 +4,13 @@ input.ng-dirty.ng-invalid {
 .error {
   color: #cc2511;
 }
+.contact-details li {
+  border-width: 0;
+  padding-bottom: 5px;
+}
+a:active .contact-details li {
+  background-color: #D9D9D9;
+}
+.active .contact-details li, .activated .contact-details li {
+    background-color: #D9D9D9;
+}

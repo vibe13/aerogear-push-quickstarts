@@ -1,6 +1,8 @@
 angular.module('quickstart.controllers', [])
 
 .controller('ContactsCtrl', function ($scope, contacts) {
+  $scope.details = false;
+  $scope.showDelete = false;
   contacts.query({}, function (data) {
     var first,
       length = data.length;
@@ -24,9 +26,9 @@ angular.module('quickstart.controllers', [])
       if ($scope.groupedContacts[letter].length === 0) {
         delete $scope.groupedContacts[letter];
       }
-      $scope.contacts.showDelete = false;
+      $scope.showDelete = false;
     });
-  };
+  };  
 })
 
 .controller('ContactCtrl', function ($scope, $stateParams, contacts, $location) {
