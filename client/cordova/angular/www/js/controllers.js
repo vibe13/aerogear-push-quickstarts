@@ -62,6 +62,11 @@ angular.module('quickstart.controllers', [])
       $location.url('/app/login');
     });
   };
+  $scope.logout = function () {
+    users.logout({}, function() {
+      $location.url('/app/login');
+    });
+  };
 })
 
 .controller('RoleCtrl', function ($scope, $location, users, roles) {

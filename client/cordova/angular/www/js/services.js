@@ -37,6 +37,12 @@ backend.factory('users', function ($resource) {
       params: {
         method: 'user'
       }
+    },
+    logout: {
+      method: 'POST',
+      params: {
+        method: 'logout'
+      }
     }
   });
 });

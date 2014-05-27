@@ -31,7 +31,8 @@ angular.module('quickstart', [
   .state('app', {
     url: "/app",
     abstract: true,
-    templateUrl: "templates/menu.html"
+    templateUrl: "templates/menu.html",
+    controller: 'LoginCtrl'
   })
 
   .state('app.login', {
