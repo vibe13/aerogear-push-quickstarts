@@ -16,7 +16,7 @@
  */
 'use strict';
 
-var url = 'http://localhost:8080/jboss-contacts-mobile-picketlink-secured/';
+var url = '< backend URL e.g http(s)//host:port >/jboss-contacts-mobile-picketlink-secured/';
 var backend = angular.module('quickstart.services', []);
 
 backend.factory('authz', function ($http, $resource) {
