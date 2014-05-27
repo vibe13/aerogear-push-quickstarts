@@ -20,15 +20,15 @@ angular.module('quickstart.controllers', [])
   $scope.delete = function (contact) {
     contacts.delete({
       id: contact.id
-    }, function() {
-      var letter = contact.firstName.substring(0,1).toUpperCase();
+    }, function () {
+      var letter = contact.firstName.substring(0, 1).toUpperCase();
       $scope.groupedContacts[letter].splice($scope.groupedContacts[letter].indexOf(contact), 1);
       if ($scope.groupedContacts[letter].length === 0) {
         delete $scope.groupedContacts[letter];
       }
       $scope.showDelete = false;
     });
-  };  
+  };
 })
 
 .controller('ContactCtrl', function ($scope, $stateParams, contacts, $location) {
@@ -65,22 +65,25 @@ angular.module('quickstart.controllers', [])
     });
   };
   $scope.logout = function () {
-    users.logout({}, function() {
+    users.logout({}, function () {
       $location.url('/app/login');
     });
   };
 })
 
-.controller('RoleCtrl', function ($scope, $location, users, roles) {
-  users.query({}, function(data) {
+.controller('RoleCtrl', function ($scope, $ionicPopup, users, roles) {
+  users.query({}, function (data) {
     $scope.users = data;
   });
-  roles.get(function(data) {
+  roles.get(function (data) {
     $scope.roles = data;
   });
   $scope.save = function (roleAssignment) {
-    roles.save(roleAssignment, function() {
-      //todo
+    roles.save(roleAssignment, function () {
+      $ionicPopup.alert({
+        title: 'Success',
+        content: 'Role successfuly assigned.'
+      });
     });
   };
 });
