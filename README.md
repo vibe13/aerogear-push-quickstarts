@@ -79,23 +79,26 @@ Start the JBoss EAP Server
         For Linux:   EAP_HOME/bin/standalone.sh -b 0.0.0.0
         For Windows: EAP_HOME\bin\standalone.bat -b 0.0.0.0
 
+If you are running multiple servers on the same machine you can use ```jboss.socket.binding.port-offset``` to avoid port
+conflicts:
+
+    For Linux:   EAP_HOME/bin/standalone.sh -b 0.0.0.0 -Djboss.socket.binding.port-offset=1000
+    For Windows: EAP_HOME\bin\standalone.bat -b 0.0.0.0 -Djboss.socket.binding.port-offset=1000
+
 Configure the REST API server
 -----------------------------
-This web application can be configured to use the ```contacts-mobile-basic``` or the ```contacts-mobile-proxy``` as the backend
-REST API. This is configured by updating ```src/main/webapp/js/app.js```.
+This web application can be configured to use the ```contacts-mobile-picketlink-secured``` or the ```contacts-mobile-proxy``` as the backend
+REST API.
 
-To use the ```contacts-mobile-basic``` quickstart as the REST API backend:
+To switch between backends update ```CONTACTS.app.serverUrl``` in ```src/main/webapp/js/app.js```:
 
-    CONTACTS.app.restEndpoint = "http://localhost:8080/jboss-contacts-mobile-basic/rest/contacts";
+    CONTACTS.app.serverUrl = "http://localhost:9080/jboss-contacts-mobile-picketlink-secured";
+    or
+    CONTACTS.app.serverUrl = "http://localhost:8080/jboss-contacts-mobile-proxy";
 
-The above, which is the default, will use the contacts-mobile-basic quickstart running on an EAP instance which is listening
-to HTTP port 8080.
+__Note that the port numbers above might be different for your current setup__.
 
-To use the ```contacts-mobile-proxy``` quickstart as the REST API backend:
-
-    CONTACTS.app.restEndpoint = "http://localhost:8080/jboss-contacts-mobile-proxy/contacts";
-
-Please refer to the documentation for [contacts-mobile-basic](https://github.com/jboss-developer/jboss-wfk-quickstarts/tree/2.6.x-develop/contacts-mobile-basic) and
+Please refer to the documentation for [contacts-mobile-picketlink-secured](https://github.com/jboss-developer/jboss-wfk-quickstarts/tree/2.6.x-develop/contacts-mobile-basic) and
 [contacts-mobile-proxy](https://github.com/jboss-developer/jboss-wfk-quickstarts/tree/2.6.x-develop/contacts-mobile-proxy) for details
 about deploying these quickstarts.
 
