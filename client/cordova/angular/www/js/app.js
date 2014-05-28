@@ -66,7 +66,7 @@ angular.module('quickstart', [
     }
   });
 })
-.constant('BACKEND_URL','http://localhost:8080/jboss-contacts-mobile-picketlink-secured/')
+.constant('BACKEND_URL','< backend URL e.g http(s)//host:port >/jboss-contacts-mobile-picketlink-secured/')
 
 .config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
   $stateProvider
