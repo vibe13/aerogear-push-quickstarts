@@ -22,11 +22,8 @@ CONTACTS.namespace("CONTACTS.app.buildContactDetail");
 CONTACTS.namespace("CONTACTS.app.restEndpoint");
 
 //To use the contacts-mobile-picketlink-secured REST API:
-CONTACTS.app.serverUrl = "http://localhost:9080/jboss-contacts-mobile-picketlink-secured";
-//To use the contacts-mobile-proxy:
-//CONTACTS.app.serverUrl = "http://localhost:8080/jboss-contacts-mobile-proxy";
+CONTACTS.app.serverUrl = "http://localhost:8080/jboss-contacts-mobile-picketlink-secured";
 
-//Set this variable to use the contacts-mobile-picketlink-secured backend for all Contacts REST APIs base URL:
 CONTACTS.app.restEndpoint = CONTACTS.app.serverUrl + "/rest/contacts";
 
 /**
