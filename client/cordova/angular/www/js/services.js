@@ -16,7 +16,6 @@
  */
 'use strict';
 
-var url = '< backend URL e.g http(s)//host:port >/jboss-contacts-mobile-picketlink-secured/';
 var backend = angular.module('quickstart.services', []);
 
 backend.factory('authz', function ($http, $resource) {
@@ -32,8 +31,8 @@ backend.factory('authz', function ($http, $resource) {
   };
 });
 
-backend.factory('users', function ($resource) {
-  return $resource(url + 'rest/security/:method/:verb', {}, {
+backend.factory('users', function ($resource, BACKEND_URL) {
+  return $resource(BACKEND_URL + 'rest/security/:method/:verb', {}, {
     login: {
       method: 'GET',
       params: {
@@ -63,16 +62,16 @@ backend.factory('users', function ($resource) {
   });
 });
 
-backend.factory('roles', function ($http) {
+backend.factory('roles', function ($http, BACKEND_URL) {
   return {
     get: function (callback) {
-      $http.get(url + 'rest/security/role')
+      $http.get(BACKEND_URL + 'rest/security/role')
         .success(function (data) {
           callback(data);
         });
     },
     save: function (roleAssignment, callback) {
-      $http.post(url + 'rest/security/role/assign/' + roleAssignment.userName + '/' + roleAssignment.role, {})
+      $http.post(BACKEND_URL + 'rest/security/role/assign/' + roleAssignment.userName + '/' + roleAssignment.role, {})
         .success(function () {
           callback();
         });
@@ -80,8 +79,8 @@ backend.factory('roles', function ($http) {
   };
 });
 
-backend.factory('contacts', function ($resource) {
-  return $resource(url + 'rest/contacts/:id', {
+backend.factory('contacts', function ($resource, BACKEND_URL) {
+  return $resource(BACKEND_URL + 'rest/contacts/:id', {
     id: '@id'
   }, {
     get: {

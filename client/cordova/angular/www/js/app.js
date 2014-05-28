@@ -34,8 +34,39 @@ angular.module('quickstart', [
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+    
+    var pushConfig = {
+      pushServerURL: "<pushServerURL e.g http(s)//host:port/context >",
+      android: {
+        senderID: "<senderID e.g Google Project ID only for android>",
+        variantID: "<variantID e.g. 1234456-234320>",
+        variantSecret: "<variantSecret e.g. 1234456-234320>"
+      },
+      ios: {
+        variantID: "<variantID e.g. 1234456-234320>",
+        variantSecret: "<variantSecret e.g. 1234456-234320>"
+      }
+    };
+
+    //to be able to test this in your browser where there is no push plugin installed
+    if (typeof push !== "undefined") {
+      push.register(onNotification, successHandler, errorHandler, pushConfig);
+    }
+
+    function successHandler() {
+      console.log('successful registered');
+    }
+
+    function errorHandler(error) {
+      console.log('error registering ' + error);
+    }
+
+    function onNotification(event) {
+      angular.element(document.getElementById('root')).scope().$broadcast('notification', event);
+    }
   });
 })
+.constant('BACKEND_URL','http://localhost:8080/jboss-contacts-mobile-picketlink-secured/')
 
 .config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
   $stateProvider
@@ -129,30 +160,3 @@ angular.module('quickstart', [
   $httpProvider.defaults.withCredentials = true;
   $httpProvider.responseInterceptors.push(interceptor);
 });
-
-var pushConfig = {
-  pushServerURL: "<pushServerURL e.g http(s)//host:port/context >",
-  android: {
-    senderID: "<senderID e.g Google Project ID only for android>",
-    variantID: "<variantID e.g. 1234456-234320>",
-    variantSecret: "<variantSecret e.g. 1234456-234320>"
-  },
-  ios: {
-    variantID: "<variantID e.g. 1234456-234320>",
-    variantSecret: "<variantSecret e.g. 1234456-234320>"
-  }
-};
-
-push.register(onNotification, successHandler, errorHandler, pushConfig);
-
-function successHandler() {
-  console.log('successful registered');
-}
-
-function errorHandler(error) {
-  console.log('error registering ' + error);
-}
-
-function onNotification(event) {
-  angular.element(document.getElementById('root')).scope().$broadcast('notification', event);
-}
