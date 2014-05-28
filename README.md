@@ -38,28 +38,73 @@ If you have not yet done so, you must [Configure Maven](../README.md#configure-m
 
 Start the JBoss EAP Server
 -----------------------
+This quickstart requires three instances of JBoss EAP running with the following quickstart deployed:
+```contacts-mobile-picketlink-secured```, ```contacts-mobild-webapp```, and ```contacts-mobile-proxy```
+
+If you have previously deployed the above quickstart then please undeploy them so we start from a clean slate. Then follow
+the instructions below to startup the server with the correct ports and also to deploy the quickstart to the correct
+servers.
 
 1. Open a command line and navigate to the root of the JBoss EAP directory.
-2. The following shows the command line to start the server with the default profile:
+2. The following shows the command line to start the servers with the server instance that will host the
+contacts-mobile-picketlink-secured quickstart
 
-        For Linux:   JBOSS_HOME/bin/standalone.sh
-        For Windows: JBOSS_HOME\bin\standalone.bat
+        For Linux:   EAP_HOME/bin/standalone.sh
+        For Windows: EAP_HOME\bin\standalone.bat
+
+3. The following shows the command line to start the servers with the server instance that will host the
+contacts-mobile-webapp quickstart
+
+        For Linux:   EAP_HOME/bin/standalone.sh -Djboss.socket.binding.port-offset=100
+        For Windows: EAP_HOME\bin\standalone.bat -Djboss.socket.binding.port-offset=100
+
+4. The following shows the command line to start the servers with the server instance that will host the
+contacts-mobile-webapp quickstart
+
+        For Linux:   EAP_HOME/bin/standalone.sh -Djboss.socket.binding.port-offset=200
+        For Windows: EAP_HOME\bin\standalone.bat -Djboss.socket.binding.port-offset=200
+
 
    Note: Adding "-b 0.0.0.0" to the above commands will allow external clients (phones, tablets, desktops, etc...) connect through your local network.
 
    For example
 
-        For Linux:   JBOSS_HOME/bin/standalone.sh -b 0.0.0.0
-        For Windows: JBOSS_HOME\bin\standalone.bat -b 0.0.0.0
+        For Linux:   EAP_HOME/bin/standalone.sh -b 0.0.0.0
+        For Windows: EAP_HOME\bin\standalone.bat -b 0.0.0.0
 
-Since this project proxies request to the ```contacts-mobile-picketlink-secured``` quickstart you might have this quickstart deployed
-on the same machine but on a differerent instance of EAP. To avoid port conflicts you can start one of the server with
+Configure contacts-mobile-webapp
+--------------------------------
+By default the _contacts-mobile-webapp_ is set up to work directly against _contacts-mobile-picketlink-secured_ as
+its backend. For this quickstart we will instead have _contacts-mobile_webapp_ work against _contacts-mobile-proxy_. This
+requires a change to ```contacts-mobile-webapp/src/main/webapp/js/app.js```. Please open ```app.js``` and update
+the ```CONTACTS.app.serverURL``` variable to:
 
-    -Djboss.socket.binding.port-offset=1000
+    CONTACTS.app.serverUrl = "http://localhost:8280/jboss-contacts-mobile-proxy";
 
-This will offset all ports in standalone.xml with 1000. So, instead of listening to port 8080 for HTTP the server started
-with the above system variable will listen to port 9080.
 
+Build and Deploy the Quickstarts
+--------------------------------
+
+1. Make sure you have started the JBoss EAP servers as described above.
+2. Open a command line and navigate to the root directory of this quickstart.
+3. From the ```contacts-picketlink-secured``` directory run the following command to deploy the quickstart:
+
+        mvn clean package jboss-as:deploy
+4. From the ```contacts-picketlink-webapp``` directory run the following command to deploy the quickstart:
+
+        mvn clean package jboss-as:deploy -Djboss-as.port=10099
+5. From the ```contacts-picketlink-proxy``` directory run the following command to deploy the quickstart:
+
+        mvn clean package jboss-as:deploy -Djboss-as.port=10199
+
+The reason why we need the servers to be started before deploying is that since all server are using the same configuration
+file, _standalone.xml_, all deployments are persisted to this file. This means that if you restart the server
+all three quickstart will be deployed which is not desirable. You can either undeploy each quickstart or edit
+```standalone/configuration/standalone.xml``` and remove the ```deployments``` element.
+
+Access the application
+----------------------
+Access the running client application in a browser at the following URL: <http://localhost:8180/jboss-contacts-mobile-webapp/#signin-page>.
 
 Configure the proxy application
 -------------------------------
@@ -93,30 +138,7 @@ Build and Deploy the Quickstart
 4. This deploys `target/jboss-contacts-mobile-proxy.war` to the running instance of the server.
 
 
-Access the application
-----------------------
-With the ```contacts-mobile-proxy``` quickstart deployed on a server listening to Http on port ```9080``` you can
-use the following curl commands:
 
-POST:
-
-    curl -H "Content-Type: application/json"  -H "Accept: application/json" -X POST --data '{"email": "rosen@gmail.com", "firstName": "Dr", "lastName": "Rosen", "phoneNumber": "233-223-1231", "birthDate":"1966-01-03"}'  http://localhost:8080/jboss-contacts-mobile-proxy/contacts
-
-GET (all contacts):
-
-    curl -H "Accept: application/json" -X GET http://localhost:8080/jboss-contacts-mobile-proxy/contacts
-
-GET (single contact):
-
-    curl -H "Accept: application/json" -X GET http://localhost:8080/jboss-contacts-mobile-proxy/contacts/1
-
-PUT (update):
-
-    curl -H "Content-Type: application/json"  -H "Accept: application/json" -X PUT --data '{"id": 1, "email": "rosen@gmail.com", "firstName": "Dr", "lastName": "Rosenrosen", "phoneNumber": "233-223-1231", "birthDate":"1966-01-03"}'  http://localhost:8080/jboss-contacts-mobile-proxy/contacts/1
-
-DELETE:
-
-    curl -H "Accept: application/json" -X DELETE http://localhost:8080/jboss-contacts-mobile-proxy/contacts/1
 
 
 Undeploy the Archive
