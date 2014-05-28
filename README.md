@@ -87,13 +87,13 @@ Build and Deploy the Quickstarts
 
 1. Make sure you have started the JBoss EAP servers as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
-3. From the ```contacts-picketlink-secured``` directory run the following command to deploy the quickstart:
+3. From the ```contacts-mobile-picketlink-secured``` directory run the following command to deploy the quickstart:
 
         mvn clean package jboss-as:deploy
-4. From the ```contacts-picketlink-webapp``` directory run the following command to deploy the quickstart:
+4. From the ```contacts-mobile-webapp``` directory run the following command to deploy the quickstart:
 
         mvn clean package jboss-as:deploy -Djboss-as.port=10099
-5. From the ```contacts-picketlink-proxy``` directory run the following command to deploy the quickstart:
+5. From the ```contacts-mobile-proxy``` directory run the following command to deploy the quickstart:
 
         mvn clean package jboss-as:deploy -Djboss-as.port=10199
 
