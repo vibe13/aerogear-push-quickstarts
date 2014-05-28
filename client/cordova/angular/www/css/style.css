@@ -14,3 +14,8 @@ a:active .contact-details li {
 .active .contact-details li, .activated .contact-details li {
     background-color: #D9D9D9;
 }
+
+/* bug on android 4.4 buttons in header not beside each other */ 
+.right-buttons button {
+  float:left;
+}
