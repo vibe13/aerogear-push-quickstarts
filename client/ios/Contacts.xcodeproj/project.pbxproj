@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6F165707193717C100C80C93 /* AeroGearPush.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F165706193717C100C80C93 /* AeroGearPush.framework */; };
 		6F341588190105A100718353 /* AGContactDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F341587190105A100718353 /* AGContactDetailsViewController.m */; };
 		6F34158B19010E9000718353 /* AGContact.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F34158A19010E9000718353 /* AGContact.m */; };
 		6F600DFE19000BEF009BD17E /* AGContactsNetworker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F600DFD19000BEF009BD17E /* AGContactsNetworker.m */; };
@@ -28,7 +29,6 @@
 		6F7B07A318FE88F100F7A686 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F7B078518FE88F100F7A686 /* UIKit.framework */; };
 		6F7B07AB18FE88F100F7A686 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6F7B07A918FE88F100F7A686 /* InfoPlist.strings */; };
 		6F7B07AD18FE88F100F7A686 /* ContactsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7B07AC18FE88F100F7A686 /* ContactsTests.m */; };
-		6F7B07B718FE894500F7A686 /* AeroGearPush.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F7B07B618FE894500F7A686 /* AeroGearPush.framework */; };
 		6F7B07C218FE8B2000F7A686 /* AGContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7B07BF18FE8B2000F7A686 /* AGContactsViewController.m */; };
 		6F7B07C318FE8B2000F7A686 /* AGLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7B07C118FE8B2000F7A686 /* AGLoginViewController.m */; };
 		6FAFD31E1910E1460012DEAA /* AGUserRegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FAFD31D1910E1460012DEAA /* AGUserRegistrationViewController.m */; };
@@ -47,6 +47,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6F165706193717C100C80C93 /* AeroGearPush.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AeroGearPush.framework; sourceTree = "<group>"; };
 		6F341586190105A100718353 /* AGContactDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AGContactDetailsViewController.h; path = Controllers/AGContactDetailsViewController.h; sourceTree = "<group>"; };
 		6F341587190105A100718353 /* AGContactDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AGContactDetailsViewController.m; path = Controllers/AGContactDetailsViewController.m; sourceTree = "<group>"; };
 		6F34158919010E9000718353 /* AGContact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AGContact.h; path = Model/AGContact.h; sourceTree = "<group>"; };
@@ -81,7 +82,6 @@
 		6F7B07A818FE88F100F7A686 /* ContactsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ContactsTests-Info.plist"; sourceTree = "<group>"; };
 		6F7B07AA18FE88F100F7A686 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6F7B07AC18FE88F100F7A686 /* ContactsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContactsTests.m; sourceTree = "<group>"; };
-		6F7B07B618FE894500F7A686 /* AeroGearPush.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AeroGearPush.framework; sourceTree = "<group>"; };
 		6F7B07BE18FE8B2000F7A686 /* AGContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AGContactsViewController.h; path = Controllers/AGContactsViewController.h; sourceTree = "<group>"; };
 		6F7B07BF18FE8B2000F7A686 /* AGContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AGContactsViewController.m; path = Controllers/AGContactsViewController.m; sourceTree = "<group>"; };
 		6F7B07C018FE8B2000F7A686 /* AGLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AGLoginViewController.h; path = Controllers/AGLoginViewController.h; sourceTree = "<group>"; };
@@ -99,7 +99,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6F7B07B718FE894500F7A686 /* AeroGearPush.framework in Frameworks */,
+				6F165707193717C100C80C93 /* AeroGearPush.framework in Frameworks */,
 				6F7B078418FE88F100F7A686 /* CoreGraphics.framework in Frameworks */,
 				6F7B078618FE88F100F7A686 /* UIKit.framework in Frameworks */,
 				6F7B078218FE88F100F7A686 /* Foundation.framework in Frameworks */,
@@ -167,7 +167,7 @@
 		6F7B078018FE88F100F7A686 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6F7B07B618FE894500F7A686 /* AeroGearPush.framework */,
+				6F165706193717C100C80C93 /* AeroGearPush.framework */,
 				6F7B078118FE88F100F7A686 /* Foundation.framework */,
 				6F7B078318FE88F100F7A686 /* CoreGraphics.framework */,
 				6F7B078518FE88F100F7A686 /* UIKit.framework */,
