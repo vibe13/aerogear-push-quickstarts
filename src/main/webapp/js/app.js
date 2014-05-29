@@ -23,6 +23,7 @@ CONTACTS.namespace("CONTACTS.app.restEndpoint");
 
 //To use the contacts-mobile-picketlink-secured REST API:
 CONTACTS.app.serverUrl = "http://localhost:8080/jboss-contacts-mobile-picketlink-secured";
+//CONTACTS.app.serverUrl = "http://localhost:8280/jboss-contacts-mobile-proxy";
 
 CONTACTS.app.restEndpoint = CONTACTS.app.serverUrl + "/rest/contacts";
 
@@ -97,6 +98,9 @@ $( document ).on( "pagecreate", function(mainEvent) {
                         " - jqXHR = " + jqXHR.status +
                         " - textStatus = " + textStatus +
                         " - errorThrown = " + errorThrown);
+            if (jqXHR.status === 401) {
+                $("body").pagecontainer("change", "#signin-page");
+            }
         });
         console.log(getCurrentTime() + " [js/app.js] (getContacts) - end");
     };
