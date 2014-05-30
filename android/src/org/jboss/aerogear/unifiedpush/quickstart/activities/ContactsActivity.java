@@ -6,12 +6,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.view.ActionMode;
-import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -26,9 +24,12 @@ import org.jboss.aerogear.unifiedpush.quickstart.util.WebClient;
 
 import java.util.List;
 
+import static android.widget.Toast.LENGTH_SHORT;
+
 public class ContactsActivity extends ActionBarActivity implements MessageHandler {
 
     private List<Contact> contacts;
+    private int conctactSelected = -1;
 
     private ListView listView;
     private ActionMode mActionMode;
@@ -51,22 +52,17 @@ public class ContactsActivity extends ActionBarActivity implements MessageHandle
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.delete:
-                    final SparseBooleanArray checked = listView.getCheckedItemPositions();
-                    for (int i = 0; i < checked.size(); i++) {
-                        final int index = checked.keyAt(i);
-                        if ((checked.get(index)) && deleteFromServer(contacts.get(index))) {
-                            contacts.remove(index);
-                        }
-                    }
+                    Contact contact = (Contact) listView.getItemAtPosition(conctactSelected);
+                    deleteFromServer(contact);
                     mode.finish();
-                    updateContactList();
+                    conctactSelected = -1;
                     return true;
                 default:
                     return false;
             }
         }
 
-    @Override
+        @Override
         public void onDestroyActionMode(ActionMode mode) {
             updateContactList();
             mActionMode = null;
@@ -80,13 +76,14 @@ public class ContactsActivity extends ActionBarActivity implements MessageHandle
         setContentView(R.layout.contacts);
 
         listView = (ListView) findViewById(R.id.contact_list);
-        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         listView.setItemsCanFocus(false);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(mActionMode != null) {
-                    check(view);
+                if (mActionMode != null) {
+                    conctactSelected = position;
+                    view.setSelected(true);
                     mActionMode.invalidate();
                 }
             }
@@ -98,6 +95,9 @@ public class ContactsActivity extends ActionBarActivity implements MessageHandle
                     return false;
                 }
                 mActionMode = ContactsActivity.this.startSupportActionMode(mActionModeCallback);
+                conctactSelected = position;
+                view.setSelected(true);
+                mActionMode.invalidate();
                 return true;
             }
         });
@@ -186,19 +186,24 @@ public class ContactsActivity extends ActionBarActivity implements MessageHandle
         listView.setAdapter(new ContactAdapeter(getApplicationContext(), this.contacts));
     }
 
-    private boolean deleteFromServer(Contact contact) {
-        return true;
-    }
+    private void deleteFromServer(final Contact contact) {
+        new AsyncTask<Void, Void, Boolean>() {
+            @Override
+            protected Boolean doInBackground(Void... voids) {
+                return new WebClient(Constants.URL_CONTACTS).delete(contact);
+            }
 
-    private void check(View view) {
-        boolean checked = !((view.getTag() != null) && (boolean) view.getTag());
-        view.setTag(checked);
-
-        if(checked) {
-            view.setBackgroundColor(getResources().getColor(R.color.lisview_select_background_color));
-        } else {
-            view.setBackgroundColor(getResources().getColor(R.color.lisview_default_background_color));
-        }
+            @Override
+            protected void onPostExecute(Boolean deleted) {
+                if (deleted) {
+                    Toast.makeText(getApplicationContext(), getString(R.string.contact_deleted), LENGTH_SHORT).show();
+                    contacts.remove(contact);
+                    updateContactList();
+                } else {
+                    Toast.makeText(getApplicationContext(), getString(R.string.an_error_occurred), LENGTH_SHORT).show();
+                }
+            }
+        }.execute();
     }
 
 }

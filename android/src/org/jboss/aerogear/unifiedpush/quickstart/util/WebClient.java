@@ -8,6 +8,7 @@ import org.apache.http.HttpStatus;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.CredentialsProvider;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -15,9 +16,11 @@ import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.jboss.aerogear.android.http.HttpException;
+import org.jboss.aerogear.android.impl.util.UrlUtils;
 import org.jboss.aerogear.unifiedpush.quickstart.model.Contact;
 import org.jboss.aerogear.unifiedpush.quickstart.model.User;
 
+import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
@@ -67,7 +70,7 @@ public final class WebClient {
 
             HttpResponse response = httpClient.execute(get);
 
-            if(response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+            if (isStatusCodeOk(response)) {
                 String responseData = EntityUtils.toString(response.getEntity());
 
                 Gson gson = new GsonBuilder().create();
@@ -110,7 +113,8 @@ public final class WebClient {
             HttpResponse response = httpClient.execute(get);
             String responseData = EntityUtils.toString(response.getEntity());
 
-            return new Gson().fromJson(responseData, new TypeToken<List<Contact>>(){}.getType());
+            return new Gson().fromJson(responseData, new TypeToken<List<Contact>>() {
+            }.getType());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -127,7 +131,7 @@ public final class WebClient {
 
             HttpResponse response = httpClient.execute(post);
 
-            if(response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+            if (isStatusCodeOk(response)) {
                 return true;
             } else {
                 return false;
@@ -135,6 +139,32 @@ public final class WebClient {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public boolean delete(Contact contact) {
+        try {
+            String deleteURL = this.url + "/" + String.valueOf(contact.getId());
+
+            HttpDelete delete = new HttpDelete(deleteURL);
+
+            delete.setHeader("Accept", "application/json");
+            delete.setHeader("Content-type", "application/json");
+
+            HttpResponse response = httpClient.execute(delete);
+
+            if (isStatusCodeOk(response)) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private boolean isStatusCodeOk(HttpResponse response) {
+        return ((response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) ||
+                (response.getStatusLine().getStatusCode() == HttpStatus.SC_NO_CONTENT));
     }
 
 }
