@@ -12,4 +12,6 @@ public interface Constants {
     String SECRET = "";
     String GCM_SENDER_ID = "";
 
+    String CONTACT = "CONTACT";
+
 }

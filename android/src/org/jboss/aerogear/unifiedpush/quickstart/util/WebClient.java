@@ -11,6 +11,7 @@ import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -121,7 +122,16 @@ public final class WebClient {
 
     }
 
-    public Boolean newContact(Contact contact) {
+    public Boolean saveContact(Contact contact) {
+        if(contact.getId() != null) {
+            return updateContact(contact);
+        } else {
+            return newContact(contact);
+        }
+    }
+
+
+    private Boolean newContact(Contact contact) {
         try {
             HttpPost post = new HttpPost(url);
             post.setEntity(new StringEntity(new Gson().toJson(contact)));
@@ -130,6 +140,28 @@ public final class WebClient {
             post.setHeader("Content-type", "application/json");
 
             HttpResponse response = httpClient.execute(post);
+
+            if (isStatusCodeOk(response)) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private Boolean updateContact(Contact contact) {
+        try {
+            String updateURL = this.url + "/" + String.valueOf(contact.getId());
+
+            HttpPut put = new HttpPut(updateURL);
+            put.setEntity(new StringEntity(new Gson().toJson(contact)));
+
+            put.setHeader("Accept", "application/json");
+            put.setHeader("Content-type", "application/json");
+
+            HttpResponse response = httpClient.execute(put);
 
             if (isStatusCodeOk(response)) {
                 return true;

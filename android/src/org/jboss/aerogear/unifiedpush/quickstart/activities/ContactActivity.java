@@ -14,6 +14,7 @@ import org.jboss.aerogear.unifiedpush.quickstart.R;
 import org.jboss.aerogear.unifiedpush.quickstart.model.Contact;
 import org.jboss.aerogear.unifiedpush.quickstart.util.WebClient;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -31,6 +32,8 @@ public class ContactActivity extends ActionBarActivity {
 
     private final Calendar dateSelected = Calendar.getInstance();
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+    private Contact contact;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +69,13 @@ public class ContactActivity extends ActionBarActivity {
             }
         });
 
+        contact = (Contact) getIntent().getSerializableExtra(Constants.CONTACT);
+        if (contact != null) {
+            fillForm(contact);
+        } else {
+            contact = new Contact();
+        }
+
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -73,8 +83,21 @@ public class ContactActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void fillForm(Contact contact) {
+        firstName.setText(contact.getFirstName());
+        lastName.setText(contact.getLastName());
+        phone.setText(contact.getPhoneNumber());
+        email.setText(contact.getEmail());
+        birthDate.setText(contact.getBirthDate());
+
+        try {
+            dateSelected.setTime(dateFormat.parse(contact.getBirthDate()));
+        } catch (ParseException e) {
+            Toast.makeText(getApplicationContext(), getString(R.string.an_error_occurred), Toast.LENGTH_SHORT).show();
+        }
+    }
+
     private Contact retriveContactFromForm() {
-        Contact contact = new Contact();
         contact.setFirstName(firstName.getText().toString());
         contact.setLastName(lastName.getText().toString());
         contact.setPhoneNumber(phone.getText().toString());
@@ -87,7 +110,7 @@ public class ContactActivity extends ActionBarActivity {
         new AsyncTask<Void, Void, Boolean>() {
             @Override
             protected Boolean doInBackground(Void... voids) {
-                return new WebClient(Constants.URL_CONTACTS).newContact(contact);
+                return new WebClient(Constants.URL_CONTACTS).saveContact(contact);
             }
 
             @Override

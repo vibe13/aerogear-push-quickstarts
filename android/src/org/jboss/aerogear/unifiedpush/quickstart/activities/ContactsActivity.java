@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
+import com.sun.tools.javac.code.Attribute;
 import org.jboss.aerogear.android.unifiedpush.MessageHandler;
 import org.jboss.aerogear.android.unifiedpush.Registrations;
 import org.jboss.aerogear.unifiedpush.quickstart.Constants;
@@ -85,6 +86,11 @@ public class ContactsActivity extends ActionBarActivity implements MessageHandle
                     conctactSelected = position;
                     view.setSelected(true);
                     mActionMode.invalidate();
+                } else {
+                    Contact contact = (Contact) parent.getItemAtPosition(position);
+                    Intent intent = new Intent(getApplicationContext(), ContactActivity.class);
+                    intent.putExtra(Constants.CONTACT, contact);
+                    startActivity(intent);
                 }
             }
         });
