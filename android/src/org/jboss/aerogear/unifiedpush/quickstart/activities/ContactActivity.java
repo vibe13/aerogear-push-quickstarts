@@ -12,11 +12,12 @@ import android.widget.*;
 import org.jboss.aerogear.unifiedpush.quickstart.Constants;
 import org.jboss.aerogear.unifiedpush.quickstart.R;
 import org.jboss.aerogear.unifiedpush.quickstart.model.Contact;
-import org.jboss.aerogear.unifiedpush.quickstart.model.User;
 import org.jboss.aerogear.unifiedpush.quickstart.util.WebClient;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
@@ -29,7 +30,7 @@ public class ContactActivity extends ActionBarActivity {
     private EditText birthDate;
 
     private final Calendar dateSelected = Calendar.getInstance();
-    private final SimpleDateFormat displayDateFormat = new SimpleDateFormat("MM/dd/yyyy");
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +77,7 @@ public class ContactActivity extends ActionBarActivity {
         contact.setLastName(lastName.getText().toString());
         contact.setPhoneNumber(phone.getText().toString());
         contact.setEmail(email.getText().toString());
-        contact.setBirthDate(birthDate.getText().toString());
+        contact.setBirthDate(dateFormat.format(dateSelected.getTime()));
         return contact;
     }
 
@@ -114,7 +115,7 @@ public class ContactActivity extends ActionBarActivity {
             dateSelected.set(Calendar.DAY_OF_MONTH, day);
             dateSelected.set(Calendar.MONTH, month);
             dateSelected.set(Calendar.YEAR, year);
-            birthDate.setText(displayDateFormat.format(dateSelected.getTime()));
+            birthDate.setText(dateFormat.format(dateSelected.getTime()));
         }
     }
 
