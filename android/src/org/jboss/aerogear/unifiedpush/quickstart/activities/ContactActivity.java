@@ -59,8 +59,10 @@ public class ContactActivity extends ActionBarActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Contact contact = retriveContactFromForm();
-                addContact(contact);
+                if (isValidForm()) {
+                    Contact contact = retriveContactFromForm();
+                    addContact(contact);
+                }
             }
         });
 
@@ -98,6 +100,18 @@ public class ContactActivity extends ActionBarActivity {
                 }
             }
         }.execute();
+    }
+
+    private boolean isValidForm() {
+        boolean valid = true;
+        List<EditText> componentsToValidate = Arrays.asList(firstName, lastName, phone, email, birthDate);
+        for (TextView textView : componentsToValidate) {
+            if (textView.getText().toString().length() < 1) {
+                textView.setError("Can not be blank");
+                valid = false;
+            }
+        }
+        return valid;
     }
 
     public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
