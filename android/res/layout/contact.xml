@@ -58,11 +58,27 @@
             android:layout_height="wrap_content"
             android:text="@string/birth_date" />
 
-        <EditText
-            android:id="@+id/birth_date"
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:inputType="date" />
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/birth_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:enabled="false"
+                android:inputType="date" />
+
+            <ImageView
+                android:id="@+id/calendar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_action_calendar_month" />
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/save"

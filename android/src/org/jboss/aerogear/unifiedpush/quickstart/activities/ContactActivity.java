@@ -1,18 +1,22 @@
 package org.jboss.aerogear.unifiedpush.quickstart.activities;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.*;
 import org.jboss.aerogear.unifiedpush.quickstart.Constants;
 import org.jboss.aerogear.unifiedpush.quickstart.R;
 import org.jboss.aerogear.unifiedpush.quickstart.model.Contact;
 import org.jboss.aerogear.unifiedpush.quickstart.model.User;
 import org.jboss.aerogear.unifiedpush.quickstart.util.WebClient;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
@@ -23,6 +27,9 @@ public class ContactActivity extends ActionBarActivity {
     private EditText phone;
     private EditText email;
     private EditText birthDate;
+
+    private final Calendar dateSelected = Calendar.getInstance();
+    private final SimpleDateFormat displayDateFormat = new SimpleDateFormat("MM/dd/yyyy");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +44,17 @@ public class ContactActivity extends ActionBarActivity {
         email = (EditText) findViewById(R.id.email);
         birthDate = (EditText) findViewById(R.id.birth_date);
 
-        final Button save = (Button) findViewById(R.id.save);
+        ImageView calendar = (ImageView) findViewById(R.id.calendar);
+        calendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogFragment newFragment = new DatePickerFragment();
+                newFragment.show(getSupportFragmentManager(), "datePicker");
+            }
+        });
+
+
+        Button save = (Button) findViewById(R.id.save);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -80,6 +97,25 @@ public class ContactActivity extends ActionBarActivity {
                 }
             }
         }.execute();
+    }
+
+    public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            int year = dateSelected.get(Calendar.YEAR);
+            int month = dateSelected.get(Calendar.MONTH);
+            int day = dateSelected.get(Calendar.DAY_OF_MONTH);
+
+            return new DatePickerDialog(getActivity(), this, year, month, day);
+        }
+
+        public void onDateSet(DatePicker view, int year, int month, int day) {
+            dateSelected.set(Calendar.DAY_OF_MONTH, day);
+            dateSelected.set(Calendar.MONTH, month);
+            dateSelected.set(Calendar.YEAR, year);
+            birthDate.setText(displayDateFormat.format(dateSelected.getTime()));
+        }
     }
 
 }
