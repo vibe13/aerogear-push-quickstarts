@@ -2,6 +2,7 @@ package org.jboss.aerogear.unifiedpush.quickstart.activities;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -108,6 +109,15 @@ public class ContactActivity extends ActionBarActivity {
 
     private void addContact(final Contact contact) {
         new AsyncTask<Void, Void, Boolean>() {
+            ProgressDialog dialog;
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                dialog = ProgressDialog.show(ContactActivity.this, getString(R.string.wait),
+                        getString(R.string.saving_contact), true, true);
+            }
+
             @Override
             protected Boolean doInBackground(Void... voids) {
                 return new WebClient(Constants.URL_CONTACTS).saveContact(contact);
@@ -115,6 +125,7 @@ public class ContactActivity extends ActionBarActivity {
 
             @Override
             protected void onPostExecute(Boolean registered) {
+                dialog.dismiss();
                 if (registered) {
                     Toast.makeText(getApplicationContext(), getString(R.string.contact_added), LENGTH_SHORT).show();
                     finish();
