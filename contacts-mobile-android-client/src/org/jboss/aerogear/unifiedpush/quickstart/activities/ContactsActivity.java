@@ -1,5 +1,6 @@
 package org.jboss.aerogear.unifiedpush.quickstart.activities;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -175,6 +176,15 @@ public class ContactsActivity extends ActionBarActivity implements MessageHandle
 
     private void retrieveContacts() {
         new AsyncTask<Void, Void, List<Contact>>() {
+            ProgressDialog dialog;
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                dialog = ProgressDialog.show(ContactsActivity.this, getString(R.string.wait),
+                        getString(R.string.loading_contacts), true, true);
+            }
+
             @Override
             protected List<Contact> doInBackground(Void... voids) {
                 return new WebClient(Constants.URL_CONTACTS).contacts();
@@ -184,6 +194,7 @@ public class ContactsActivity extends ActionBarActivity implements MessageHandle
             protected void onPostExecute(List<Contact> contactList) {
                 ContactsActivity.this.contacts = contactList;
                 updateContactList();
+                dialog.dismiss();
             }
         }.execute();
     }
