@@ -205,6 +205,15 @@ public class ContactsActivity extends ActionBarActivity implements MessageHandle
 
     private void deleteFromServer(final Contact contact) {
         new AsyncTask<Void, Void, Boolean>() {
+            ProgressDialog dialog;
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                dialog = ProgressDialog.show(ContactsActivity.this, getString(R.string.wait),
+                        getString(R.string.deleting_contacts), true, true);
+            }
+
             @Override
             protected Boolean doInBackground(Void... voids) {
                 return new WebClient(Constants.URL_CONTACTS).delete(contact);
@@ -212,6 +221,7 @@ public class ContactsActivity extends ActionBarActivity implements MessageHandle
 
             @Override
             protected void onPostExecute(Boolean deleted) {
+                dialog.dismiss();
                 if (deleted) {
                     Toast.makeText(getApplicationContext(), getString(R.string.contact_deleted), LENGTH_SHORT).show();
                     contacts.remove(contact);
