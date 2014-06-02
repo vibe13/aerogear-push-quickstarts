@@ -17,6 +17,7 @@
 package org.jboss.aerogear.unifiedpush.quickstart.activities;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -39,6 +40,8 @@ import java.net.URISyntaxException;
 import static org.jboss.aerogear.unifiedpush.quickstart.Constants.*;
 
 public class LoginActivity extends Activity {
+
+    private ProgressDialog dialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,6 +72,13 @@ public class LoginActivity extends Activity {
     private void login(final String username, final String password) {
         new AsyncTask<Void, Void, User>() {
             @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                dialog = ProgressDialog.show(LoginActivity.this, getString(R.string.wait),
+                        getString(R.string.login), true, true);
+            }
+
+            @Override
             protected User doInBackground(Void... voids) {
                 return new WebClient(Constants.URL_LOGIN).authenticate(username, password);
             }
@@ -98,6 +108,7 @@ public class LoginActivity extends Activity {
             registrar.register(getApplicationContext(), new Callback<Void>() {
                 @Override
                 public void onSuccess(Void data) {
+                    dialog.dismiss();
                     Intent intent = new Intent(getApplicationContext(), ContactsActivity.class);
                     startActivity(intent);
                     finish();
@@ -105,6 +116,7 @@ public class LoginActivity extends Activity {
 
                 @Override
                 public void onFailure(Exception e) {
+                    dialog.dismiss();
                     Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                 }
             });
