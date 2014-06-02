@@ -19,7 +19,10 @@ package org.jboss.quickstarts.wfk.contacts.security.authorization;
 import org.apache.deltaspike.security.api.authorization.AccessDeniedException;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
@@ -36,19 +39,27 @@ public class RestExceptionMapper implements ExceptionMapper<AccessDeniedExceptio
     @Inject
     private AuthorizationManager authorizationManager;
 
+    @Context
+    private HttpServletRequest request;
+
     @Override
     public Response toResponse(AccessDeniedException exception) {
-        Response.Status statusCode = Response.Status.FORBIDDEN;
         HashMap<String, String> message = new HashMap<String, String>();
-
-        message.put("message", "Access Denied");
-
-        if (!this.authorizationManager.isLoggedIn()) {
-            statusCode = Response.Status.UNAUTHORIZED;
+        if (!authorizationManager.isLoggedIn()) {
             message.put("message", "Authentication Required");
+            String origin = request.getHeader("Origin");
+            if (origin != null) {
+                return Response.status(Status.UNAUTHORIZED)
+                        .header("Access-Control-Allow-Origin", origin)
+                        .header("Access-Control-Allow-Credentials", true)
+                        .entity(message)
+                        .build();
+            } else {
+                return Response.status(Status.UNAUTHORIZED).entity(message).build();
+            }
         }
-
-        return Response.status(statusCode).entity(message).build();
+        message.put("message", "Access Denied");
+        return Response.status(Status.FORBIDDEN).entity(message).build();
     }
 
 }
