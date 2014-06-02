@@ -1,6 +1,7 @@
 package org.jboss.aerogear.unifiedpush.quickstart.activities;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -61,6 +62,15 @@ public class RegisterActivity extends ActionBarActivity {
 
     private void register(final User user) {
         new AsyncTask<Void, Void, Boolean>() {
+            ProgressDialog dialog;
+
+            @Override
+            protected void onPreExecute() {
+                dialog = ProgressDialog.show(RegisterActivity.this, getString(R.string.wait),
+                        getString(R.string.registing_user), true, true);
+
+            }
+
             @Override
             protected Boolean doInBackground(Void... voids) {
                 return new WebClient(Constants.URL_REGISTER).register(user);
@@ -68,6 +78,7 @@ public class RegisterActivity extends ActionBarActivity {
 
             @Override
             protected void onPostExecute(Boolean registered) {
+                dialog.dismiss();
                 if (registered) {
                     Toast.makeText(getApplicationContext(), getString(R.string.register_successful), LENGTH_SHORT).show();
                     finish();
