@@ -319,17 +319,15 @@ $(document).ready(function() {
                 }).done(function(data, textStatus, jqXHR) {
                 	console.log(getCurrentTime() + " [js/security.js] (submitSignIn) - ajax done");
                 	
-                	// Clear the form or else the next time you go to sign in the last one will still be there.
-                    $("#signin-form")[0].reset();
-                    
                     // Remove errors display as a part of the validation system.
                     $(".invalid").remove();
 
                     // Once the user has successfully signed in, their credintials gets loaded into the global 'currentUser'.
-                    CONTACTS.security.loadCurrentUser();
+                    CONTACTS.security.loadCurrentUser(serializedForm.loginName, serializedForm.password);
 
-                 // Because we turned off the automatic page transition to catch server side error we need to do it ourselves.
-                    $( "body" ).pagecontainer( "change", "#contacts-list-page");
+                    // Clear the form or else the next time you go to sign in the last one will still be there.
+                    $("#signin-form")[0].reset();
+
                 }).fail(function(jqXHR, textStatus, errorThrown) {
                 	// Remove errors display as a part of the validation system.
                 	$(".invalid").remove();
@@ -417,25 +415,29 @@ $(document).ready(function() {
      * 
      * This is called by CONTACTS.security.submitSignIn()
      */
-    CONTACTS.security.loadCurrentUser = function() {
+    CONTACTS.security.loadCurrentUser = function(loginName, password) {
     	console.log(getCurrentTime() + " [js/security.js] (loadCurrentUser) - start");
     	
-    	// The server knows which user is logged in for the session and will return that.
         var jqxhr = $.ajax({
             url: restSecurityEndpoint + "user/info",
             xhrFields: {withCredentials: true},
             contentType: "application/json",
             dataType: "json",
             type: "GET",
-            async: false
+            headers: {
+                "Authorization": "Basic " + btoa(loginName + ":" + password)
+            },
         }).done(function(data, textStatus, jqXHR) {
         	console.log(getCurrentTime() + " [js/security.js] (loadCurrentUser) - ajax done");
         	
         	// Store the logged in user credentials for Role access. 
         	CONTACTS.security.currentUser = data;
-            
+
+            // Because we turned off the automatic page transition to catch server side error we need to do it ourselves.
+            $( "body" ).pagecontainer( "change", "#contacts-list-page");
+
         }).fail(function(jqXHR, textStatus, errorThrown) {
-        	
+
         	// If something goes wrong set the currentUser to undefined.
         	CONTACTS.security.currentUser = undefined;
             
