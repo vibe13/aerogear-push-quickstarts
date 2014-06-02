@@ -123,13 +123,12 @@ public final class WebClient {
     }
 
     public Boolean saveContact(Contact contact) {
-        if(contact.getId() != null) {
+        if (contact.getId() != null) {
             return updateContact(contact);
         } else {
             return newContact(contact);
         }
     }
-
 
     private Boolean newContact(Contact contact) {
         try {
@@ -195,8 +194,7 @@ public final class WebClient {
     }
 
     private boolean isStatusCodeOk(HttpResponse response) {
-        return ((response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) ||
-                (response.getStatusLine().getStatusCode() == HttpStatus.SC_NO_CONTENT));
+        return ((response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) || (response.getStatusLine().getStatusCode() == HttpStatus.SC_NO_CONTENT));
     }
 
 }

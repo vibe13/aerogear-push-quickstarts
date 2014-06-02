@@ -53,7 +53,7 @@ public class ContactsActivity extends ActionBarActivity implements MessageHandle
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.delete:
+            case R.id.delete:
                     Contact contact = (Contact) listView.getItemAtPosition(conctactSelected);
                     deleteFromServer(contact);
                     mode.finish();
@@ -61,8 +61,8 @@ public class ContactsActivity extends ActionBarActivity implements MessageHandle
                     return true;
                 default:
                     return false;
+                }
             }
-        }
 
         @Override
         public void onDestroyActionMode(ActionMode mode) {

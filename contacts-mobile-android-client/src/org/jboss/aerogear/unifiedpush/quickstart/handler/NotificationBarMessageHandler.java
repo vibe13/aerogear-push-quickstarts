@@ -51,11 +51,9 @@ public class NotificationBarMessageHandler implements MessageHandler {
                 .addFlags(PendingIntent.FLAG_UPDATE_CURRENT)
                 .putExtra("alert", msg);
 
-
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        NotificationCompat.Builder mBuilder
-                = new NotificationCompat.Builder(context)
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
                 .setAutoCancel(true)
                 .setSmallIcon(R.drawable.ic_launcher)
                 .setContentTitle(context.getString(R.string.app_name))

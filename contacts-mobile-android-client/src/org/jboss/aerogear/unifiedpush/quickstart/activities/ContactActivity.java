@@ -58,7 +58,6 @@ public class ContactActivity extends ActionBarActivity {
             }
         });
 
-
         Button save = (Button) findViewById(R.id.save);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
