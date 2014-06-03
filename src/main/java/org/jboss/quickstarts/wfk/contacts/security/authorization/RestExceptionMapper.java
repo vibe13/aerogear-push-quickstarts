@@ -20,6 +20,7 @@ import org.apache.deltaspike.security.api.authorization.AccessDeniedException;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -44,22 +45,24 @@ public class RestExceptionMapper implements ExceptionMapper<AccessDeniedExceptio
 
     @Override
     public Response toResponse(AccessDeniedException exception) {
-        HashMap<String, String> message = new HashMap<String, String>();
         if (!authorizationManager.isLoggedIn()) {
-            message.put("message", "Authentication Required");
-            String origin = request.getHeader("Origin");
-            if (origin != null) {
-                return Response.status(Status.UNAUTHORIZED)
-                        .header("Access-Control-Allow-Origin", origin)
-                        .header("Access-Control-Allow-Credentials", true)
-                        .entity(message)
-                        .build();
-            } else {
-                return Response.status(Status.UNAUTHORIZED).entity(message).build();
-            }
+            return withCorsHeaders(Status.UNAUTHORIZED, "Authentication Required");
         }
-        message.put("message", "Access Denied");
-        return Response.status(Status.FORBIDDEN).entity(message).build();
+        return withCorsHeaders(Status.FORBIDDEN, "Access Denied");
+    }
+
+    private Response withCorsHeaders(Status status, String message) {
+        HashMap<String, String> json = new HashMap<String, String>();
+        json.put("message", message);
+        String origin = request.getHeader("Origin");
+        if (origin != null) {
+            return Response.status(status)
+                .header("Access-Control-Allow-Origin", origin)
+                .header("Access-Control-Allow-Credentials", true)
+                .entity(json)
+                .build();
+        }
+        return Response.status(status).entity(message).build();
     }
 
 }
