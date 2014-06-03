@@ -83,9 +83,6 @@
                 [clientInfo setVariantID:@"<# Variant Id #>"];
                 [clientInfo setVariantSecret:@"<# Variant Secret #>"];
                 
-                // NOTE: the username is used as the "alias"
-                [clientInfo setAlias:username];
-                
                 // --optional config--
                 // set some 'useful' hardware information params
                 UIDevice *currentDevice = [UIDevice currentDevice];
