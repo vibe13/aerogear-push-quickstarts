@@ -26,7 +26,7 @@ CONTACTS.namespace("CONTACTS.security.restSecurityEndpoint");
 CONTACTS.security.currentUser = undefined;
 
 // Set this variable for all Security REST APIs base URL.
-CONTACTS.security.restSecurityEndpoint = CONTACTS.app.baseUrl + "/jboss-contacts-mobile-picketlink-secured/rest/security/";
+CONTACTS.security.restSecurityEndpoint = CONTACTS.app.baseUrl + "/rest/security/";
 
 /**
  * It is recommended to bind to this event instead of DOM ready() because this will work regardless of whether 
