@@ -16,7 +16,6 @@
  */
 
 CONTACTS.namespace("CONTACTS.security.currentUser");
-CONTACTS.namespace("CONTACTS.security.loadCurrentUser");
 CONTACTS.namespace("CONTACTS.security.submitSignIn");
 CONTACTS.namespace("CONTACTS.security.submitSignUp");
 CONTACTS.namespace("CONTACTS.security.restSecurityEndpoint");
@@ -310,6 +309,7 @@ $(document).ready(function() {
                 // Send the login and password to the server for Auth-n and Auth-z
                 var jqxhr = $.ajax({
                     url: restSecurityEndpoint + "user/info",
+                    xhrFields: {withCredentials: true},
                     contentType: "application/json",
                     dataType: "json",
                     headers: {
@@ -322,11 +322,14 @@ $(document).ready(function() {
                     // Remove errors display as a part of the validation system.
                     $(".invalid").remove();
 
-                    // Once the user has successfully signed in, their credintials gets loaded into the global 'currentUser'.
-                    CONTACTS.security.loadCurrentUser(serializedForm.loginName, serializedForm.password);
-
                     // Clear the form or else the next time you go to sign in the last one will still be there.
                     $("#signin-form")[0].reset();
+
+                    // Store the global user data.
+                    CONTACTS.security.currentUser = data;
+
+                    // Because we turned off the automatic page transition to catch server side error we need to do it ourselves.
+                    $( "body" ).pagecontainer( "change", "#contacts-list-page");
 
                 }).fail(function(jqXHR, textStatus, errorThrown) {
                 	// Remove errors display as a part of the validation system.
@@ -408,46 +411,6 @@ $(document).ready(function() {
                 console.log(getCurrentTime() + " [js/security.js] (submitAssignRole) - submit event) - end");
             }
         });
-    };
-
-    /**
-     * Attempts to load information about the current user.
-     * 
-     * This is called by CONTACTS.security.submitSignIn()
-     */
-    CONTACTS.security.loadCurrentUser = function(loginName, password) {
-    	console.log(getCurrentTime() + " [js/security.js] (loadCurrentUser) - start");
-    	
-        var jqxhr = $.ajax({
-            url: restSecurityEndpoint + "user/info",
-            xhrFields: {withCredentials: true},
-            contentType: "application/json",
-            dataType: "json",
-            type: "GET",
-            headers: {
-                "Authorization": "Basic " + btoa(loginName + ":" + password)
-            },
-        }).done(function(data, textStatus, jqXHR) {
-        	console.log(getCurrentTime() + " [js/security.js] (loadCurrentUser) - ajax done");
-        	
-        	// Store the logged in user credentials for Role access. 
-        	CONTACTS.security.currentUser = data;
-
-            // Because we turned off the automatic page transition to catch server side error we need to do it ourselves.
-            $( "body" ).pagecontainer( "change", "#contacts-list-page");
-
-        }).fail(function(jqXHR, textStatus, errorThrown) {
-
-        	// If something goes wrong set the currentUser to undefined.
-        	CONTACTS.security.currentUser = undefined;
-            
-            console.log(getCurrentTime() + " [js/security.js] (loadCurrentUser) - error in ajax" +
-                    " - jqXHR = " + jqXHR.status +
-                    ", textStatus = " + textStatus +
-                    ", errorThrown = " + errorThrown +
-                    ", responseText = " + jqXHR.responseText);
-        });
-        console.log(getCurrentTime() + " [js/security.js] (loadCurrentUser) - end");
     };
 
     initSecurity();
