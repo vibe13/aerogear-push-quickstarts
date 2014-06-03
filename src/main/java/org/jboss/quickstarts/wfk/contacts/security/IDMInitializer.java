@@ -47,9 +47,9 @@ public class IDMInitializer {
 
     @PostConstruct
     public void createUsers() {
-        createUser("john", "john", ApplicationRole.USER);
-        createUser("duke", "duke", ApplicationRole.MAINTAINER);
-        createUser("admin", "admin", ApplicationRole.ADMIN);
+        createUser("john", "john", ApplicationRole.ADMIN);
+        createUser("maria", "maria", ApplicationRole.ADMIN);
+        createUser("dan", "dan", ApplicationRole.ADMIN);
     }
 
     private void createUser(String loginName, String password, ApplicationRole userRole) {
