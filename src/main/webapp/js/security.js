@@ -170,11 +170,11 @@ $(document).ready(function() {
         	// Once you have successfully logged out, redirect them to the log in page.
             $("body").pagecontainer("change", "#signin-page");
         }).fail(function(jqXHR, textStatus, errorThrown) {
-            alert(errorThrown);
             console.log(getCurrentTime() + " [js/security.js] (#security-logout-btn -> click) - error in ajax" +
             		" - jqXHR = " + jqXHR.status +
             		", errorThrown = " + errorThrown +
             		", responseText = " + jqXHR.responseText);
+            $("body").pagecontainer("change", "#signin-page");
         });
         
         console.log(getCurrentTime() + " [js/security.js] (#security-logout-btn -> click) - end");
