@@ -16,7 +16,6 @@
  */
 package org.jboss.quickstarts.wfk.contacts.security;
 
-import org.jboss.quickstarts.wfk.contacts.security.authorization.ApplicationRole;
 import org.jboss.quickstarts.wfk.contacts.security.authorization.AuthorizationManager;
 import org.jboss.quickstarts.wfk.contacts.security.authorization.UserLoggedIn;
 import org.picketlink.Identity;
@@ -50,9 +49,6 @@ public class UserService {
     @Inject
     private IdentityManager identityManager;
 
-    @Inject
-    private AuthorizationManager authorizationManager;
-
     /**
      * 
      * 
@@ -63,8 +59,7 @@ public class UserService {
     @Produces(MediaType.APPLICATION_JSON)
     @UserLoggedIn
     public Response getCurrentUser() {
-        AuthenticatedUser authenticatedUser = new AuthenticatedUser(this.identity.getAccount(), this.authorizationManager.hasRole(ApplicationRole.ADMIN.name()));
-
+        AuthenticatedUser authenticatedUser = new AuthenticatedUser(this.identity.getAccount());
         return Response.ok().entity(authenticatedUser).build();
     }
 
@@ -93,14 +88,12 @@ public class UserService {
     /**
      * <p>A simple class representing a user from a client perspective. It will usually be returned by the server with all user information, using JSON.</p>
      */
-    private class AuthenticatedUser {
+    private static class AuthenticatedUser {
 
         private Account account;
-        private boolean isAdmin;
 
-        public AuthenticatedUser(Account account, boolean isAdmin) {
+        public AuthenticatedUser(Account account) {
             this.account = account;
-            this.isAdmin = isAdmin;
         }
 
         public Account getAccount() {
@@ -111,12 +104,5 @@ public class UserService {
             this.account = account;
         }
 
-        public boolean isAdmin() {
-            return this.isAdmin;
-        }
-
-        public void setAdmin(boolean isAdmin) {
-            this.isAdmin = isAdmin;
-        }
     }
 }

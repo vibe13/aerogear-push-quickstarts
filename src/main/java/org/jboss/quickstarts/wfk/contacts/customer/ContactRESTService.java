@@ -16,9 +16,7 @@
  */
 package org.jboss.quickstarts.wfk.contacts.customer;
 
-import org.jboss.quickstarts.wfk.contacts.security.authorization.AllowedRoles;
 import org.jboss.quickstarts.wfk.contacts.security.authorization.UserLoggedIn;
-import org.jboss.quickstarts.wfk.contacts.security.authorization.ApplicationRole;
 
 import java.util.HashMap;
 import java.util.List;
@@ -117,12 +115,11 @@ public class ContactRESTService {
      * Creates a new contact from the values provided. Performs validation and will return a JAX-RS response with either 200 (ok)
      * or with a map of fields, and related errors.
      * 
-     * @param Contact
+     * @param contact
      * @return Response
      */
     @SuppressWarnings("unused")
     @POST
-    @AllowedRoles(ApplicationRole.MAINTAINER)
     public Response createContact(Contact contact) {
         log.info("createContact started. Contact = " + contact.getFirstName() + " " + contact.getLastName() + " " + contact.getEmail() + " " + contact.getPhoneNumber() + " "
             + contact.getBirthDate() + " " + contact.getId());
@@ -166,11 +163,10 @@ public class ContactRESTService {
      * Updates a contact with the ID provided in the Contact. Performs validation, and will return a JAX-RS response with either 200 ok,
      * or with a map of fields, and related errors.
      * 
-     * @param Contact
+     * @param contact
      * @return Response
      */
     @PUT
-    @AllowedRoles(ApplicationRole.MAINTAINER)
     @Path("/{id:[0-9][0-9]*}")
     public Response updateContact(@PathParam("id") long id, Contact contact) {
         if (contact == null) {
@@ -227,11 +223,10 @@ public class ContactRESTService {
      * Deletes a contact using the ID provided. If the ID is not present then nothing can be deleted, and will return a 
      * JAX-RS response with either 200 OK or with a map of fields, and related errors.
      * 
-     * @param Contact
+     * @param id
      * @return Response
      */
     @DELETE
-    @AllowedRoles(ApplicationRole.ADMIN)
     @Path("/{id:[0-9][0-9]*}")
     public Response deleteContact(@PathParam("id") Long id) {
         log.info("deleteContact started. Contact ID = " + id);

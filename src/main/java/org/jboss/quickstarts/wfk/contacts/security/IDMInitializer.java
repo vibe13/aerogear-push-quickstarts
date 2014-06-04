@@ -16,7 +16,6 @@
  */
 package org.jboss.quickstarts.wfk.contacts.security;
 
-import org.jboss.quickstarts.wfk.contacts.security.authorization.ApplicationRole;
 import org.picketlink.idm.IdentityManager;
 import org.picketlink.idm.PartitionManager;
 import org.picketlink.idm.RelationshipManager;
@@ -47,12 +46,12 @@ public class IDMInitializer {
 
     @PostConstruct
     public void createUsers() {
-        createUser("john", "john", ApplicationRole.ADMIN);
-        createUser("maria", "maria", ApplicationRole.ADMIN);
-        createUser("dan", "dan", ApplicationRole.ADMIN);
+        createUser("john", "john");
+        createUser("maria", "maria");
+        createUser("dan", "dan");
     }
 
-    private void createUser(String loginName, String password, ApplicationRole userRole) {
+    private void createUser(String loginName, String password) {
         IdentityManager identityManager = this.partitionManager.createIdentityManager();
 
         // user already exists
@@ -68,10 +67,10 @@ public class IDMInitializer {
 
         identityManager.updateCredential(user, credential);
 
-        Role role = getRole(identityManager, userRole.name());
+        Role role = getRole(identityManager, "admin");
 
         if (role == null) {
-            role = new Role(userRole.name());
+            role = new Role("admin");
             identityManager.add(role);
         }
 
