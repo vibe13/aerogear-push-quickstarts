@@ -17,7 +17,6 @@
 
 CONTACTS.namespace("CONTACTS.security.currentUser");
 CONTACTS.namespace("CONTACTS.security.submitSignIn");
-CONTACTS.namespace("CONTACTS.security.submitSignUp");
 CONTACTS.namespace("CONTACTS.security.restSecurityEndpoint");
 
 // Set this to undefined so that when the user is not logged in system doesn't think they are. This is referenced in 
@@ -44,78 +43,6 @@ $( document ).on( "pagecreate", function(mainEvent) {
     //Initialize the vars in the beginning so that you will always have access to them.
     var getCurrentTime = CONTACTS.util.getCurrentTime,
         restSecurityEndpoint = CONTACTS.security.restSecurityEndpoint;
-
-    /* 
-     * The "pagebeforeshow" event will delay this function until everything is set up.
-     * 
-     * Because of the interesting jQM loading architecture, multiple event triggering is a constant problem. 
-     * The "e.handled" if statement used here and elsewhere is meant to keep jQM from running this code multiple 
-     * times for one display. 
-     */
-    // Role Assignment
-    $("#role-assignment-page").on( "pagebeforeshow", function(e) {
-        if(e.handled !== true) {
-        	console.log(getCurrentTime() + " [js/security.js] (#role-assignment-page -> on pagebeforeshow) - start");
-            
-        	// Reset the text of the default display.
-        	$("#role-assignment-users-select")
-                .find("option")
-                .remove()
-                .end()
-                .append("<option>Select a user</option>")
-                .val("");
-//        	$("#role-assignment-form option").remove().append("<option>Select a user</option>").val("");
-            
-        	// Get the list of Users and add them to the selection list.
-            $.ajax({
-                url: restSecurityEndpoint + "user",
-                xhrFields: {withCredentials: true},
-                cache: false,
-                type: "GET"
-            }).done(function(data, textStatus, jqXHR) {
-                $.each(data, function(index, user) {
-                    $("<option>").attr({"value":user.loginName}).html(user.loginName).appendTo("#role-assignment-users-select");
-                });
-                $("#role-assignment-users-select").selectmenu("refresh");
-            }).fail(function(jqXHR, textStatus, errorThrown) {
-                console.log(getCurrentTime() + " [js/security.js] (#role-assignment-page -> on pagebeforeshow) - restListUsersEndpoint - Could not query users" +
-                    " - jqXHR = " + jqXHR.status +
-                    ", textStatus = " + textStatus +
-                    ", errorThrown = " + errorThrown +
-                    ", responseText = " + jqXHR.responseText);
-            });
-
-            // Reset the text of the default display.
-            $("#role-assignment-role-select")
-                .find("option")
-                .remove()
-                .end()
-                .append("<option>Select a role</option>")
-                .val("");
-            
-            // Get the list of Roles and add them to the selection list.
-            $.ajax({
-                url: restSecurityEndpoint + "role",
-                xhrFields: {withCredentials: true},
-                cache: false,
-                type: "GET"
-            }).done(function(data, textStatus, jqXHR) {
-                $.each(data, function(index, role) {
-                    $("<option>").attr({"value":role}).html(role).appendTo("#role-assignment-role-select");
-                });
-                $("#role-assignment-role-select").selectmenu("refresh");
-            }).fail(function(jqXHR, textStatus, errorThrown) {
-                console.log(getCurrentTime() + " [js/security.js] (#role-assignment-page -> on pagebeforeshow) - restListRolesEndpoint - Could not query users" +
-                        " - jqXHR = " + jqXHR.status +
-                        ", textStatus = " + textStatus +
-                        ", errorThrown = " + errorThrown +
-                        ", responseText = " + jqXHR.responseText);
-            });
-            
-            e.handled = true;
-            console.log(getCurrentTime() + " [js/security.js] (#role-assignment-page -> on pagebeforeshow) - end");
-        }
-    });
 });
 
 /**
@@ -185,106 +112,7 @@ $(document).ready(function() {
     	console.log(getCurrentTime() + " [js/security.js] (initSecurity) - start");
         //Fetches the initial member data
         CONTACTS.security.submitSignIn();
-        CONTACTS.security.submitSignUp();
-        CONTACTS.security.submitAssignRole();
         console.log(getCurrentTime() + " [js/security.js] (initSecurity) - end");
-    };
-
-    /**
-     * Attempts to sign up using a JAX-RS POST.
-     */
-    CONTACTS.security.submitSignUp = function() {
-    	console.log(getCurrentTime() + " [js/security.js] (submitSignUp) - start");
-    	
-        $("#signup-form").submit(function(event) {
-        	console.log(getCurrentTime() + " [js/security.js] (submitSignUp) - submit event) - checking if the form is valid");
-        	
-        	// Ensure that the form has been validated.
-            CONTACTS.validation.signUpFormValidator.form();
-            // If there are any validation error then don't process the submit.
-            if (CONTACTS.validation.signUpFormValidator.valid()){
-            	console.log(getCurrentTime() + " [js/security.js] (submitSignUp) - submit event) - start");
-                event.preventDefault();
-
-                // Transform the form fields into JSON.
-                // Must pull from the specific form so that we get the right data in case another form has data in it.
-                var serializedForm = $("#signup-form").serializeObject();
-                // Turn the object into a String.
-                var userData = JSON.stringify(serializedForm);
-
-                var jqxhr = $.ajax({
-                    url: restSecurityEndpoint + "registration",
-                    contentType: "application/json",
-                    dataType: "json",
-                    data: userData,
-                    type: "POST"
-                }).done(function(data, textStatus, jqXHR) {
-
-                	// Reset this flag when the form passes validation.
-                    CONTACTS.validation.formUserName = null;
-
-                	// Clear the form or else the next time you go to sign up the last one will still be there.
-                    $("#signup-form")[0].reset();
-                    
-                    // Remove errors displayed as a part of the validation system.
-                    $(".invalid").remove();
-
-                    // Because we turned off the automatic page transition to catch server side error we need to do it ourselves.
-                    $("body").pagecontainer("change", "#signin-page");
-                    
-                }).fail(function(jqXHR, textStatus, errorThrown) {
-                	// Remove errors display as a part of the validation system.
-                	$(".invalid").remove();
-
-                	// Check for server side validation errors.  This should catch the email uniqueness validation.
-                    if ((jqXHR.status === 409) || (jqXHR.status === 400)) {
-                    	
-                    	// Get the user.
-                        var newUser = $("#signup-form")[0];
-                        
-                        // Extract the error messages from the server.
-                        var errorMsg = $.parseJSON(jqXHR.responseText);
-
-                        // We only want to set this flag if there is actual email error.
-                        $.each(errorMsg, function(index, val) {
-                            if (index === "userName"){
-                            	// Get the User userName and set it for comparison in the form validation.
-                                $.each(newUser, function(index, val){
-                                	// This will look for an element with the name/key of "userName" and pull it's value.
-                                    if (val.name == "userName"){
-                                        CONTACTS.validation.formUserName = val.value;
-                                        return false;
-                                    }
-                                });
-                            }
-                        });
-
-                        // Apply the error to the form.
-                        CONTACTS.validation.displayServerSideErrors("#signup-form", errorMsg);
-
-                        console.log(getCurrentTime() + " [js/security.js] (submitSignUp) - restSignUpEndpoint - error in ajax" +
-                                " - jqXHR = " + jqXHR.status +
-                                ", textStatus = " + textStatus +
-                                ", errorThrown = " + errorThrown +
-                                ", responseText = " + jqXHR.responseText);
-                    } else {
-                    	//Catch anything else that is not a sign up form failure. 
-                        console.log(getCurrentTime() + " [js/security.js] (submitSignUp) - restSignUpEndpoint - error in ajax" +
-                                " - jqXHR = " + jqXHR.status +
-                                ", textStatus = " + textStatus +
-                                ", errorThrown = " + errorThrown +
-                                ", responseText = " + jqXHR.responseText);
-                        
-                        // Extract the error messages from the server.
-                        var errorMsg = $.parseJSON(jqXHR.responseText);
-                        
-                        // Apply the error to the form.
-                        CONTACTS.validation.displayServerSideErrors("#signup-form", errorMsg);
-                    }
-                });
-                console.log(getCurrentTime() + " [js/security.js] (submitSignUp) - submit event) - end");
-            }
-        });
     };
 
     /**
@@ -365,50 +193,6 @@ $(document).ready(function() {
 	                }
                 });
                 console.log(getCurrentTime() + " [js/security.js] (submitSignIn) - submit event) - end");
-            }
-        });
-    };
-
-    /**
-     * Attempts to role assignment using a JAX-RS POST.
-     */
-    CONTACTS.security.submitAssignRole = function() {
-    	console.log(getCurrentTime() + " [js/security.js] (submitAssignRole) - start");
-
-    	$("#role-assignment-form").submit(function(event) {
-        	console.log(getCurrentTime() + " [js/security.js] (submitAssignRole) - submit event) - checking if the form is valid");
-        	
-        	// Ensure that the form has been validated.
-            CONTACTS.validation.assignRoleFormValidator.form();
-            // If there are any validation error then don't process the submit.
-            if (CONTACTS.validation.assignRoleFormValidator.valid()){
-            	console.log(getCurrentTime() + " [js/security.js] (submitAssignRole) - submit event) - start");
-                event.preventDefault();
-
-                var serializedForm = $("#role-assignment-form").serializeObject();
-
-                var jqxhr = $.ajax({
-                    url: restSecurityEndpoint + "role/assign/" + serializedForm.userName + "/" + serializedForm.roleName,
-                    xhrFields: {withCredentials: true},
-                    contentType: "application/json",
-                    type: "POST"
-                }).done(function(data, textStatus, jqXHR) {
-                	console.log(getCurrentTime() + " [js/security.js] (submitAssignRole) - ajax done");
-                	
-                	// Because we turned off the automatic page transition to catch server side error we need to do it ourselves.
-                	// Call the pop-up if the role gets assigned.
-                    $("body").pagecontainer("change", "#role-assignment-popup", { transition: "pop" });
-                    
-                }).fail(function(jqXHR, textStatus, errorThrown) {
-                    alert("Could not assign role, please select an user and a role.");
-                    
-                    console.log(getCurrentTime() + " [js/security.js] (submitAssignRole) - error in ajax" +
-                            " - jqXHR = " + jqXHR.status +
-                            ", textStatus = " + textStatus +
-                            ", errorThrown = " + errorThrown +
-                            ", responseText = " + jqXHR.responseText);
-                });
-                console.log(getCurrentTime() + " [js/security.js] (submitAssignRole) - submit event) - end");
             }
         });
     };
