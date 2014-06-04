@@ -9,15 +9,10 @@
         <span class="input-label">Password</span>
         <input type="password" placeholder="Enter your password" ng-model="user.password">
       </label>
-      <div class="row">
-        <div class="col col-33 col-offset-33">
-          <button class="button button-block">Sign Up</button>
-        </div>
-        <div class="col col-33">
-          <button class="button button-block icon-right ion-chevron-right button-calm" ng-click="login(user)">
-            Log In
-          </button>
-        </div>
+      <div class="padding">
+        <button class="button button-block button-calm" ng-click="login(user)">
+          Log In
+        </button>
       </div>
     </ion-list>
   </ion-content>

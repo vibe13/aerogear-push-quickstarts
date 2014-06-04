@@ -98,21 +98,4 @@ angular.module('quickstart.controllers', [])
       }
     });
   });
-})
-
-.controller('RoleCtrl', function ($scope, $ionicPopup, users, roles) {
-  users.query({}, function (data) {
-    $scope.users = data;
-  });
-  roles.get(function (data) {
-    $scope.roles = data;
-  });
-  $scope.save = function (roleAssignment) {
-    roles.save(roleAssignment, function () {
-      $ionicPopup.alert({
-        title: 'Success',
-        content: 'Role successfuly assigned.'
-      });
-    });
-  };
 });

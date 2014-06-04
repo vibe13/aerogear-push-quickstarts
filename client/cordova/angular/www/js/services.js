@@ -62,23 +62,6 @@ backend.factory('users', function ($resource, BACKEND_URL) {
   });
 });
 
-backend.factory('roles', function ($http, BACKEND_URL) {
-  return {
-    get: function (callback) {
-      $http.get(BACKEND_URL + 'rest/security/role')
-        .success(function (data) {
-          callback(data);
-        });
-    },
-    save: function (roleAssignment, callback) {
-      $http.post(BACKEND_URL + 'rest/security/role/assign/' + roleAssignment.userName + '/' + roleAssignment.role, {})
-        .success(function () {
-          callback();
-        });
-    }
-  };
-});
-
 backend.factory('contacts', function ($resource, BACKEND_URL) {
   return $resource(BACKEND_URL + 'rest/contacts/:id', {
     id: '@id'

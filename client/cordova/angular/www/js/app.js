@@ -45,7 +45,7 @@ angular.module('quickstart', [
       ios: {
         variantID: "<variantID e.g. 1234456-234320>",
         variantSecret: "<variantSecret e.g. 1234456-234320>"
-      }
+    }
     };
 
     //to be able to test this in your browser where there is no push plugin installed
@@ -88,16 +88,6 @@ angular.module('quickstart', [
     }
   })
 
-  .state('app.signup', {
-    url: "/signup",
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/signup.html',
-        controller: 'LoginCtrl'
-      }
-    }
-  })
-
   .state('app.contact', {
     url: "/contact/:id",
     views: {
@@ -108,24 +98,15 @@ angular.module('quickstart', [
     }
   })
 
-  .state('app.role-assignment', {
-    url: "/role-assignment",
+  .state('app.contacts', {
+    url: "/contacts",
     views: {
       'menuContent': {
-        templateUrl: "templates/role-assignment.html",
-        controller: 'RoleCtrl'
+        templateUrl: "templates/contacts.html",
+        controller: 'ContactsCtrl'
       }
     }
   })
-    .state('app.contacts', {
-      url: "/contacts",
-      views: {
-        'menuContent': {
-          templateUrl: "templates/contacts.html",
-          controller: 'ContactsCtrl'
-        }
-      }
-    })
 
   .state('app.about', {
     url: "/about",
