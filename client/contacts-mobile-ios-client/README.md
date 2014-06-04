@@ -64,11 +64,7 @@ You can now build and run the application.
 Application Flow
 ----------------------
 
-When you first lunch the application, you are required to login. You can choose to create a new user or login with existing credentials (such as _admin:admin_ for the administrator role).
-
-NOTE: If you choose to create a new user, the user by default will be assigned a limited role, that is he won't be able to add/edit new Contacts, but he can still view existing Contacts or receive notifications for newly created ones.
-
-After login, you are presented with a list of existing Contacts residing on the server. 
+When you first lunch the application, you are required to login. Enter your employee credentials (by default the 'Contacts' backend creates a list of default employees such as '_maria:maria_') and click Login. If the login is successfully, you are presented with a list of existing Contacts residing on the server. 
 
 ![contacts list home screen](doc/contacts-list.png)
 
