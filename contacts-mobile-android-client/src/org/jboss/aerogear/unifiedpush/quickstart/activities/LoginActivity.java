@@ -88,6 +88,7 @@ public class LoginActivity extends Activity {
                 if (loggedUser != null) {
                     registerLoogedUserInUnifiedPushServer(loggedUser);
                 } else {
+                    dialog.dismiss();
                     Toast.makeText(getApplicationContext(),
                             getString(R.string.an_error_occurred), Toast.LENGTH_SHORT).show();
                 }
