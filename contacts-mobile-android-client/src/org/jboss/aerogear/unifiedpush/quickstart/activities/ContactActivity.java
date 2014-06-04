@@ -135,7 +135,7 @@ public class ContactActivity extends ActionBarActivity {
 
             @Override
             protected Boolean doInBackground(Void... voids) {
-                return new WebClient(Constants.URL_CONTACTS).saveContact(contact);
+                return new WebClient().saveContact(contact);
             }
 
             @Override

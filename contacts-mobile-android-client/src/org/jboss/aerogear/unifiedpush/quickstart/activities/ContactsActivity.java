@@ -161,7 +161,7 @@ public class ContactsActivity extends ActionBarActivity implements MessageHandle
             new AsyncTask<Void, Void, Void>() {
                 @Override
                 protected Void doInBackground(Void... voids) {
-                    new WebClient(Constants.URL_LOGOUT).logout();
+                    new WebClient().logout();
                     return null;
                 }
 
@@ -203,7 +203,7 @@ public class ContactsActivity extends ActionBarActivity implements MessageHandle
 
             @Override
             protected List<Contact> doInBackground(Void... voids) {
-                return new WebClient(Constants.URL_CONTACTS).contacts();
+                return new WebClient().contacts();
             }
 
             @Override
@@ -232,7 +232,7 @@ public class ContactsActivity extends ActionBarActivity implements MessageHandle
 
             @Override
             protected Boolean doInBackground(Void... voids) {
-                return new WebClient(Constants.URL_CONTACTS).delete(contact);
+                return new WebClient().delete(contact);
             }
 
             @Override

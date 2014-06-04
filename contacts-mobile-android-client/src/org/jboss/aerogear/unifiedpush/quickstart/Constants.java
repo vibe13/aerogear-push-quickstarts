@@ -18,10 +18,7 @@ package org.jboss.aerogear.unifiedpush.quickstart;
 
 public interface Constants {
 
-    String URL_REGISTER = "";
-    String URL_LOGIN = "";
-    String URL_LOGOUT = "";
-    String URL_CONTACTS = "";
+    String BASE_URL = "";
 
     String UNIFIED_PUSH_URL = "";
     String VARIANT_ID = "";

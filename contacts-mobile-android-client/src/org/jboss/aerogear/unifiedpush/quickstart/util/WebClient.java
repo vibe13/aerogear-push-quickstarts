@@ -34,6 +34,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.jboss.aerogear.android.http.HttpException;
 import org.jboss.aerogear.android.impl.util.UrlUtils;
+import org.jboss.aerogear.unifiedpush.quickstart.Constants;
 import org.jboss.aerogear.unifiedpush.quickstart.model.Contact;
 import org.jboss.aerogear.unifiedpush.quickstart.model.User;
 
@@ -43,20 +44,17 @@ import java.util.Map;
 
 public final class WebClient {
 
-    private final String url;
     private final static DefaultHttpClient httpClient;
 
     static {
         httpClient = new DefaultHttpClient();
     }
 
-    public WebClient(String url) {
-        this.url = url;
-    }
-
     public boolean register(User user) {
         try {
-            HttpPost post = new HttpPost(url);
+            String registerURL = Constants.BASE_URL + "/rest/security/registration";
+
+            HttpPost post = new HttpPost(registerURL);
             post.setEntity(new StringEntity(new Gson().toJson(user)));
 
             post.setHeader("Accept", "application/json");
@@ -73,6 +71,7 @@ public final class WebClient {
     public User authenticate(String username, String password) {
 
         try {
+            String loginURL = Constants.BASE_URL + "/rest/security/user/info";
 
             CredentialsProvider credProvider = new BasicCredentialsProvider();
             credProvider.setCredentials(new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT),
@@ -80,7 +79,7 @@ public final class WebClient {
 
             httpClient.setCredentialsProvider(credProvider);
 
-            HttpGet get = new HttpGet(url);
+            HttpGet get = new HttpGet(loginURL);
 
             get.setHeader("Accept", "application/json");
             get.setHeader("Content-type", "application/json");
@@ -107,7 +106,9 @@ public final class WebClient {
 
     public void logout() {
         try {
-            HttpPost post = new HttpPost(url);
+            String logoutURL = Constants.BASE_URL + "rest/security/logout";
+
+            HttpPost post = new HttpPost(logoutURL);
 
             post.setHeader("Accept", "application/json");
             post.setHeader("Content-type", "application/json");
@@ -122,7 +123,9 @@ public final class WebClient {
     public List<Contact> contacts() {
 
         try {
-            HttpGet get = new HttpGet(url);
+            String contactsURL = Constants.BASE_URL + "/rest/contacts";
+
+            HttpGet get = new HttpGet(contactsURL);
 
             get.setHeader("Accept", "application/json");
             get.setHeader("Content-type", "application/json");
@@ -148,7 +151,9 @@ public final class WebClient {
 
     private Boolean newContact(Contact contact) {
         try {
-            HttpPost post = new HttpPost(url);
+            String contactsURL = Constants.BASE_URL + "/rest/contacts";
+
+            HttpPost post = new HttpPost(contactsURL);
             post.setEntity(new StringEntity(new Gson().toJson(contact)));
 
             post.setHeader("Accept", "application/json");
@@ -168,7 +173,7 @@ public final class WebClient {
 
     private Boolean updateContact(Contact contact) {
         try {
-            String updateURL = this.url + "/" + String.valueOf(contact.getId());
+            String updateURL = Constants.BASE_URL + "/rest/contacts/" + String.valueOf(contact.getId());
 
             HttpPut put = new HttpPut(updateURL);
             put.setEntity(new StringEntity(new Gson().toJson(contact)));
@@ -190,7 +195,7 @@ public final class WebClient {
 
     public boolean delete(Contact contact) {
         try {
-            String deleteURL = this.url + "/" + String.valueOf(contact.getId());
+            String deleteURL = Constants.BASE_URL + "/rest/contacts/" + String.valueOf(contact.getId());
 
             HttpDelete delete = new HttpDelete(deleteURL);
 

@@ -80,7 +80,7 @@ public class LoginActivity extends Activity {
 
             @Override
             protected User doInBackground(Void... voids) {
-                return new WebClient(Constants.URL_LOGIN).authenticate(username, password);
+                return new WebClient().authenticate(username, password);
             }
 
             @Override

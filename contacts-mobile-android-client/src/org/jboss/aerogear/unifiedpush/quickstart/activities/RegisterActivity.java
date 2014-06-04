@@ -89,7 +89,7 @@ public class RegisterActivity extends ActionBarActivity {
 
             @Override
             protected Boolean doInBackground(Void... voids) {
-                return new WebClient(Constants.URL_REGISTER).register(user);
+                return new WebClient().register(user);
             }
 
             @Override
