@@ -82,13 +82,6 @@ $( document ).on( "pagecreate", function(mainEvent) {
             // Here we hide the "Role Assignment" menu item for non admin users.
             if (CONTACTS.security.currentUser) {
                 $("#user-name-page-message").text(CONTACTS.security.currentUser.account.loginName);
-                if (!CONTACTS.security.currentUser.admin) {
-                    $(".role-assignment-menu").addClass("ui-screen-hidden");
-                    $("#role-assignment-form").addClass("ui-screen-hidden");
-                } else {
-                    $(".role-assignment-menu").removeClass("ui-screen-hidden");
-                    $("#role-assignment-form").removeClass("ui-screen-hidden");
-                }
             }
             
             e.handled = true;
@@ -102,6 +95,7 @@ $( document ).on( "pagecreate", function(mainEvent) {
         console.log(getCurrentTime() + " [js/app.js] (getContacts) - start");
         var jqxhr = $.ajax({
             url: restEndpoint,
+            xhrFields: {withCredentials: true},
             cache: false,
             type: "GET"
         }).done(function(data, textStatus, jqXHR) {
@@ -112,6 +106,9 @@ $( document ).on( "pagecreate", function(mainEvent) {
                         " - jqXHR = " + jqXHR.status +
                         " - textStatus = " + textStatus +
                         " - errorThrown = " + errorThrown);
+            if (jqXHR.status === 401) {
+                $("body").pagecontainer("change", "#signin-page");
+            }
         });
         console.log(getCurrentTime() + " [js/app.js] (getContacts) - end");
     };
@@ -219,6 +216,7 @@ $( document ).on( "pagecreate", function(mainEvent) {
     
         var jqxhr = $.ajax({
             url: restEndpoint + "/" + contactID.toString(),
+            xhrFields: {withCredentials: true},
             cache: false,
             type: "GET"
         }).done(function(data, textStatus, jqXHR) {
