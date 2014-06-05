@@ -5,10 +5,10 @@ UnifiedPush Quickstart Examples
 
 
 * server
-  * jaxrs-picketlink
-  * spring
-  * jaxrs-camel
+  * contacts-mobile-picketlink-secured
+  * contacts-mobile-proxy
 * client
   * android
   * cordova
   * ios
+  * contacts-mobile-webapp
