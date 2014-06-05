@@ -1,0 +1,17 @@
+*~
+target
+.DS_Store
+.openshift
+out
+.idea
+*.ipr
+*.iws
+*.iml
+.classpath
+.project
+.settings
+.metadata
+bin
+*.log
+*.swp
+
