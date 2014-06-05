@@ -80,7 +80,7 @@ public class ContactActivity extends ActionBarActivity {
             public void onClick(View view) {
                 if (isValidForm()) {
                     Contact contact = retriveContactFromForm();
-                    addContact(contact);
+                    save(contact);
                 }
             }
         });
@@ -122,7 +122,7 @@ public class ContactActivity extends ActionBarActivity {
         return contact;
     }
 
-    private void addContact(final Contact contact) {
+    private void save(final Contact contact) {
         new AsyncTask<Void, Void, Boolean>() {
             ProgressDialog dialog;
 
@@ -142,7 +142,11 @@ public class ContactActivity extends ActionBarActivity {
             protected void onPostExecute(Boolean registered) {
                 dialog.dismiss();
                 if (registered) {
-                    Toast.makeText(getApplicationContext(), getString(R.string.contact_added), LENGTH_SHORT).show();
+                    if(contact.getId() == null) {
+                        Toast.makeText(getApplicationContext(), getString(R.string.contact_added), LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), getString(R.string.contact_updated), LENGTH_SHORT).show();
+                    }
                     finish();
                 } else {
                     Toast.makeText(getApplicationContext(), getString(R.string.an_error_occurred), LENGTH_SHORT).show();
