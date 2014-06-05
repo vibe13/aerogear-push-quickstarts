@@ -34,13 +34,5 @@
         android:layout_height="wrap_content"
         android:text="@string/login" />
 
-    <TextView
-        android:id="@+id/register"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:gravity="center_horizontal"
-        android:text="Don't have an account? click to create" />
-
 </LinearLayout>
 

@@ -29,7 +29,6 @@ import org.jboss.aerogear.android.Callback;
 import org.jboss.aerogear.android.unifiedpush.PushConfig;
 import org.jboss.aerogear.android.unifiedpush.PushRegistrar;
 import org.jboss.aerogear.android.unifiedpush.Registrations;
-import org.jboss.aerogear.unifiedpush.quickstart.Constants;
 import org.jboss.aerogear.unifiedpush.quickstart.R;
 import org.jboss.aerogear.unifiedpush.quickstart.model.User;
 import org.jboss.aerogear.unifiedpush.quickstart.util.WebClient;
@@ -56,15 +55,6 @@ public class LoginActivity extends Activity {
             @Override
             public void onClick(View view) {
                 login(username.getText().toString(), password.getText().toString());
-            }
-        });
-
-        TextView register = (TextView) findViewById(R.id.register);
-        register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(intent);
             }
         });
     }

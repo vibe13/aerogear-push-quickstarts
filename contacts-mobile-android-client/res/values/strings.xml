@@ -10,7 +10,6 @@
     <string name="email">Email</string>
     <string name="birth_date">Birth date</string>
     <string name="save">Save</string>
-    <string name="register_successful">Registration successful</string>
     <string name="logout">Logout</string>
     <string name="message">Message</string>
     <string name="enter_your_message">Enter your message</string>
@@ -26,5 +25,4 @@
     <string name="loading_contacts">Loading contacts</string>
     <string name="deleting_contacts">Deleting contact</string>
     <string name="saving_contact">Saving contact</string>
-    <string name="registing_user">Registering user</string>
 </resources>
