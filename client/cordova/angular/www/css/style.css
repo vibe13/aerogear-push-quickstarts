@@ -77,3 +77,6 @@ a:active .contact-details li {
     border: 0;
     -webkit-appearance: none;    
 }
+#root {
+  z-index: 0;  
+}
