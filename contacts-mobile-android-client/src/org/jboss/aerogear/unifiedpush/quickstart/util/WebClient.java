@@ -16,6 +16,7 @@
  */
 package org.jboss.aerogear.unifiedpush.quickstart.util;
 
+import android.util.Base64;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -71,16 +72,14 @@ public final class WebClient {
     public User authenticate(String username, String password) {
 
         try {
+
             String loginURL = Constants.BASE_URL + "/rest/security/user/info";
-
-            CredentialsProvider credProvider = new BasicCredentialsProvider();
-            credProvider.setCredentials(new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT),
-                    new UsernamePasswordCredentials(username, password));
-
-            httpClient.setCredentialsProvider(credProvider);
+            String credentials = username + ":" + password;
+            String base64EncodedCredentials = Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
 
             HttpGet get = new HttpGet(loginURL);
 
+            get.setHeader("Authorization", "Basic " + base64EncodedCredentials);
             get.setHeader("Accept", "application/json");
             get.setHeader("Content-type", "application/json");
 
