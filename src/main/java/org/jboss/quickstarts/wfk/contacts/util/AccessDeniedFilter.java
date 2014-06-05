@@ -40,12 +40,38 @@ public class AccessDeniedFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         if (response instanceof HttpServletResponse) {
-                HttpServletResponse httpServletResponse = (HttpServletResponse) response;
-                chain.doFilter(request, new HttpServletResponseWrapper(httpServletResponse) {
-                    public void setHeader(String name, String value) {
-                        if (!"WWW-Authenticate".equalsIgnoreCase(name)) {
-                            super.setHeader(name, value);
-                        }
+            HttpServletResponse httpServletResponse = (HttpServletResponse) response;
+            chain.doFilter(request, new HttpServletResponseWrapper(httpServletResponse) {
+
+                /**
+                 * Set all headers except 'WWW-Authenticate' to suppress the basic auth challenge which
+                 * will cause a browser to pop up a credentials entry dialog.
+                 *
+                 * @param name the HTTP header name.
+                 * @param value the headers value to set.
+                 */
+                @Override
+                public void setHeader(String name, String value) {
+                    if (!isHttpBasicChallenge(name)) {
+                        super.setHeader(name, value);
+                    }
+                }
+
+                /**
+                 * Will add any header except an 'Access-Control-Allow-Origin' for which this
+                 * method will call {@link #setHeader(String, String)} as can only be one value
+                 * for this header.
+                 *
+                 * @param name the HTTP header name.
+                 * @param value the headers value to add.
+                 */
+                @Override
+                public void addHeader(String name, String value) {
+                    if(isAccessControlAllowOrigin(name) || isAccessControlAllowCredentials(name)) {
+                        super.setHeader(name, value);
+                    } else {
+                        super.addHeader(name, value);
+                    }
                 }
             });
         } else {
@@ -53,7 +79,20 @@ public class AccessDeniedFilter implements Filter {
         }
     }
 
+    private static boolean isHttpBasicChallenge(String headerName) {
+        return "WWW-Authenticate".equalsIgnoreCase(headerName);
+    }
+
+    private static boolean isAccessControlAllowOrigin(String headerName) {
+        return "Access-Control-Allow-Origin".equalsIgnoreCase(headerName);
+    }
+
+    private static boolean isAccessControlAllowCredentials(String headerName) {
+        return "Access-Control-Allow-Credentials".equalsIgnoreCase(headerName);
+    }
+
     @Override
     public void destroy() {
     }
+
 }
