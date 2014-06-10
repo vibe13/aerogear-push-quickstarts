@@ -17,34 +17,30 @@
 package org.jboss.aerogear.unifiedpush.quickstart.util;
 
 import android.util.Base64;
+import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
-import org.jboss.aerogear.android.http.HttpException;
-import org.jboss.aerogear.android.impl.util.UrlUtils;
 import org.jboss.aerogear.unifiedpush.quickstart.Constants;
 import org.jboss.aerogear.unifiedpush.quickstart.model.Contact;
 import org.jboss.aerogear.unifiedpush.quickstart.model.User;
 
-import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public final class WebClient {
 
+    private final static String TAG = WebClient.class.getName();
     private final static DefaultHttpClient httpClient;
 
     static {
@@ -65,7 +61,8 @@ public final class WebClient {
 
             return true;
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            Log.e(TAG, e.getMessage());
+            return false;
         }
     }
 
@@ -98,7 +95,8 @@ public final class WebClient {
             }
 
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            Log.e(TAG, e.getMessage());
+            return null;
         }
 
     }
@@ -114,7 +112,7 @@ public final class WebClient {
 
             httpClient.execute(post);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            Log.e(TAG, e.getMessage());
         }
 
     }
@@ -135,7 +133,8 @@ public final class WebClient {
             return new Gson().fromJson(responseData, new TypeToken<List<Contact>>() {
             }.getType());
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            Log.e(TAG, e.getMessage());
+            return new ArrayList<Contact>();
         }
 
     }
@@ -166,7 +165,8 @@ public final class WebClient {
                 return false;
             }
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            Log.e(TAG, e.getMessage());
+            return false;
         }
     }
 
@@ -188,7 +188,8 @@ public final class WebClient {
                 return false;
             }
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            Log.e(TAG, e.getMessage());
+            return false;
         }
     }
 
@@ -209,7 +210,8 @@ public final class WebClient {
                 return false;
             }
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            Log.e(TAG, e.getMessage());
+            return false;
         }
     }
 
