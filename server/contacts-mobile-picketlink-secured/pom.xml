@@ -242,19 +242,6 @@
             <artifactId>resteasy-jackson-provider</artifactId>
             <scope>provided</scope>
         </dependency>
-        
-        <!-- CORS filter so we can reach the server from remote javascript -->
-        <dependency>
-            <groupId>org.ebaysf.web</groupId>
-            <artifactId>cors-filter</artifactId>
-            <version>1.0.0</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>javax.servlet</groupId>
-                    <artifactId>servlet-api</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
 
         <!-- The Java UPS Sender Client to send UnifiedPush messages -->
         <dependency>
