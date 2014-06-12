@@ -18,25 +18,8 @@ application server via restful end-points (JAX-RS).  This application also uses 
 advanced JAX-RS. And since testing is just as important with client side as it is server side, this application uses 
 QUnit to show you how to unit test your JavaScript.
 
-This application focuses on **securing CRUD** in a strictly mobile application using only **jQuery Mobile**(no other frameworks). 
-
-**Security** is an important part of an application, especially when working with HTML5 and mobile applications. Usually, those applications
- provide a number of RESTful endpoints or resources in order to send and retrieve data from the server. In most cases, you may want
- to authenticate your users before they can access those endpoints. And also perform authorization checks based on the access policies
- defined by the application. Considering that, PicketLink provides an easy and quick way to enable security to your application by
- providing authentication, authorization and identity management functionalities. In this application, PicketLink is being used to
- create users, roles and associate them in order to define RBAC (Role-based Access Control) policies. As well perform authentication
- and authorization based on that.
- 
-The user will have the ability to:
-
-* **Login** as an existing user.
-
-* **Register a Login** to create a new one.
-
-* **Assign Roles** to different users.
-
-* **Define Access** based on Role to various feature.
+This application focuses on **CRUD** in a strictly mobile app using only **jQuery Mobile**(no other frameworks). The user will have
+the ability to:
 
 * **Create** a new contact.
 
@@ -54,22 +37,6 @@ example of this in the Edit form if you enter an email that is already in use.  
 1 in the 'email' field and 2 at the top of the screen.  The application will attempt to insert the error message into a 
 field if that field exists.  If the field does not exist then it display it at the top. In addition, there are 
 [qunit tests](#run-the-qunit-tests) for every form of validation.  
-
-Regarding the security capabilities of this application, you first need to sign in before accessing it. Users are granted 
-with specific roles where:
- 
- * **admin**. This user is granted with the **ADMIN** role. He can perform any operation including CRUD contacts and assign roles to
- other users. Password is **admin**.
- 
- * **duke**. This user is granted with the **MAINTAINER** role. He can **create** and **update** contacts. Password is **duke**.
-  
- * **john**. This user is granted with the **USER** role. He has only **read-only** permissions to contacts. Password is **john**.
- 
-If an user tries to access a protected resource without the required permissions, a "Access Denied" message will be displayed.
-      
-You can also sign up for a new account. In this case you'll be assigned to a **USER** role.
-
-This application also allows you to assign roles to users. This functionality is only accessible for **ADMINISTRATOR** users.
 
 *Note: This quickstart uses the following Jackson libraries that are a part of the JBoss EAP private API.*
 
@@ -138,18 +105,6 @@ Access the running client application in a browser at the following URL: <http:/
 
 The application is made up of the following pages:
 
-**Login page**
-
-* Displays a login form
-* Option to sign up or create a new account
-
-**Sign Up page**
-
-* First name, Last name, User name, and password fields
-* Save = submit the form
-* Clear = reset the form but stay on the form
-* Cancel = reset the form and go the Main page
-
 **Main page**
 
 * Displays a list of contacts
@@ -163,13 +118,7 @@ The application is made up of the following pages:
 * Add a new Contact
 * List/Detail view switcher, depending on what is currently displayed
 * About information
-* Role Assignment - only available to users with the 'admin' role
 * Theming - apply various themes (only on the List view)
-* Logout - Logs out and returns to the Login page
-
-**Role Assignment page**
-
-* User name and Role name to be assigned
 
 **Details page**
 
