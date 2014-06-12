@@ -16,37 +16,30 @@
  */
 package org.jboss.quickstarts.wfk.contact.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-import java.io.File;
-import java.util.Date;
-import java.util.Map;
-import java.util.logging.Logger;
-
-import javax.inject.Inject;
-import javax.ws.rs.core.Response;
-
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.jboss.quickstarts.wfk.contacts.customer.Contact;
 import org.jboss.quickstarts.wfk.contacts.customer.ContactRESTService;
-import org.jboss.quickstarts.wfk.contacts.customer.ContactRepository;
-import org.jboss.quickstarts.wfk.contacts.customer.ContactService;
-import org.jboss.quickstarts.wfk.contacts.customer.ContactValidator;
-import org.jboss.quickstarts.wfk.contacts.util.Resources;
 import org.jboss.shrinkwrap.api.Archive;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.resolver.api.maven.Maven;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.picketlink.Identity;
+import org.picketlink.credential.DefaultLoginCredentials;
+
+import javax.inject.Inject;
+import javax.ws.rs.core.Response;
+import java.util.Date;
+import java.util.Map;
+import java.util.logging.Logger;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 // JAX-RS 2.0 import statement
 //import javax.ws.rs.client.*;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
 
 /**
  * Uses Arquilian to test the JAX-RS processing class for contact registration.
@@ -57,65 +50,52 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class ContactRegistrationTest {
     
-    @Deployment
-    public static Archive<?> createTestArchive() {
-//        File[] libs = Maven.resolver().loadPomFromFile("pom.xml").resolve(
-//                "org.hibernate.javax.persistence:hibernate-jpa-2.0-api"
-//        ).withTransitivity().asFile();
-
-        Archive<?> archive = ShrinkWrap
-            .create(WebArchive.class, "test.war")
-            .addClasses(Contact.class, 
-                        ContactRESTService.class, 
-                        ContactRepository.class, 
-                        ContactValidator.class, 
-                        ContactService.class, 
-                        Resources.class)
-//            .addAsLibraries(libs)
-            .addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
-            .addAsWebInfResource("arquillian-ds.xml")
-            .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
-        
-        return archive;
-    }
-
     @Inject
-    ContactRESTService contactRESTService;
+    private ContactRESTService contactRESTService;
     
     @Inject
-    Logger log;
-    
+    private Logger log;
+
+    @Inject
+    private Identity identity;
+
+    @Inject
+    private DefaultLoginCredentials credentials;
+
     // The URI is needed for the JAX-RS 2.0 tests.
-//    private static URI uri = UriBuilder.fromUri("http://localhost/jboss-contacts-mobile-picketlink-secured/rest/contact").port(8080).build();
-    
-    // JAX-RS 2.0 Client API
-//    private static Client client = ClientBuilder.newClient();
-    
+//  private static URI uri = UriBuilder.fromUri("http://localhost/jboss-contacts-mobile-picketlink-secured/rest/contact").port(8080).build();
+  
+  // JAX-RS 2.0 Client API
+//  private static Client client = ClientBuilder.newClient();
+
     //Set millis 498484800000 from 1985-10-10T12:00:00.000Z
     private Date date = new Date(498484800000L);
 
-    @Test
-    @InSequence(1)
-    public void testRegister() throws Exception {
-        Contact contact = createContactInstance("Jack", "Doe", "jack@mailinator.com", "2125551234", date);
-        Response response = contactRESTService.createContact(contact);
-
-        assertEquals("Unexpected response status", 200, response.getStatus());
-        log.info(" New contact was persisted and returned status " + response.getStatus());
+    @Deployment
+    public static Archive<?> deploy() {
+        return ArchiveUtil.createTestArchive();
     }
 
-    @SuppressWarnings("unchecked")
-    @Test
-    @InSequence(2)
-    public void testInvalidRegister() throws Exception {
-        Contact contact = createContactInstance("", "", "", "", date);
-        Response response = contactRESTService.createContact(contact);
+    /**
+     * <p>The {@link org.jboss.quickstarts.wfk.contacts.customer.ContactRESTService} is protected by PicketLink. Before invoking
+     * its methods we first need to perform an authentication.</p>
+     *
+     * <p>This method performs an authentication before each test execution.</p>
+     */
+    @Before
+    public void onSetup() {
+        this.credentials.setUserId("admin");
+        this.credentials.setPassword("admin");
 
-        assertEquals("Unexpected response status", 400, response.getStatus());
-        assertNotNull("response.getEntity() should not be null", response.getEntity());
-        assertEquals("Unexpected response.getEntity(). It contains " + response.getEntity(), 3,
-            ((Map<String, String>) response.getEntity()).size());
-        log.info("Invalid contact register attempt failed with return code " + response.getStatus());
+        this.identity.login();
+    }
+
+    /**
+     * <p>Just logs out the authenticated user.l</p>
+     */
+    @After
+    public void onFinish() {
+        this.identity.logout();
     }
 
     @SuppressWarnings("unchecked")

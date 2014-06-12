@@ -16,13 +16,7 @@
  */
 package org.jboss.quickstarts.wfk.contacts.customer;
 
-import org.jboss.quickstarts.wfk.contacts.security.authorization.UserLoggedIn;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.logging.Logger;
+import org.jboss.quickstarts.wfk.contacts.security.authorization.RequiresAccount;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -32,6 +26,11 @@ import javax.validation.ValidationException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.logging.Logger;
 
 /**
  * JAX-RS Example
@@ -68,9 +67,12 @@ public class ContactRESTService {
      * @return List of Contacts
      */
     @GET
-    @UserLoggedIn
-    public Response retrieveAllContacts(@QueryParam("timestamp") long timestamp) {
+    @RequiresAccount
+    public Response retrieveAllContacts() {
         List<Contact> contacts = service.findAllOrderedByName();
+        if (contacts.isEmpty()) {
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
+        }
         return Response.ok(contacts).build();
     }
 
@@ -81,7 +83,7 @@ public class ContactRESTService {
      */
     @GET
     @Path("/{email}")
-    @UserLoggedIn
+    @RequiresAccount
     public Response retrieveContactsByEmail(@PathParam("email") String email) {
         Contact contact = service.findByEmail(email);
         if (contact == null) {
@@ -94,13 +96,12 @@ public class ContactRESTService {
      * Search for just one Contact by it's ID.
      * 
      * @param id of the Contact
-     * @param timestamp of the Contact
      * @return Response
      */
     @GET
     @Path("/{id:[0-9][0-9]*}")
-    @UserLoggedIn
-    public Response retrieveContactById(@PathParam("id") long id, @QueryParam("timestamp") long timestamp) {
+    @RequiresAccount
+    public Response retrieveContactById(@PathParam("id") long id) {
         Contact contact = service.findById(id);
         if (contact == null) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
@@ -163,6 +164,7 @@ public class ContactRESTService {
      * Updates a contact with the ID provided in the Contact. Performs validation, and will return a JAX-RS response with either 200 ok,
      * or with a map of fields, and related errors.
      * 
+     * @param id
      * @param contact
      * @return Response
      */

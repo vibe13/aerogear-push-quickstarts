@@ -16,7 +16,7 @@
  */
 package org.jboss.quickstarts.wfk.contacts.security.authentication;
 
-import org.jboss.quickstarts.wfk.contacts.security.authorization.UserLoggedIn;
+import org.jboss.quickstarts.wfk.contacts.security.authorization.RequiresAccount;
 import org.picketlink.Identity;
 
 import javax.inject.Inject;
@@ -36,7 +36,7 @@ public class LogoutService {
     private Identity identity;
 
     @POST
-    @UserLoggedIn
+    @RequiresAccount
     public Response logout() {
         this.identity.logout();
         return Response.ok().build();

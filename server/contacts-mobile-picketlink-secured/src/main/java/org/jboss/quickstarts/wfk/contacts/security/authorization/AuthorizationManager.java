@@ -35,17 +35,17 @@ public class AuthorizationManager {
     private Instance<Identity> identityInstance;
 
     /**
-     * <p>Authorization check for {@link UserLoggedIn} annotation.</p>
+     * <p>Authorization check for {@link RequiresAccount} annotation.</p>
      *
-     * @return @{code true} if the current users is logged in.
+     * @return true if the user is logged in
      */
     @Secures
-    @UserLoggedIn
+    @RequiresAccount
     public boolean isLoggedIn() {
-        return identityInstance.get().isLoggedIn();
+        return getIdentity().isLoggedIn();
     }
 
     private Identity getIdentity() {
-        return identityInstance.get();
+        return this.identityInstance.get();
     }
 }

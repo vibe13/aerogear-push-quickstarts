@@ -3,26 +3,40 @@ contacts-mobile-picketlink-secured: Example Application Using Multiple HTML5, Mo
 Author: Joshua Wilson, Pedro Igor  
 Level: Beginner  
 Technologies: jQuery Mobile, jQuery, JavaScript, HTML5, REST  
-Summary: A picketlink secured example of CRUD operations in a mobile only website.  
+Summary: A PicketLink secured example of CRUD operations in a mobile only website.  
 Target Product: WFK  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, WFK 2.6  
 Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts>  
 
 What is it?
 -----------
-
-This is your project! It's a deployable Maven 3 project to help you get your foot in the door developing HTML5 based 
-mobile web applications with Java EE 6 on JBoss. This project is setup to allow you to create a picketlink secured Java EE 6 
-application using HTML5, jQuery Mobile, JAX-RS, CDI 1.0, EJB 3.1, JPA 2.0 and Bean Validation 1.0. It includes a 
-persistence unit and some sample persistence and transaction code to help you get your feet wet with database access in enterprise Java.
+This quickstart demonstrates how to create a PicketLink secured Java EE 6 application using HTML5, jQuery Mobile, JAX-RS, 
+CDI 1.0, EJB 3.1, JPA 2.0 and Bean Validation 1.0.
 
 This application is built using a HTML5 + REST approach.  This uses a pure HTML client that interacts with with the 
 application server via restful end-points (JAX-RS).  This application also uses some of the latest HTML5 features and 
 advanced JAX-RS. And since testing is just as important with client side as it is server side, this application uses 
 QUnit to show you how to unit test your JavaScript.
 
-This application focuses on **CRUD** in a strictly mobile app using only **jQuery Mobile**(no other frameworks). The user will have 
-the ability to:
+This application focuses on **securing CRUD** in a strictly mobile application using only **jQuery Mobile**(no other frameworks). 
+
+**Security** is an important part of an application, especially when working with HTML5 and mobile applications. Usually, those applications
+ provide a number of RESTful endpoints or resources in order to send and retrieve data from the server. In most cases, you may want
+ to authenticate your users before they can access those endpoints. And also perform authorization checks based on the access policies
+ defined by the application. Considering that, PicketLink provides an easy and quick way to enable security to your application by
+ providing authentication, authorization and identity management functionalities. In this application, PicketLink is being used to
+ create users, roles and associate them in order to define RBAC (Role-based Access Control) policies. As well perform authentication
+ and authorization based on that.
+ 
+The user will have the ability to:
+
+* **Login** as an existing user.
+
+* **Register a Login** to create a new one.
+
+* **Assign Roles** to different users.
+
+* **Define Access** based on Role to various feature.
 
 * **Create** a new contact.
 
@@ -32,14 +46,30 @@ the ability to:
 
 * **Delete** a contact.
 
-**Validation** is an important part of an application.  Typically in an HTML5 app you can let the built-in HTML5 form validation
-do the work for you.  However in a mobile app it doesn't work, the mobile browsers just don't support it at this time. 
+**Validation** is another important part of an application.  Typically in an HTML5 application you can let the built-in HTML5 form validation
+do the work for you.  However in a mobile application it doesn't work, the mobile browsers just don't support it at this time. 
 In order to validate the forms we added a plugin, jquery.validate. We provide both client-side and server-side validation 
 through this plugin.  Over AJAX, if there is an error, the error is returned and displayed in the form.  You can see an 
 example of this in the Edit form if you enter an email that is already in use.  There will be 3 errors on the screen; 
 1 in the 'email' field and 2 at the top of the screen.  The application will attempt to insert the error message into a 
 field if that field exists.  If the field does not exist then it display it at the top. In addition, there are 
 [qunit tests](#run-the-qunit-tests) for every form of validation.  
+
+Regarding the security capabilities of this application, you first need to sign in before accessing it. Users are granted 
+with specific roles where:
+ 
+ * **admin**. This user is granted with the **ADMIN** role. He can perform any operation including CRUD contacts and assign roles to
+ other users. Password is **admin**.
+ 
+ * **duke**. This user is granted with the **MAINTAINER** role. He can **create** and **update** contacts. Password is **duke**.
+  
+ * **john**. This user is granted with the **USER** role. He has only **read-only** permissions to contacts. Password is **john**.
+ 
+If an user tries to access a protected resource without the required permissions, a "Access Denied" message will be displayed.
+      
+You can also sign up for a new account. In this case you'll be assigned to a **USER** role.
+
+This application also allows you to assign roles to users. This functionality is only accessible for **ADMINISTRATOR** users.
 
 *Note: This quickstart uses the following Jackson libraries that are a part of the JBoss EAP private API.*
 
@@ -106,7 +136,19 @@ Access the application
 
 Access the running client application in a browser at the following URL: <http://localhost:8080/jboss-contacts-mobile-picketlink-secured/>.
 
-The app is made up of the following pages:
+The application is made up of the following pages:
+
+**Login page**
+
+* Displays a login form
+* Option to sign up or create a new account
+
+**Sign Up page**
+
+* First name, Last name, User name, and password fields
+* Save = submit the form
+* Clear = reset the form but stay on the form
+* Cancel = reset the form and go the Main page
 
 **Main page**
 
@@ -121,7 +163,13 @@ The app is made up of the following pages:
 * Add a new Contact
 * List/Detail view switcher, depending on what is currently displayed
 * About information
+* Role Assignment - only available to users with the 'admin' role
 * Theming - apply various themes (only on the List view)
+* Logout - Logs out and returns to the Login page
+
+**Role Assignment page**
+
+* User name and Role name to be assigned
 
 **Details page**
 

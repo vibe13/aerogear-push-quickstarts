@@ -17,7 +17,7 @@
 package org.jboss.quickstarts.wfk.contacts.security;
 
 import org.jboss.quickstarts.wfk.contacts.security.authorization.AuthorizationManager;
-import org.jboss.quickstarts.wfk.contacts.security.authorization.UserLoggedIn;
+import org.jboss.quickstarts.wfk.contacts.security.authorization.RequiresAccount;
 import org.picketlink.Identity;
 import org.picketlink.idm.IdentityManager;
 import org.picketlink.idm.model.Account;
@@ -43,6 +43,9 @@ import java.util.List;
 @Path("/security/user")
 public class UserService {
 
+    /**
+     *  <p>You're using the default stateful version of the Identity bean.</p>
+     */
     @Inject
     private Identity identity;
 
@@ -50,32 +53,33 @@ public class UserService {
     private IdentityManager identityManager;
 
     /**
+     * <p>Create a wrapper that holds an Identity and if it has Admin rights, then return it.</p>
      * 
-     * 
-     * @return Response
+     * @return Response - 200 (OK) with the currently logged in User
      */
     @Path("/info")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @UserLoggedIn
+    @RequiresAccount
     public Response getCurrentUser() {
         AuthenticatedUser authenticatedUser = new AuthenticatedUser(this.identity.getAccount());
         return Response.ok().entity(authenticatedUser).build();
     }
 
     /**
+     * <p>Create a list of all users.</p>
      * 
-     * 
-     * @return Response
+     * @return Response - 200 (OK) with a list of all the Users
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @UserLoggedIn
+    @RequiresAccount
     public Response getAll() {
         IdentityQuery<User> query = this.identityManager.createIdentityQuery(User.class);
         List<User> result = query.getResultList();
         User currentUser = (User) this.identity.getAccount();
 
+        // Strip off the current user or Admin from the total list.
         for (User user : new ArrayList<User>(result)) {
             if ("admin".equals(user.getLoginName()) || currentUser.getLoginName().equals(user.getLoginName())) {
                 result.remove(user);
@@ -88,7 +92,8 @@ public class UserService {
     /**
      * <p>A simple class representing a user from a client perspective. It will usually be returned by the server with all user information, using JSON.</p>
      */
-    private static class AuthenticatedUser {
+    @SuppressWarnings("unused")
+    private class AuthenticatedUser {
 
         private Account account;
 

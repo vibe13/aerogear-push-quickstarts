@@ -49,17 +49,16 @@
         <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
 
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
-        <version.jboss.bom.eap>6.2.0.GA</version.jboss.bom.eap>
-        <version.jboss.bom.wfk>2.5.0-build-5</version.jboss.bom.wfk>
+        <version.jboss.bom.eap>6.2.2.GA</version.jboss.bom.eap>
+        <version.jboss.bom.wfk>2.6.0-build-1</version.jboss.bom.wfk>
 
         <!-- Define the version of the PicketLink BOM -->
-        <version.picketlink.javaee.bom>2.6.0.CR2</version.picketlink.javaee.bom>
         <version.picketlink>2.5.3.SP5-redhat-1</version.picketlink>
-        <version.org.apache.deltaspike>0.5</version.org.apache.deltaspike>
 
         <!-- Other dependency versions -->
         <version.org.eclipse.m2e>1.0.0</version.org.eclipse.m2e>
         <version.ro.isdc.wro4j>1.4.4</version.ro.isdc.wro4j>
+        <htmlunit.version>2.4</htmlunit.version>
 
         <!-- other plugin versions -->
         <version.surefire.plugin>2.10</version.surefire.plugin>
@@ -72,13 +71,13 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- JBoss distributes a complete set of Java EE 6 APIs including 
-                a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or 
-                a collection) of artifacts. We use this here so that we always get the correct 
-                versions of artifacts. Here we use the jboss-javaee-6.0-with-tools stack 
-                (you can read this as the JBoss stack of the Java EE 6 APIs, with some extras 
-                tools for your project, such as Arquillian for testing) and the jboss-javaee-6.0-with-hibernate 
-                stack you can read this as the JBoss stack of the Java EE 6 APIs, with extras 
+            <!-- JBoss distributes a complete set of Java EE 6 APIs including
+                a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or
+                a collection) of artifacts. We use this here so that we always get the correct
+                versions of artifacts. Here we use the jboss-javaee-6.0-with-tools stack
+                (you can read this as the JBoss stack of the Java EE 6 APIs, with some extras
+                tools for your project, such as Arquillian for testing) and the jboss-javaee-6.0-with-hibernate
+                stack you can read this as the JBoss stack of the Java EE 6 APIs, with extras
                 from the Hibernate family of projects) -->
             <dependency>
                 <groupId>org.jboss.bom.wfk</groupId>
@@ -87,6 +86,22 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <!-- JBoss distributes a complete set of Java EE 6 APIs including
+                 a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or
+                 a collection) of artifacts. We use this here so that we always get the correct
+                 versions of artifacts. Here we use the jboss-javaee-6.0-with-deltaspike stack
+                 (you can read this as the JBoss stack of the Java EE 6 APIs with Deltaspike).
+                 You can actually use this stack with any version of JBoss that implements
+                 Java EE 6, not just JBoss EAP 6! -->
+            <dependency>
+                <groupId>org.jboss.bom.wfk</groupId>
+                <artifactId>jboss-javaee-6.0-with-deltaspike</artifactId>
+                <version>${version.jboss.bom.wfk}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
             <dependency>
                 <groupId>org.jboss.bom.eap</groupId>
                 <artifactId>jboss-javaee-6.0-with-hibernate</artifactId>
@@ -102,24 +117,6 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-<!--             <dependency> -->
-<!--                 <groupId>org.codehaus.jackson</groupId> -->
-<!--                 <artifactId>jackson-mapper-asl</artifactId> -->
-<!--                 <version>1.9.4</version> -->
-<!--             </dependency> -->
-            <dependency>
-                <groupId>javax</groupId>
-                <artifactId>javaee-api</artifactId>
-                <version>6.0</version>
-            </dependency>
-            <!-- The PicketLink BOM provides a complete set of security APIs to be used with Java JEE 6.-->
-<!--             <dependency> -->
-<!--                 <groupId>org.picketlink</groupId> -->
-<!--                 <artifactId>picketlink-javaee-6.0-with-deltaspike</artifactId> -->
-<!--                 <type>pom</type> -->
-<!--                 <scope>import</scope> -->
-<!--                 <version>${version.picketlink.javaee.bom}</version> -->
-<!--             </dependency> -->
             <dependency>
                 <groupId>org.jboss.bom.eap</groupId>
                 <artifactId>jboss-javaee-6.0-with-security</artifactId>
@@ -127,41 +124,37 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-	        <dependency>
-	            <groupId>org.picketlink</groupId>
-	            <artifactId>picketlink-api</artifactId>
+
+            <!--
+                Remove these PicketLink dependencies once jboss-javaee-6.0-with-security BOM is updated with the latest PicketLink version.
+            -->
+            <dependency>
+                <groupId>org.picketlink</groupId>
+                <artifactId>picketlink-api</artifactId>
                 <version>${version.picketlink}</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>org.picketlink</groupId>
-	            <artifactId>picketlink-impl</artifactId>
+            </dependency>
+            <dependency>
+                <groupId>org.picketlink</groupId>
+                <artifactId>picketlink-impl</artifactId>
                 <version>${version.picketlink}</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>org.picketlink</groupId>
-	            <artifactId>picketlink-idm-simple-schema</artifactId>
+            </dependency>
+            <dependency>
+                <groupId>org.picketlink</groupId>
+                <artifactId>picketlink-idm-simple-schema</artifactId>
                 <version>${version.picketlink}</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>org.apache.deltaspike.core</groupId>
-	            <artifactId>deltaspike-core-api</artifactId>
-                <version>${version.org.apache.deltaspike}</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>org.apache.deltaspike.core</groupId>
-	            <artifactId>deltaspike-core-impl</artifactId>
-                <version>${version.org.apache.deltaspike}</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>org.apache.deltaspike.modules</groupId>
-	            <artifactId>deltaspike-security-module-api</artifactId>
-                <version>${version.org.apache.deltaspike}</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>org.apache.deltaspike.modules</groupId>
-	            <artifactId>deltaspike-security-module-impl</artifactId>
-                <version>${version.org.apache.deltaspike}</version>
-	        </dependency>
+            </dependency>
+
+            <!--
+                HTTPUnit is a HTTP client library designed for unit tests. It is being used by the integration tests in order
+                to properly check the functionality provided by REST endpoints. Specially those related with PicketLink.
+            -->
+            <dependency>
+                <groupId>net.sourceforge.htmlunit</groupId>
+                <artifactId>htmlunit</artifactId>
+                <version>${htmlunit.version}</version>
+                <scope>test</scope>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -242,7 +235,7 @@
             <artifactId>resteasy-jackson-provider</artifactId>
             <scope>provided</scope>
         </dependency>
-
+        
         <!-- The Java UPS Sender Client to send UnifiedPush messages -->
         <dependency>
             <groupId>org.jboss.aerogear</groupId>
@@ -261,13 +254,6 @@
                     <artifactId>servlet-api</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
-
-        <!-- The Java UPS Sender Client to send UnifiedPush messages -->
-        <dependency>
-            <groupId>org.jboss.aerogear</groupId>
-            <artifactId>unifiedpush-java-client</artifactId>
-            <version>0.5.0</version>
         </dependency>
 
         <!-- The PicketLink API provides a set of components and annotations to secure your CDI application. -->
@@ -306,8 +292,9 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- Deltaspike Security Module API. We use compile scope as we need
-          to compile against its API -->
+        <!--
+            Deltaspike Security Module API. This dependency is important to enable authorization to this application using specific
+            annotations. We use compile scope as we need to compile against its API -->
         <dependency>
             <groupId>org.apache.deltaspike.modules</groupId>
             <artifactId>deltaspike-security-module-api</artifactId>
@@ -336,6 +323,10 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.sourceforge.htmlunit</groupId>
+            <artifactId>htmlunit</artifactId>
         </dependency>
 
         <!-- Optional, but highly recommended -->
@@ -369,17 +360,13 @@
             <artifactId>shrinkwrap-api</artifactId>
             <scope>test</scope>
         </dependency>
-        
+
         <dependency>
             <groupId>org.jboss.shrinkwrap.resolver</groupId>
             <artifactId>shrinkwrap-resolver-api-maven</artifactId>
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-        </dependency>
     </dependencies>
 
     <build>
@@ -499,7 +486,7 @@
                             </execution>
                         </executions>
                         <configuration>
-                            <targetGroups>app.min,m.screen.min,d.screen.min</targetGroups>
+                            <targetGroups>app.min,formSetup.min,namespace.min,security.m,submissions.min,theming.min,util.min,validation.min,app-style.min,validator.min</targetGroups>
                             <cssDestinationFolder>${project.build.directory}/${project.build.finalName}/css/</cssDestinationFolder>
                             <jsDestinationFolder>${project.build.directory}/${project.build.finalName}/js/</jsDestinationFolder>
                             <wroManagerFactory>ro.isdc.wro.maven.plugin.manager.factory.ConfigurableWroManagerFactory</wroManagerFactory>
