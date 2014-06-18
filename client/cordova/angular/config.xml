@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.ionicframework.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>HelloCordova</name>
+<widget id="org.jboss.aerogear.unifiedpush.ionic.Quickstart" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Push Quickstart</name>
     <description>
-        An Ionic Framework and Cordova project.
+        A sample Cordova application that shows how to use the UnifiedPush server in a CRUD application with the ionic framework
     </description>
-    <author email="hi@ionicframework" href="http://ionicframework.com/">
-      Ionic Framework Team
+    <author email="aerogear-dev@lists.jboss.org" href="http://aerogear.org">
+        AeroGear Developer Mailing List
     </author>
     <content src="index.html" />
     <access origin="*" />
@@ -18,8 +18,4 @@
          to be sent to iCloud. Note: enabling this could result in Apple rejecting your app.
     -->
     <preference name="BackupWebStorage" value="none" />
-
-    <feature name="StatusBar">
-      <param name="ios-package" value="CDVStatusBar" onload="true" />
-    </feature>
 </widget>
