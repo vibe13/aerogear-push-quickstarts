@@ -44,7 +44,7 @@ String GCM_SENDER_ID = "";
 
 ### Application Flow
 
-When you first lunch the application, you are required to login. Enter your employee credentials (by default the 'Contacts' backend creates a list of default employees such as '_maria:maria_') and click Login. If the login is successfully, you are presented with a list of existing Contacts residing on the server. 
+When you first launch the application, you are required to login. Enter your employee credentials (by default the 'Contacts' backend creates a list of default employees such as '_maria:maria_') and click Login. If the login is successfully, you are presented with a list of existing Contacts residing on the server.
 
 ![contacts list home screen](doc/contacts-list.png)
 
