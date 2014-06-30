@@ -6,7 +6,7 @@ Technologies: REST
 Summary: A basic example of CRUD operations that are proxied to a backend system.  
 Target Product: WFK  
 Product Versions: EAP 6.1, EAP 6.2, WFK 2.5  
-Source: <https://github.com/jboss-developer/jboss-wfk-quickstarts>  
+Source: <https://github.com/aerogear/aerogear-push-quickstarts/tree/master/server/contacts-mobile-proxy>
 
 What is it?
 -----------
@@ -33,13 +33,13 @@ With the prerequisites out of the way, you're ready to build and deploy.
 Configure Maven
 ---------------
 
-If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
+If you have not yet done so, you must [Configure Maven](../../README.md#configure-maven) before testing the quickstarts.
 
 
 Start the JBoss EAP Server
 -----------------------
 This quickstart requires three instances of JBoss EAP running with the following quickstart deployed:
-```contacts-mobile-picketlink-secured```, ```contacts-mobild-webapp```, and ```contacts-mobile-proxy```
+```contacts-mobile-picketlink-secured```, ```contacts-mobile-webapp```, and ```contacts-mobile-proxy```
 
 If you have previously deployed the above quickstart then please undeploy them so we start from a clean slate. Then follow
 the instructions below to startup the server with the correct ports and also to deploy the quickstart to the correct
@@ -110,7 +110,7 @@ Configure the proxy application
 -------------------------------
 By default there is nothing to configure in this quickstart. But you might be interested in how the proxy
 is configured. The rules for the proxy can be found in
-[proxy-gateway-config.json](https://github.com/danbev/jboss-wfk-quickstarts/blob/proxy-quickstart/contacts-mobile-proxy/src/main/webapp/WEB-INF/proxy-gateway-config.json).
+[proxy-gateway-config.json](./src/main/webapp/WEB-INF/proxy-gateway-config.json).
 
 This JSON file defines the mapping of URLs that the proxy can handle. You can define as many rules are you like and the
 basic single rule looks like this:
@@ -155,7 +155,7 @@ Run the Quickstart in JBoss Developer Studio or Eclipse
 -------------------------------------
 
 You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, 
-see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](../README.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) 
+see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](../../README.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts)
 
 
 ### Deploying to OpenShift
