@@ -40,7 +40,7 @@ public class ContactCreationPushNotifier {
     private JavaSender javaSender;
 
     public ContactCreationPushNotifier() {
-        javaSender = new SenderClient(SERVER_URL);
+        javaSender = new SenderClient.Builder(SERVER_URL).build();
         System.setProperty("jsse.enableSNIExtension", "false");
     }
 
