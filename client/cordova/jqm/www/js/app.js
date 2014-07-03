@@ -274,6 +274,6 @@ $( document ).on( "deviceready", function() {
     }
 
     function errorHandler(error) {
-        console.log('error registering ' + error);
+        alert('error registering ' + error);
     }    
 });
