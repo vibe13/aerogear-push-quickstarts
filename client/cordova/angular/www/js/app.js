@@ -48,7 +48,7 @@ angular.module('quickstart', [
     }
 
     function errorHandler(error) {
-      console.log('error registering ' + error);
+      alert('error registering ' + error);
     }
 
     function onNotification(event) {
