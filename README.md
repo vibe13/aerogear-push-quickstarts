@@ -72,6 +72,7 @@ _Note:_ If you do not wish to configure the Maven settings, you must pass the co
 Profiles are used by Maven to customize the build environment. The `pom.xml` in the root of the quickstart directory defines the following profiles:
 
 * The `default` profile defines the list of modules or quickstarts that require nothing but JBoss Enterprise Application Platform.
+* The `android` profile lists Android quickstarts.
 * The `non-maven` profile lists quickstarts that do not require Maven, for example, quickstarts that use other Frameworks or technologies.
 * The `functional-tests` profile lists quickstarts that provide functional tests.
 

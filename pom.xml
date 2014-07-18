@@ -102,7 +102,59 @@
                 <module>dist</module>
             </modules>
         </profile>
-
+        <profile>
+            <!-- All the quickstarts that run with the default profile -->
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+                <property>
+                    <name>default</name>
+                    <value>!disabled</value>
+                </property>
+            </activation>
+            <modules>
+                <!-- All the modules that require nothing but JBoss Enterprise
+                    Application Platform or JBoss AS -->
+                <module>server/contacts-mobile-picketlink-secured</module>
+                <module>server/contacts-mobile-proxy</module>
+            </modules>
+        </profile>
+        <profile>
+            <!-- Android related client quickstart -->
+            <id>android</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <modules>
+                <module>client/contacts-mobile-android-client</module>
+            </modules>
+        </profile>
+        <profile>
+            <!-- All the quickstarts that don't actually use Maven. Don't
+                activate this profile! We just include this for completeness. -->
+            <id>non-maven</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <modules>
+                <module>client/contacts-mobile-ios-client</module>
+                <module>client/cordova/angular</module>
+                <module>client/cordova/jqm</module>
+            </modules>
+        </profile>
+        <profile>
+            <!-- Functional tests are not part of the quickstarts' structure.
+                Follow the quickstart README files to run the individual
+                functional tests. -->
+            <id>functional-tests</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <modules>
+                <module>client/contacts-mobile-webapp/functional-tests</module>
+                <module>server/contacts-mobile-picketlink-secured/functional-tests</module>
+            </modules>
+        </profile>
     </profiles>
 
 </project>
