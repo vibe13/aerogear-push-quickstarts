@@ -100,16 +100,16 @@ Run the HelloWorld in JBoss Developer Studio or Eclipse
 -------------------------------------------------------
 
 Import the generated project into JBDS
-![import](doc/import.png)
+![import](../jqm/doc/import.png)
 
 Select the project location and project
-![import-helloworld](doc/import-helloworld.png)
+![import-helloworld](../jqm/doc/import-helloworld.png)
 
 Add the plugin
-![add plugin](doc/plugin-add.png)
+![add plugin](../jqm/doc/plugin-add.png)
 
 Run the project on a device
-![run](doc/run.png)
+![run](../jqm/doc/run.png)
 
 Debug the Application
 =====================
