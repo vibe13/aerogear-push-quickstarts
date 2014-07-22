@@ -174,31 +174,6 @@ Undeploy the Archive
         mvn jboss-as:undeploy
 
 
-Run the Arquillian Functional Tests
------------------------------------
-
-This quickstart provides Arquillian functional tests. They are located under the directory "functional-tests". Functional tests verify that your application behaves correctly from the user's point of view - simulating clicking around the page as a normal user would do.
-
-To run these tests, you must build the main project as described above.
-
-1. Open a command line and navigate to the root directory of this quickstart.
-2. Build the quickstart WAR using the following command:
-
-        mvn clean package
-
-3. Navigate to the functional-tests/ directory in this quickstart.
-4. If you have a running instance of the JBoss EAP server, as described above, run the remote tests by typing the following command:
-
-        mvn clean verify -Parq-jbossas-remote
-
-5. If you prefer to run the functional tests using managed instance of the JBoss EAP server, meaning the tests will start the server for you, type the following command:
-
-_NOTE: For this to work, Arquillian needs to know the location of the JBoss EAP server. This can be declared through the `JBOSS_HOME` environment variable or the `jbossHome` property in `arquillian.xml`. See [Run the Arquillian Tests](../../README.md#run-the-arquillian-tests) for complete instructions and additional options._
-
-        mvn clean verify -Parq-jbossas-managed
-
-
-
 Run the Quickstart in JBoss Developer Studio or Eclipse
 -------------------------------------
 
@@ -223,28 +198,10 @@ First, in the <project-root>/src/main/webapp/index.html file, search for referen
 uncomment the appropriate lines.
 
 Finally, wro4j runs in the compile phase so any standard build command like package, install, etc. will trigger it. 
-The plugin is in a profile with an id of "minify" so you will want to specify that profile in your maven build.
+The plugin is in a profile with an id of "minify" so you will want to specify that profile in your maven build. For example:
 
-NOTE: You must either specify the default profile for no tests or the arquillian test profile to run tests when minifying 
-to avoid test errors. For example:
-
-    #No Tests
     mvn clean package jboss-as:deploy -Pminify,default
 
-OR
-
-    #With Tests
-    mvn clean package jboss-as:deploy -Pminify,arq-jbossas-remote
- 
-Run the Arquillian tests
-============================
-
-By default, tests are configured to be skipped. The reason is that the sample test is an Arquillian test, which requires 
-the use of a container. You can activate this test by selecting one of the container configuration provided  for JBoss.
-
-To run the test in JBoss, first start the container instance. Then, run the test goal with the following profile activated:
-
-    mvn clean test -Parq-jbossas-remote
 
 Run the QUnit tests
 ============================

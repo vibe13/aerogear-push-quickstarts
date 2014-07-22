@@ -152,7 +152,6 @@
                 <activeByDefault>false</activeByDefault>
             </activation>
             <modules>
-                <module>client/contacts-mobile-webapp/functional-tests</module>
                 <module>server/contacts-mobile-picketlink-secured/functional-tests</module>
             </modules>
         </profile>
