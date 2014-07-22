@@ -50,7 +50,7 @@
 
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
         <version.jboss.bom.eap>6.2.2.GA</version.jboss.bom.eap>
-        <version.jboss.bom.wfk>2.6.0-build-1</version.jboss.bom.wfk>
+        <version.jboss.bom.wfk>2.6.0-redhat-1</version.jboss.bom.wfk>
 
         <!-- Define the version of the PicketLink BOM -->
         <version.picketlink>2.5.3.SP5-redhat-1</version.picketlink>
