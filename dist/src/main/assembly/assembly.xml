@@ -30,6 +30,7 @@
          <outputDirectory>/</outputDirectory>
          <excludes>
             <exclude>dist/**</exclude>
+            <exclude>**/functional-tests/**</exclude>
             <exclude>**/target/**</exclude>
             <exclude>**/.project</exclude>
             <exclude>**/.settings/**</exclude>
