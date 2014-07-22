@@ -16,6 +16,11 @@
  */
 package org.jboss.as.quickstarts.contacts.test;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.net.URL;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
@@ -32,11 +37,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 
-import java.net.URL;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 /**
  * Contacts Mobile picketlink secured quickstart functional test
  *
@@ -44,7 +44,7 @@ import static org.junit.Assert.assertTrue;
  */
 @RunAsClient
 @RunWith(Arquillian.class)
-public class ContactsMobilePicketlinkSecuredTest {
+public class ContactsMobileBasicTest {
 
     /**
      * Locator for contact page

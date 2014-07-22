@@ -117,6 +117,7 @@
                     Application Platform or JBoss AS -->
                 <module>server/contacts-mobile-picketlink-secured</module>
                 <module>server/contacts-mobile-proxy</module>
+                <module>client/contacts-mobile-webapp</module>
             </modules>
         </profile>
         <profile>
