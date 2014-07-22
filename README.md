@@ -87,7 +87,7 @@ You can also deploy the quickstarts from Eclipse using JBoss tools. For more inf
 
 Some of the quickstarts provide Arquillian tests. By default, these tests are configured to be skipped, as Arquillian tests an application on a real server, not just in a mocked environment.
 
-You can either start the server yourself or let Arquillian manage its lifecycle during the testing. The individual quickstart README should tell you what to expect in the console output and the server log when you run the test.
+You can either start the server yourself or let Arquillian manage its lifecycle during the testing. The individual quickstart README should tell you what to expect in the console output and the server log when you run the test. Note you would need to build quickstarts first before you can run `functional-tests` profile and even if you enable this profile, you still need to select container runtime via `arq-jbossas-remote` or `arq-jbossas-managed` profile.
 
 
 1. Test the quickstart on a remote server
