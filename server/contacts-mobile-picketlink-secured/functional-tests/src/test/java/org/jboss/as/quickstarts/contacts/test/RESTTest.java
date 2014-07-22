@@ -16,15 +16,17 @@
  */
 package org.jboss.as.quickstarts.contacts.test;
 
+import static org.junit.Assert.assertEquals;
+
+import java.net.URL;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
-import org.bouncycastle.util.encoders.Base64Encoder;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
@@ -37,10 +39,6 @@ import org.json.JSONObject;
 import org.json.JSONStringer;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import java.net.URL;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * Test for REST API of the application
