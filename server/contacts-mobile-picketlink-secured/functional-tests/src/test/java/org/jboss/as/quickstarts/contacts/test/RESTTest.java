@@ -17,17 +17,21 @@
 package org.jboss.as.quickstarts.contacts.test;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
+import org.bouncycastle.util.encoders.Base64Encoder;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.util.Base64;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONStringer;
@@ -47,7 +51,10 @@ import static org.junit.Assert.assertEquals;
 @RunWith(Arquillian.class)
 public class RESTTest {
 
-    private static final String NEW_CONTACT_FIRSTNAME = "John";
+	private static final String USERNAME = "john";
+	private static final String PASSWORD = "john";
+	
+	private static final String NEW_CONTACT_FIRSTNAME = "John";
     private static final String NEW_CONTACT_LASTNAME = "Doe";
     private static final String NEW_CONTACT_EMAIL = "john.doe@redhat.com";
     private static final String NEW_CONTACT_BIRTHDATE = "1970-01-01";
@@ -57,9 +64,10 @@ public class RESTTest {
     private static final String DEFAULT_CONTACT_LASTNAME = "Smith";
     private static final int DEFAULT_CONTACT_ID = 10001;
 
+    private static final String LOGIN_PATH = "rest/security/user/info";
     private static final String API_PATH = "rest/contacts/";
 
-    private final DefaultHttpClient httpClient = new DefaultHttpClient();
+    private final HttpClient httpClient = HttpClientBuilder.create().build();
 
     /**
      * Injects URL on which application is running.
@@ -80,7 +88,10 @@ public class RESTTest {
     @Test
     @InSequence(1)
     public void testGetContact() throws Exception {
-        HttpResponse response = httpClient.execute(new HttpGet(contextPath.toString() + API_PATH + DEFAULT_CONTACT_ID));
+    	
+    	authorize(USERNAME, PASSWORD);
+    	HttpGet get = new HttpGet(contextPath.toString() + API_PATH + DEFAULT_CONTACT_ID);    	    	
+        HttpResponse response = httpClient.execute(get);
 
         assertEquals(200, response.getStatusLine().getStatusCode());
 
@@ -114,7 +125,10 @@ public class RESTTest {
     @Test
     @InSequence(3)
     public void testGetAllContacts() throws Exception {
-        HttpResponse response = httpClient.execute(new HttpGet(contextPath.toString() + API_PATH));
+    	
+    	authorize(USERNAME, PASSWORD);
+    	HttpGet get = new HttpGet(contextPath.toString() + API_PATH);
+        HttpResponse response = httpClient.execute(get);
         assertEquals(200, response.getStatusLine().getStatusCode());
 
         String responseBody = EntityUtils.toString(response.getEntity());
@@ -127,5 +141,16 @@ public class RESTTest {
         assertEquals(NEW_CONTACT_LASTNAME, contacts.getJSONObject(0).getString("lastName"));
         assertEquals(NEW_CONTACT_EMAIL, contacts.getJSONObject(0).getString("email"));
         assertEquals(NEW_CONTACT_PHONE, contacts.getJSONObject(0).getString("phoneNumber"));
+    }
+    
+    private void authorize(String username, String password) throws Exception{
+    	
+    	HttpGet get = new HttpGet(contextPath.toString() + LOGIN_PATH);
+    	
+    	get.addHeader("Authorization", "Basic " + Base64.encodeBytes((username + ":" + password).getBytes()));
+    	
+    	HttpResponse response = httpClient.execute(get);
+    	assertEquals(200, response.getStatusLine().getStatusCode());    	
+    	
     }
 }
