@@ -16,43 +16,41 @@
  */
 package org.jboss.as.quickstarts.contacts.test;
 
+import static com.jayway.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
-import java.net.URL;
+import java.net.URI;
+import java.util.Map;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.util.EntityUtils;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.util.Base64;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.json.JSONStringer;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import com.jayway.restassured.RestAssured;
+import com.jayway.restassured.path.json.JsonPath;
+
 /**
  * Test for REST API of the application
- *
+ * 
  * @author Oliver Kiss
+ * @author Karel Piwko
  */
 @RunAsClient
 @RunWith(Arquillian.class)
 public class RESTTest {
 
-	private static final String USERNAME = "john";
-	private static final String PASSWORD = "john";
-	
-	private static final String NEW_CONTACT_FIRSTNAME = "John";
+    private static final String USERNAME = "john";
+    private static final String PASSWORD = "john";
+
+    private static final String NEW_CONTACT_FIRSTNAME = "John";
     private static final String NEW_CONTACT_LASTNAME = "Doe";
     private static final String NEW_CONTACT_EMAIL = "john.doe@redhat.com";
     private static final String NEW_CONTACT_BIRTHDATE = "1970-01-01";
@@ -62,20 +60,15 @@ public class RESTTest {
     private static final String DEFAULT_CONTACT_LASTNAME = "Smith";
     private static final int DEFAULT_CONTACT_ID = 10001;
 
-    private static final String LOGIN_PATH = "rest/security/user/info";
-    private static final String API_PATH = "rest/contacts/";
-
-    private final HttpClient httpClient = HttpClientBuilder.create().build();
-
     /**
      * Injects URL on which application is running.
      */
     @ArquillianResource
-    URL contextPath;
+    URI contextPath;
 
     /**
      * Creates deployment which is sent to the container upon test's start.
-     *
+     * 
      * @return war file which is deployed while testing, the whole application in our case
      */
     @Deployment(testable = false)
@@ -83,72 +76,92 @@ public class RESTTest {
         return Deployments.contacts();
     }
 
+    @Before
+    public void setContextPath() {
+        // set base path according to URL returned by Arquillian
+        RestAssured.baseURI = contextPath.getScheme() + "://" + contextPath.getHost();
+        RestAssured.port = contextPath.getPort();
+        RestAssured.basePath = contextPath.getPath();
+
+        // uncomment this line if you want to log requests and responses
+        // RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
+    }
+
     @Test
     @InSequence(1)
     public void testGetContact() throws Exception {
-    	
-    	authorize(USERNAME, PASSWORD);
-    	HttpGet get = new HttpGet(contextPath.toString() + API_PATH + DEFAULT_CONTACT_ID);    	    	
-        HttpResponse response = httpClient.execute(get);
 
-        assertEquals(200, response.getStatusLine().getStatusCode());
+        auth(USERNAME, PASSWORD);
 
-        String responseBody = EntityUtils.toString(response.getEntity());
-        JSONObject contact = new JSONObject(responseBody);
+        JsonPath json = given().cookies(auth(USERNAME, PASSWORD))
+            .when()
+            .get("/rest/contacts/{contactId}", DEFAULT_CONTACT_ID)
+            .then()
+            .statusCode(is(200))
+            .extract()
+            .jsonPath();
 
-        assertEquals(DEFAULT_CONTACT_ID, contact.getInt("id"));
-        assertEquals(DEFAULT_CONTACT_FIRSTNAME, contact.getString("firstName"));
-        assertEquals(DEFAULT_CONTACT_LASTNAME, contact.getString("lastName"));
+        assertEquals(DEFAULT_CONTACT_ID, json.get("id"));
+        assertEquals(DEFAULT_CONTACT_FIRSTNAME, json.get("firstName"));
+        assertEquals(DEFAULT_CONTACT_LASTNAME, json.get("lastName"));
     }
 
     @Test
     @InSequence(2)
     public void testAddContact() throws Exception {
-        HttpPost post = new HttpPost(contextPath.toString() + API_PATH);
-        post.setHeader("Content-Type", "application/json");
-        String newContactJSON = new JSONStringer().object()
-                .key("firstName").value(NEW_CONTACT_FIRSTNAME)
-                .key("lastName").value(NEW_CONTACT_LASTNAME)
-                .key("email").value(NEW_CONTACT_EMAIL)
-                .key("phoneNumber").value(NEW_CONTACT_PHONE)
-                .key("birthDate").value(NEW_CONTACT_BIRTHDATE)
-                .endObject().toString();
-        post.setEntity(new StringEntity(newContactJSON));
 
-        HttpResponse response = httpClient.execute(post);
+        Contact contact = new Contact();
+        contact.setFirstName(NEW_CONTACT_FIRSTNAME);
+        contact.setLastName(NEW_CONTACT_LASTNAME);
+        contact.setEmail(NEW_CONTACT_EMAIL);
+        contact.setPhoneNumber(NEW_CONTACT_PHONE);
+        contact.setBirthDate(NEW_CONTACT_BIRTHDATE);
 
-        assertEquals(200, response.getStatusLine().getStatusCode());
+        given().contentType("application/json; charset=UTF-8")
+            .body(contact)
+            .when()
+            .post("/rest/contacts")
+            .then()
+            .statusCode(is(200));
+
     }
 
     @Test
     @InSequence(3)
     public void testGetAllContacts() throws Exception {
-    	
-    	authorize(USERNAME, PASSWORD);
-    	HttpGet get = new HttpGet(contextPath.toString() + API_PATH);
-        HttpResponse response = httpClient.execute(get);
-        assertEquals(200, response.getStatusLine().getStatusCode());
 
-        String responseBody = EntityUtils.toString(response.getEntity());
-        JSONArray contacts = new JSONArray(responseBody);
+        Contact[] contacts = given().cookies(auth(USERNAME, PASSWORD))
+            .when()
+            .get("/rest/contacts/")
+            .then()
+            .statusCode(is(200))
+            .extract()
+            .as(Contact[].class);
 
-        assertEquals(3, contacts.length());
+        assertThat(contacts.length, is(3));
 
-        assertEquals(1, contacts.getJSONObject(0).getInt("id"));
-        assertEquals(NEW_CONTACT_FIRSTNAME, contacts.getJSONObject(0).getString("firstName"));
-        assertEquals(NEW_CONTACT_LASTNAME, contacts.getJSONObject(0).getString("lastName"));
-        assertEquals(NEW_CONTACT_EMAIL, contacts.getJSONObject(0).getString("email"));
-        assertEquals(NEW_CONTACT_PHONE, contacts.getJSONObject(0).getString("phoneNumber"));
+        Contact john = contacts[0];
+
+        assertThat(john.getFirstName(), is(NEW_CONTACT_FIRSTNAME));
+        assertThat(john.getLastName(), is(NEW_CONTACT_LASTNAME));
+        assertThat(john.getEmail(), is(NEW_CONTACT_EMAIL));
+        assertThat(john.getBirthDate(), is(NEW_CONTACT_BIRTHDATE));
+        assertThat(john.getPhoneNumber(), is(NEW_CONTACT_PHONE));
     }
-    
-    private void authorize(String username, String password) throws Exception{
-    	
-    	HttpGet get = new HttpGet(contextPath.toString() + LOGIN_PATH);
-    	
-    	get.addHeader("Authorization", "Basic " + Base64.encodeBytes((username + ":" + password).getBytes()));
-    	
-    	HttpResponse response = httpClient.execute(get);
-    	assertEquals(200, response.getStatusLine().getStatusCode());    	
-    	
+
+    // get authentication cookie
+    private static Map<String, String> auth(String username, String password) {
+
+        return given().auth()
+            .preemptive()
+            .basic(username, password)
+            .when()
+            .get("/rest/security/user/info")
+            .then()
+            .statusCode(is(200))
+            .extract()
+            .response()
+            .getCookies();
+
     }
 }

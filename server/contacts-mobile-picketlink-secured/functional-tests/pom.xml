@@ -16,7 +16,7 @@
     limitations under the License.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss.as.quickstarts.wfk</groupId>
@@ -35,10 +35,8 @@
     </licenses>
 
     <properties>
-        <!-- Explicitly declaring the source encoding eliminates the following
-                                 message: -->
-        <!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered
-                         resources, i.e. build is platform dependent! -->
+        <!-- Explicitly declaring the source encoding eliminates the following message: -->
+        <!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent! -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- JBoss dependency versions -->
@@ -46,6 +44,7 @@
 
         <!-- Define the version of the JBoss BOMs we want to import. The JBoss BOMs specify tested stacks. -->
         <version.jboss.bom.wfk>2.6.0-redhat-1</version.jboss.bom.wfk>
+        <version.jboss.bom.aerogear>0.2.3</version.jboss.bom.aerogear>
 
         <!-- other plugin versions -->
         <version.surefire.plugin>2.17</version.surefire.plugin>
@@ -75,16 +74,36 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <!-- RESTAssured dependency -->
+            <dependency>
+                <groupId>org.jboss.aerogear</groupId>
+                <artifactId>aerogear-test-bom</artifactId>
+                <version>${version.jboss.bom.aerogear}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
 
     <dependencies>
+
         <dependency>
-            <groupId>org.jboss.arquillian.graphene</groupId>
-            <artifactId>graphene-webdriver</artifactId>
+            <groupId>com.jayway.restassured</groupId>
+            <artifactId>rest-assured</artifactId>
             <scope>test</scope>
-            <type>pom</type>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jayway.restassured</groupId>
+            <artifactId>json-path</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.2.4</version>
         </dependency>
 
         <dependency>
@@ -99,12 +118,6 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>20090211</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <profiles>
