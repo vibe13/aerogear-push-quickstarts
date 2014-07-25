@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.quickstarts.wfk</groupId>
     <artifactId>jboss-contacts-mobile-picketlink-secured</artifactId>
-    <version>1.0.0.Beta1</version>
+    <version>1.0.0.Beta2-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <name>JBoss WFK Quickstart: contacts-mobile-picketlink-secured</name>
