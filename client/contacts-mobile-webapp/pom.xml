@@ -16,11 +16,11 @@
     limitations under the License.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    
+
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jboss.quickstarts.wfk</groupId>
     <artifactId>jboss-contacts-mobile-webapp</artifactId>
-    <version>2.6.0-SNAPSHOT</version>
+    <version>1.0.0.Beta1</version>
     <packaging>war</packaging>
     <name>JBoss WFK Quickstart: contacts-mobile-webapp</name>
     <description>A HTML5 mobile web application for use with JBoss.</description>
@@ -36,11 +36,11 @@
         <!-- Explicitly declaring the source encoding eliminates the following message: -->
         <!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent! -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        
+
         <!-- You can reference property in pom.xml or filtered resources (must enable third-party plugin if using Maven < 2.1) -->
-        
+
         <!-- JBoss dependency versions -->
- 
+
         <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
 
         <!-- Other dependency versions -->
@@ -55,12 +55,12 @@
         <maven.compiler.target>1.6</maven.compiler.target>
         <maven.compiler.source>1.6</maven.compiler.source>
     </properties>
-    
+
     <dependencies>
     </dependencies>
-    
+
     <build>
-        <!-- Maven will append the version to the finalName (which is the name given to the generated war, and hence the context 
+        <!-- Maven will append the version to the finalName (which is the name given to the generated war, and hence the context
             root) -->
         <finalName>${project.artifactId}</finalName>
         <plugins>
@@ -79,7 +79,7 @@
                 <artifactId>jboss-as-maven-plugin</artifactId>
                 <version>${version.jboss.maven.plugin}</version>
             </plugin>
-            
+
         </plugins>
     </build>
     <profiles>
@@ -192,5 +192,5 @@
             </build>
         </profile>
     </profiles>
-    
+
 </project>
