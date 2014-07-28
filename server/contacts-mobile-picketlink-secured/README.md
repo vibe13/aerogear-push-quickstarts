@@ -101,40 +101,9 @@ Build and Deploy the Quickstart
 Access the application
 ----------------------
 
-Access the running client application in a browser at the following URL: <http://localhost:8080/jboss-contacts-mobile-picketlink-secured/>.
-
-The application is made up of the following pages:
-
-**Main page**
-
-* Displays a list of contacts
-* Search bar for the list
-* Details button changes to the Detailed list
-* Clicking on a contact brings up an Edit form
-* Menu button (in upper left) opens menu
-
-**Menu pullout**
-
-* Add a new Contact
-* List/Detail view switcher, depending on what is currently displayed
-* About information
-* Theming - apply various themes (only on the List view)
-
-**Details page**
-
-* Same as Main page except all information is displayed with each contact
-
-**Add form**
-
-* First name, Last name, Phone, Email, and BirthDate fields
-* Save = submit the form
-* Clear = reset the form but stay on the form
-* Cancel = reset the form and go the Main page
-
-**Edit form**
-
-* Same as Add form
-* Delete button will delete the contact currently viewed and return you to the Main page
+This backend application is used by multiple clients, one of the being the [contacts-mobile-webapp](../../client/contacts-mobile-webapp).
+Please follow the ```Build and Deploy the Quickstart``` instructions in [contacts-mobile-webapp](../../client/contacts-mobile-webapp)
+which describe how to build, deploy, and access the web application.
 
 FAQ
 --------------------
