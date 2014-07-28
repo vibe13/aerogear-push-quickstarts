@@ -163,31 +163,6 @@ see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](../../README.
 You can also deploy the application directly to OpenShift, Red Hat's cloud based PaaS offering, follow the 
 instructions [here](https://community.jboss.org/wiki/DeployingHTML5ApplicationsToOpenshift)
 
-Minification
-============================
-
-By default, the project uses the [wro4j](http://code.google.com/p/wro4j/) plugin, which provides the ability to concatenate, 
-validate and minify JavaScript and CSS files. These minified files, as well as their unmodified versions are deployed with the project.
-
-With just a few quick changes to the project, you can link to the minified versions of your JavaScript and CSS files.
-
-First, in the <project-root>/src/main/webapp/index.html file, search for references to minification and comment or 
-uncomment the appropriate lines.
-
-Finally, wro4j runs in the compile phase so any standard build command like package, install, etc. will trigger it. 
-The plugin is in a profile with an id of "minify" so you will want to specify that profile in your maven build.
-
-NOTE: You must either specify the default profile for no tests or the arquillian test profile to run tests when minifying 
-to avoid test errors. For example:
-
-    #No Tests
-    mvn clean package jboss-as:deploy -Pminify,default
-
-OR
-
-    #With Tests
-    mvn clean package jboss-as:deploy -Pminify,arq-jbossas-remote
- 
 Run the Arquillian tests
 ============================
 
@@ -197,25 +172,6 @@ the use of a container. You can activate this test by selecting one of the conta
 To run the test in JBoss, first start the container instance. Then, run the test goal with the following profile activated:
 
     mvn clean test -Parq-jbossas-remote
-
-Run the QUnit tests
-============================
-
-QUnit is a JavaScript unit testing framework used and built by jQuery. Because JavaScript code is the core of this HTML5 
-application, this quickstart provides a set of QUnit tests that automate testing of this code in various browsers. Executing 
-QUnit test cases are quite easy. 
-
-
-Simply load the following HTML in the browser you wish to test.
-
-        QUICKSTART_HOME/contacts-mobile-picketlink-secured/src/test/qunit/index.html
-
-_Note:_ If you use **Chrome**, some date tests fail. These are false failures and are known issues with Chrome. FireFox, Safari, and IE run the tests correctly. 
-
-You can also display the tests using the Eclipse built-in browser.
-
-For more information on QUnit tests see http://docs.jquery.com/QUnit
-
 
 Import the Project into an IDE
 =================================
