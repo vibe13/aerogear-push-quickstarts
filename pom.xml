@@ -26,7 +26,7 @@
     <packaging>pom</packaging>
     <name>AeroGear UnifiedPush Quickstart</name>
     <description>AeroGear UnifiedPush Quickstarts</description>
-    <url>https://github.com/smiklosovic/aerogear-push-quickstarts</url>
+    <url>https://github.com/aerogear/aerogear-push-quickstarts</url>
 
     <licenses>
         <license>
