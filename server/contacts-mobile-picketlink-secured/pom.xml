@@ -46,6 +46,8 @@
 
         <!-- JBoss dependency versions -->
 
+        <version.unifiedpush.java.client>0.8.0</version.unifiedpush.java.client>
+
         <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
 
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
@@ -240,7 +242,7 @@
         <dependency>
             <groupId>org.jboss.aerogear</groupId>
             <artifactId>unifiedpush-java-client</artifactId>
-            <version>0.8.0</version>
+            <version>${version.unifiedpush.java.client}</version>
         </dependency>
 
         <!-- CORS filter so we can reach the server from remote javascript -->
