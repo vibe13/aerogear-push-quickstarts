@@ -240,7 +240,7 @@
         <dependency>
             <groupId>org.jboss.aerogear</groupId>
             <artifactId>unifiedpush-java-client</artifactId>
-            <version>0.7.0</version>
+            <version>0.8.0</version>
         </dependency>
 
         <!-- CORS filter so we can reach the server from remote javascript -->
