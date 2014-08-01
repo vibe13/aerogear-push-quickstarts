@@ -23,7 +23,7 @@ Pre-requisites
 ---------
 
 * Both the [Contacts](https://github.com/jboss-developer/jboss-wfk-quickstarts/contacts-mobile-picketlink-secured) and the [AeroGear UnifiedPush Server](https://github.com/aerogear/aerogear-unifiedpush-server/tree/0.10.x) applications up and running. Follow the documentation of each respective project to set them up.
-* A valid configured variant on the UPS admin console as well as a valid Apple Provisioning profile because you will need to test on device (Push notifications are not available on simulator). Follow the documentation on the [UPS guide](http://aerogear.org/docs/guides/aerogear-push-ios/) to set them up.
+* A valid configured variant on the UPS admin console as well as a valid Apple Provisioning profile because you will need to test on device (Push notifications are not available on simulator). Follow the documentation on the [UPS guide](http://aerogear.org/docs/unifiedpush/aerogear-push-ios/) to set them up.
 * Replace the name of the '_Bundle ID_ ' with the name that you have associated with your certificate. 
 Click on the 'Contacts target -> General' and modify the _Bundle Identifier_:
 
@@ -42,7 +42,7 @@ Build and Deploy the Contacts
 In '_AGLoginViewController.m_' modify the URL, variant and secret to match your AeroGear UnifiedPush server configuration. 
 
 NOTE:
-You can copy/paste these settings from the [UnifiedPush Administration console](http://aerogear.org/docs/guides/AdminConsoleGuide/).
+You can copy/paste these settings from the [UnifiedPush Administration console](http://aerogear.org/docs/unifiedpush/ups_userguide/admin-ui/).
 
 ```objective-c
 AGDeviceRegistration *registration = [[AGDeviceRegistration alloc] initWithServerURL:[NSURL URLWithString:@"<# URL of the running AeroGear UnifiedPush Server #>"]];
