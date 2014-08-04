@@ -36,6 +36,12 @@ If you have not yet done so, you must [Configure Maven](../README.md#configure-m
 Build and Deploy the HelloWorld
 -------------------------------
 
+## iOS
+For iOS you'll need a valid provisioning profile as you will need to test on an actual device (push notification is not available when using a simulator)
+Replace the bundleId with your bundleId (the one associated of your certificate), by editing the config.xml in the root of this project change the id attribute of the `widget` node. After that run a `cordova platform rm ios` followed by `cordova platform add ios` to change the Xcode project template.
+
+If you want to change your bundleId later on, you will still have to run a `cordova platform rm ios` followed by `cordova platform add ios` to change the Xcode project template.
+
 ## Change Push Configuration
 
 In www/js/app.js find the pushConfig (at the bottom) and change the server url to your openshift instance alias and variant/secret:
@@ -74,10 +80,6 @@ Add the plugin
 ```
 cordova plugin add org.jboss.aerogear.cordova.push
 ```
-
-### iOS
-For iOS you'll need a valid provisioning profile as you will need to test on device (push notification not available on simulator)
-Replace the bundleId with your bundleId (the one associated of your certificate), by editing the config.xml in the root of this project change the id attribute of the `widget` node. After that run a `cordova platform rm ios` followed by `cordova platform add ios` to change the xcode project template. 
 
 Run the application on a device
 ```
