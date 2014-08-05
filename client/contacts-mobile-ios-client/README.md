@@ -22,7 +22,7 @@ System requirements
 Pre-requisites
 ---------
 
-* Both the [Contacts](https://github.com/jboss-developer/jboss-wfk-quickstarts/contacts-mobile-picketlink-secured) and the [AeroGear UnifiedPush Server](https://github.com/aerogear/aerogear-unifiedpush-server/tree/0.10.x) applications up and running. Follow the documentation of each respective project to set them up.
+* Both the [Contacts](https://github.com/jboss-developer/jboss-wfk-quickstarts/contacts-mobile-picketlink-secured) and the [AeroGear UnifiedPush Server](https://github.com/aerogear/aerogear-unifiedpush-server) applications up and running. Follow the documentation of each respective project to set them up.
 * A valid configured variant on the UPS admin console as well as a valid Apple Provisioning profile because you will need to test on device (Push notifications are not available on simulator). Follow the documentation on the [UPS guide](http://aerogear.org/docs/unifiedpush/aerogear-push-ios/) to set them up.
 * Replace the name of the '_Bundle ID_ ' with the name that you have associated with your certificate. 
 Click on the 'Contacts target -> General' and modify the _Bundle Identifier_:

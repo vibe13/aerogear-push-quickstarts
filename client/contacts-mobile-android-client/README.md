@@ -22,7 +22,7 @@ This project is an Android mobile front-end to the [Contacts](https://github.com
 
 ## Pre-requisites
 
-* Both the [Contacts](https://github.com/jboss-developer/jboss-wfk-quickstarts/contacts-mobile-picketlink-secured) and the [AeroGear UnifiedPush Server](https://github.com/aerogear/aerogear-unifiedpush-server/tree/0.10.x) applications up and running. Follow the documentation of each respective project to set them up.
+* Both the [Contacts](https://github.com/jboss-developer/jboss-wfk-quickstarts/contacts-mobile-picketlink-secured) and the [AeroGear UnifiedPush Server](https://github.com/aerogear/aerogear-unifiedpush-server) applications up and running. Follow the documentation of each respective project to set them up.
 * A valid configured variant on the UPS admin console as well as a valid Google API Key, and a device (Push notifications are not available on simulator). Follow the documentation on the [UPS guide](http://aerogear.org/docs/unifiedpush/aerogear-push-android/) to set them up.
 
 
