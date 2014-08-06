@@ -44,7 +44,7 @@
 
         <!-- Define the version of the JBoss BOMs we want to import. The JBoss BOMs specify tested stacks. -->
         <version.jboss.bom.wfk>2.6.0-redhat-1</version.jboss.bom.wfk>
-        <version.jboss.bom.aerogear>0.2.3</version.jboss.bom.aerogear>
+        <version.jboss.bom.aerogear>0.2.5</version.jboss.bom.aerogear>
 
         <!-- other plugin versions -->
         <version.surefire.plugin>2.17</version.surefire.plugin>
@@ -103,7 +103,7 @@
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
-            <version>2.2.4</version>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
