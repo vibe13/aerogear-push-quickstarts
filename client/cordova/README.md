@@ -44,7 +44,7 @@ If you want to change your bundleId later on, you will still have to run a `cord
 
 ## Change Push Configuration
 
-There are 2 examples for cordova one is build using jquery mobile and one with angular. The README.md located in these directories will direct you to the settings you'll need to change to setup push notifications.
+There are 2 examples for cordova one is build using [jquery mobile](jqm) and one with [angular](angular). The README.md located in these directories will direct you to the settings you'll need to change to setup push notifications.
 
 After changing the push configuration you can install the platforms you want to install the cordova app on currently only android and ios are supported.
 
