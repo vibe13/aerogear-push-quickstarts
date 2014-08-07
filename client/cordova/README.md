@@ -1,11 +1,11 @@
 cordova: CRUD contact Mobile Application showing the AeroGear Push feature 
 ==========================================================================
 Author: Erik Jan de Wit (edewit)
-Level: Beginner  
-Technologies: JavaScript Cordova
-Summary: A crud mobile app with push integrated
+Level: Beginner
+Technologies: JavaScript Cordova              
+Summary: A crud mobile app with push integrated       
 Target Product: Mobile  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3  
+Product Versions: EAP 6.1, EAP 6.2, EAP 6.3
 Source: https://github.com/aerogear/aerogear-push-quickstarts/
 
 What is it?
@@ -61,7 +61,7 @@ cordova plugin add org.jboss.aerogear.cordova.push
 
 Run the application on a device
 ```
-cordova run &lt;android or ios>
+cordova run <android or ios>
 ```
 
 Application Flow
@@ -80,16 +80,16 @@ FAQ
 Run the HelloWorld in JBoss Developer Studio or Eclipse
 -------------------------------------------------------
 
-Import the generated project into JBDS
+- Import the generated project into JBDS
 ![import](doc/import.png)
 
-Select the project location and project
+- Select the project location and project
 ![import-helloworld](doc/import-helloworld.png)
 
-Add the plugin
+- Add the plugin  
 ![add plugin](doc/plugin-add.png)
 
-Run the project on a device
+- Run the project on a device
 ![run](doc/run.png)
 
 Debug the Application
@@ -98,7 +98,7 @@ Debug the Application
 Start a browser chrome for android or safari for iOS
 
 iOS 
-* Develop -> &lt;device name> -> index.html
+* Develop -> < device name > -> index.html
 
 Android
 * Menu -> Tools -> Inspect Devices -> inspect
