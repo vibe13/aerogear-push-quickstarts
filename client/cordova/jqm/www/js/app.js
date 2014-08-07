@@ -25,6 +25,31 @@ CONTACTS.namespace("CONTACTS.app.restEndpoint");
 CONTACTS.app.baseUrl = "< backend URL e.g http(s)//host:port >/jboss-contacts-mobile-picketlink-secured";
 CONTACTS.app.restEndpoint = CONTACTS.app.baseUrl + "/rest/contacts";
 
+$( document ).on( "deviceready", function() {
+    var pushConfig = {
+        pushServerURL: "<pushServerURL e.g http(s)//host:port/context >",
+        alias: "<alias e.g. a username or an email address optional>",
+        android: {
+          senderID: "<senderID e.g Google Project ID only for android>",
+          variantID: "<variantID e.g. 1234456-234320>",
+          variantSecret: "<variantSecret e.g. 1234456-234320>"
+        },
+        ios: {
+          variantID: "<variantID e.g. 1234456-234320>",
+          variantSecret: "<variantSecret e.g. 1234456-234320>"
+        }
+    };
+    push.register(CONTACTS.app.onNotification, successHandler, errorHandler, pushConfig);
+
+    function successHandler() {
+        console.log('successful registered');
+    }
+
+    function errorHandler(error) {
+        alert('error registering ' + error);
+    }
+});
+
 CONTACTS.app.onNotification = function(event) {
     var notify = $('#notification');
     $('#notification span').text(event.alert);
@@ -250,30 +275,4 @@ $( document ).on( "pagecreate", function(mainEvent) {
     };
 
     console.log(getCurrentTime() + " [js/app.js] (document -> pagecreate) - end");
-});
-
-
-$( document ).on( "deviceready", function() {
-    var pushConfig = {
-        pushServerURL: "<pushServerURL e.g http(s)//host:port/context >",
-        alias: "<alias e.g. a username or an email address optional>",
-        android: {
-          senderID: "<senderID e.g Google Project ID only for android>",
-          variantID: "<variantID e.g. 1234456-234320>",
-          variantSecret: "<variantSecret e.g. 1234456-234320>"
-        },
-        ios: {
-          variantID: "<variantID e.g. 1234456-234320>",
-          variantSecret: "<variantSecret e.g. 1234456-234320>"
-        }
-    };
-    push.register(CONTACTS.app.onNotification, successHandler, errorHandler, pushConfig);
-
-    function successHandler() {
-        console.log('successful registered');
-    }
-
-    function errorHandler(error) {
-        alert('error registering ' + error);
-    }
 });
