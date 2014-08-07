@@ -16,9 +16,11 @@ This project is a very crud application where you can manage contacts integrated
 System requirements
 -------------------
 
-What is needed for Android / iOS / Cordova:
+What is needed for Cordova:
 
-install cordova
+The Cordova command line tooling is based on node.js so first you'll need to [install node](http://nodejs.org/download/)
+
+then you can install Cordova by executing:
 ```
 npm install -g cordova
 ```
