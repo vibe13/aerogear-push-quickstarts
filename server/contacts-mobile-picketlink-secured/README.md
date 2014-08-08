@@ -1,42 +1,18 @@
-contacts-mobile-picketlink-secured: Example Application Using Multiple HTML5, Mobile & JAX-RS Technologies 
+contacts-mobile-picketlink-secured: Example Application JAX-RS Technologies & Push
 =========================================================================================================
-Author: Joshua Wilson, Pedro Igor  
+Author: Joshua Wilson, Pedro Igor, Erik Jan De Wit, Daniel Bevenius
 Level: Beginner  
-Technologies: jQuery Mobile, jQuery, JavaScript, HTML5, REST  
-Summary: A PicketLink secured example of CRUD operations in a mobile only website.  
-Target Product: WFK  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3, WFK 2.6  
+Technologies: REST, UnifiedPush Java Client, PicketLink
+Summary: A PicketLink secured example of CRUD REST endpoints.
+Target Product: MP
+Product Versions: EAP 6.1, EAP 6.2, EAP 6.3
 Source: <https://github.com/aerogear/aerogear-push-quickstarts/tree/master/server/contacts-mobile-picketlink-secured>
 
 What is it?
 -----------
-This quickstart demonstrates how to create a PicketLink secured Java EE 6 application using HTML5, jQuery Mobile, JAX-RS, 
+This quickstart demonstrates how to create a PicketLink secured Java EE 6 application using JAX-RS,
 CDI 1.0, EJB 3.1, JPA 2.0 and Bean Validation 1.0.
 
-This application is built using a HTML5 + REST approach.  This uses a pure HTML client that interacts with with the 
-application server via restful end-points (JAX-RS).  This application also uses some of the latest HTML5 features and 
-advanced JAX-RS. And since testing is just as important with client side as it is server side, this application uses 
-QUnit to show you how to unit test your JavaScript.
-
-This application focuses on **CRUD** in a strictly mobile app using only **jQuery Mobile**(no other frameworks). The user will have
-the ability to:
-
-* **Create** a new contact.
-
-* **Read** a list of contacts.
-
-* **Update** an existing contact.
-
-* **Delete** a contact.
-
-**Validation** is another important part of an application.  Typically in an HTML5 application you can let the built-in HTML5 form validation
-do the work for you.  However in a mobile application it doesn't work, the mobile browsers just don't support it at this time. 
-In order to validate the forms we added a plugin, jquery.validate. We provide both client-side and server-side validation 
-through this plugin.  Over AJAX, if there is an error, the error is returned and displayed in the form.  You can see an 
-example of this in the Edit form if you enter an email that is already in use.  There will be 3 errors on the screen; 
-1 in the 'email' field and 2 at the top of the screen.  The application will attempt to insert the error message into a 
-field if that field exists.  If the field does not exist then it display it at the top. In addition, there are 
-[qunit tests](#run-the-qunit-tests) for every form of validation.  
 
 *Note: This quickstart uses the following Jackson libraries that are a part of the JBoss EAP private API.*
 
@@ -53,12 +29,6 @@ The application this project produces is designed to be run on Red Hat JBoss Ent
 later with the  Red Hat JBoss Web Framework Kit (WFK) 2.5.
 
 All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
-
-An HTML5 compatible browser such as Chrome, Safari 5+, Firefox 5+, or IE 9+ are required. and note that some behaviors 
-will vary slightly (ex. validations) based on browser support, especially IE 9.
-
-Mobile web support is limited to Android and iOS devices.  It should run on HP, and Black Berry devices as well.  
-Windows Phone, and others will be supported as  jQuery Mobile announces support.
  
 With the prerequisites out of the way, you're ready to build and deploy.
 
@@ -67,6 +37,20 @@ Configure Maven
 ---------------
 
 If you have not yet done so, you must [Configure Maven](../../README.md#configure-maven) before testing the quickstarts.
+
+Configure the UnifiedPush Java Sender
+---------------
+
+1. Open ``` src/main/java/org/jboss/quickstarts/wfk/contacts/ContactCreationPushNotifier.java ```
+2. Set the ``` SERVER_URL ```, the ``` PUSH_APPLICATION_ID ``` and the ``` MASTER_SECRET ```
+
+```
+    public static final String SERVER_URL = "<pushServerURL e.g http(s)//host:port/context >";
+    public static final String PUSH_APPLICATION_ID = "<push application id e.g. 1234456-234320>";
+    public static final String MASTER_SECRET = "<master secret e.g. 1234456-234320>";
+```
+
+*Note: You will need to setup an UnifiedPush Server instance to send Push Notifications and communicate with your backend, more information can be found [here](http://aerogear.org/docs/unifiedpush/)
 
 
 Start the JBoss EAP Server
