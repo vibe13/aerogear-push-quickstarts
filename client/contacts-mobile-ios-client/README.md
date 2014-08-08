@@ -6,7 +6,7 @@ Technologies: Objective-C, iOS
 Summary: A Contacts CRUD mobile application with Push notification integration.  
 Target Product: Mobile  
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3  
-Source: https://github.com/aerogear/aerogear-push-quickstarts/ios
+Source: https://github.com/aerogear/aerogear-push-quickstarts/tree/master/client/contacts-mobile-ios-client
 
 What is it?
 -----------
@@ -39,7 +39,7 @@ Build and Deploy the Contacts
 
 ## Change Push Configuration
 
-In '_AGLoginViewController.m_' modify the URL, variant and secret to match your AeroGear UnifiedPush server configuration. 
+In '_Controllers/AGLoginViewController.m_' modify the URL, variant and secret to match your AeroGear UnifiedPush server configuration. 
 
 NOTE:
 You can copy/paste these settings from the [UnifiedPush Administration console](http://aerogear.org/docs/unifiedpush/ups_userguide/admin-ui/).
@@ -52,7 +52,7 @@ AGDeviceRegistration *registration = [[AGDeviceRegistration alloc] initWithServe
 ---
 ```
 
-After the Push settings are configured, open '_AGContactsNetworker.m_' and modify the URL to match the path to the Contacts server backend.
+After the Push settings are configured, open '_Networking/AGContactsNetworker.m_' and modify the URL to match the path to the Contacts server backend.
 
 ```objective-c
 static NSString * const kAPIBaseURLString = @"<# URL of the Contacts application backend #>";
@@ -75,7 +75,7 @@ Clicking a Contact reveals the edit screen where you can modify his/her details.
 Receiving Notifications
 ----------------------
 
-To test that you can successfully receive notifications when a new contact is created, open the web interface of the application (you can also use the [Android variant](https://github.com/aerogear/aerogear-push-quickstarts/client/android)) and try to add a new Contact. Once done, and if the application is successfully configured, immediately you will see the notification popping up on the screen.
+To test that you can successfully receive notifications when a new contact is created, open the web interface of the application (you can also use the [Android variant](https://github.com/aerogear/aerogear-push-quickstarts/tree/master/client/contacts-mobile-android-client)) and try to add a new Contact. Once done, and if the application is successfully configured, immediately you will see the notification popping up on the screen.
 
 ![contact details](doc/notification.png)
 
