@@ -69,9 +69,8 @@ cordova run <android or ios>
 Application Flow
 ----------------------
 
-## Sign up
-When you first launch the application sign up as a new user. Username should be an email address, after signing up you can sign in with your created username and password. Now you'll see some 'dummy' users. To test that you can receive push notifications go to the UnifiedPush server console and choose 'Compose message' type a message and see that it's received on the device.
-
+## Sign in
+You can sign in with one of the [default users](https://github.com/aerogear/aerogear-push-quickstarts/tree/master/client#default-users)
 
 
 FAQ
