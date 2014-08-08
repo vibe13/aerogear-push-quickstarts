@@ -21,7 +21,7 @@ Configure Maven
 
 The quickstarts use artifacts located in the JBoss GA and Early Access repositories. You must configure Maven to use these repositories before you build and deploy the quickstarts.
 
-_Note: These instructions assume you are working with a released version of the quickstarts. If you are working with the quickstarts located in the GitHub master branch, follow the instructions located in the [Contributing Guide](CONTRIBUTING.md#configure-maven)._
+_Note: These instructions assume you are working with a released version of the quickstarts. If you are working with the quickstarts located in the GitHub master branch, follow the instructions located in the [Contributing Guide](https://github.com/jboss-developer/jboss-wfk-quickstarts/blob/2.7.x-develop/CONTRIBUTING.md#configure-maven)._
 
 1. Locate the Maven install directory for your operating system. It is usually installed in `${user.home}/.m2/`.
 
@@ -45,7 +45,7 @@ _Note: These instructions assume you are working with a released version of the 
             For Windows: copy QUICKSTART_HOME/settings.xml "\Documents and Settings\USER_NAME\.m2\settings.xml"
                     -or- copy QUICKSTART_HOME/settings.xml "\Users\USER_NAME\.m2\settings.xml"
 
-_Note:_ If you do not wish to configure the Maven settings, you must pass the configuration setting on every Maven command as follows: ` -s QUICKSTART_HOME/settings.xml`
+_Note:_ If you do not wish to configure the Maven settings, you must pass the configuration setting on every Maven command as follows: ` -s QUICKSTART_HOME/settings.xml` for a released version of the quickstarts, for GitHub master branch use ` -s QUICKSTART_HOME/contributor-settings.xml `.
 
 ### Restore Your Maven Configuration When You Finish Testing the Quickstarts
 
