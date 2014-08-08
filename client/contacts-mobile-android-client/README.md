@@ -30,15 +30,24 @@ This project is an Android mobile front-end to the [Contacts](https://github.com
 
 ### Change Push Configuration
 
-At src/org/jboss/aerogear/unifiedpush/quickstart/Constants.java find replace Contacts URL, UPS URL, variant, secret and GCM sender id:
-
-
+In [Contacts.java](./src/org/jboss/aerogear/unifiedpush/quickstart/Constants.java) find and replace BASE_URL,
+UNIFIED_PUSH_URL, VARIANT_ID, SECRET and GCM_SENDER_ID:
 ```
-String BASE_URL = "";
+// This is the base url for the contacts-mobile-picketlink-secured application.  
+// For example (your IP/hostname will differ):  
+String BASE_URL = "http://192.168.1.157:8080/jboss-contacts-mobile-picketlink-secured";
 
-String UNIFIED_PUSH_URL = "";
+// This is the URL to the Unified Push Server.  
+// For example (your IP/hostname will differ):  
+String UNIFIED_PUSH_URL = "http://192.168.1.157:8080/ag-push";
+
+// The variant id that which was generated when registering the variant.  
 String VARIANT_ID = "";
+
+// The secret that which was generated when registering the variant.  
 String SECRET = "";
+
+// Is the project number given in Googles APIs Console.  
 String GCM_SENDER_ID = "";
 ```
 
