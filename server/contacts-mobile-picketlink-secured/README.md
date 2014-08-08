@@ -1,12 +1,12 @@
 contacts-mobile-picketlink-secured: Example Application JAX-RS Technologies & Push
 =========================================================================================================
-Author: Joshua Wilson, Pedro Igor, Erik Jan De Wit, Daniel Bevenius
-Level: Beginner  
-Technologies: REST, UnifiedPush Java Client, PicketLink
-Summary: A PicketLink secured example of CRUD REST endpoints.
-Target Product: MP
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3
-Source: <https://github.com/aerogear/aerogear-push-quickstarts/tree/master/server/contacts-mobile-picketlink-secured>
+Author: Joshua Wilson, Pedro Igor, Erik Jan De Wit, Daniel Bevenius   
+Level: Beginner     
+Technologies: REST, UnifiedPush Java Client, PicketLink   
+Summary: A PicketLink secured example of CRUD REST endpoints.   
+Target Product: MP   
+Product Versions: EAP 6.1, EAP 6.2, EAP 6.3   
+Source: <https://github.com/aerogear/aerogear-push-quickstarts/tree/master/server/contacts-mobile-picketlink-secured>   
 
 What is it?
 -----------
@@ -50,7 +50,7 @@ Configure the UnifiedPush Java Sender
     public static final String MASTER_SECRET = "<master secret e.g. 1234456-234320>";
 ```
 
-*Note: You will need to setup an UnifiedPush Server instance to send Push Notifications and communicate with your backend, more information can be found [here](http://aerogear.org/docs/unifiedpush/)
+You will need to setup an UnifiedPush Server instance to send Push Notifications and communicate with your backend, more information can be found [here](http://aerogear.org/docs/unifiedpush/)   
 
 
 Start the JBoss EAP Server
