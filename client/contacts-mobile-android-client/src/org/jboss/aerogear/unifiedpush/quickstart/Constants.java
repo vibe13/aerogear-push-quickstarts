@@ -18,11 +18,38 @@ package org.jboss.aerogear.unifiedpush.quickstart;
 
 public interface Constants {
 
+    /**
+     *  This is the base url for the contacts-mobile-picketlink-secured application.
+     *
+     *  For example (your IP/hostname will differ):
+     *  String BASE_URL = "http://192.168.1.157:8080/jboss-contacts-mobile-picketlink-secured";
+     */
     String BASE_URL = "";
 
+    /**
+     * This is the URL to the Unified Push Server.
+     *
+     * For example (your IP/hostname will differ):
+     * String UNIFIED_PUSH_URL = "http://192.168.1.157:8080/ag-push";
+     *
+     */
     String UNIFIED_PUSH_URL = "";
+
+    /**
+     * The variant id that which was generated when registering the variant with
+     * the UnifiedPush Server.
+     */
     String VARIANT_ID = "";
+
+    /**
+     * The secret that which was generated when registering the variant with
+     * the UnifiedPush Server
+     */
     String SECRET = "";
+
+    /**
+     * Is the project number given in Googles APIs Console.
+     */
     String GCM_SENDER_ID = "";
 
     String CONTACT = "CONTACT";
