@@ -41,7 +41,7 @@ If you have not yet done so, you must [Configure Maven](../../README.md#configur
 Configure the UnifiedPush Java Sender
 ---------------
 
-1. Open [``` src/main/java/org/jboss/quickstarts/wfk/contacts/ContactCreationPushNotifier.java ```](https://github.com/aerogear/aerogear-push-quickstarts/blob/master/server/contacts-mobile-picketlink-secured/src/main/java/org/jboss/quickstarts/wfk/contacts/ContactCreationPushNotifier.java)
+1. Open [ContactCreationPushNotifier.java](./src/main/java/org/jboss/quickstarts/wfk/contacts/ContactCreationPushNotifier.java)
 2. Set the ``` SERVER_URL ```, the ``` PUSH_APPLICATION_ID ``` and the ``` MASTER_SECRET ```
 
 ```
