@@ -1,10 +1,10 @@
 language: java
 
-after_success:
+script:
 - wget -c http://ftp.unicamp.br/pub/apache/maven/maven-3/3.1.0/binaries/apache-maven-3.1.0-bin.tar.gz
   && mkdir maven && tar xzvf apache-maven-3.1.0-bin.tar.gz -C maven/
 - git clone -b maven `git config --get remote.origin.url` target/maven
-- maven/apache-maven-3.1.0/bin/mvn deploy -DrepositoryId=jboss-earlyaccess-repository
+- maven/apache-maven-3.1.0/bin/mvn -U clean install -DrepositoryId=jboss-earlyaccess-repository -DrepositoryId=jboss-ga-repository
   --settings target/maven/settings.xml
 
 jdk:
