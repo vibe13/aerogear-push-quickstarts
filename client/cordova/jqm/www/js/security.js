@@ -156,6 +156,9 @@ $(document).ready(function() {
 
                     // Store the global user data.
                     CONTACTS.security.currentUser = data;
+                  
+                    //Register the device with UPS
+                    CONTACTS.app.registerWithUPS();
 
                     // Because we turned off the automatic page transition to catch server side error we need to do it ourselves.
                     $( "body" ).pagecontainer( "change", "#contacts-list-page");
