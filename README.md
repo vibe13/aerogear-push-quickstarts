@@ -1,3 +1,5 @@
+[![Build Status](https://api.travis-ci.org/aerogear/aerogear-push-quickstarts.png?branch=master)](https://travis-ci.org/aerogear/aerogear-push-quickstarts)
+
 aerogear-push-quickstarts
 =========================
 
