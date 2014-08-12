@@ -39,14 +39,23 @@ angular.module('quickstart.controllers', [])
     contacts.delete({
       id: contact.id
     }, function () {
+      removeContact(contact);
+    }, function (error) {
+      if (error.status === 400) {
+        //contact already removed by somebody else
+        removeContact(contact);
+      }
+    });
+  };
+  
+  function removeContact(contact) {
       var letter = contact.firstName.substring(0, 1).toUpperCase();
       $scope.groupedContacts[letter].splice($scope.groupedContacts[letter].indexOf(contact), 1);
       if ($scope.groupedContacts[letter].length === 0) {
         delete $scope.groupedContacts[letter];
       }
       $scope.showDelete = false;
-    });
-  };
+  }
 })
 
 .controller('ContactCtrl', function ($scope, $stateParams, contacts, $location) {
