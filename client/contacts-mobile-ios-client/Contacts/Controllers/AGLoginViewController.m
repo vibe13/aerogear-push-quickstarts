@@ -25,7 +25,10 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *usernameTxtField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTxtField;
-@property (weak, nonatomic) IBOutlet UIButton *loginBut;
+@property (nonatomic) IBOutlet UIBarButtonItem *loginButtonBarItem;
+
+@property (nonatomic) UIBarButtonItem *activityIndicatorBarItem;
+@property (nonatomic) UIActivityIndicatorView *activityIndicator;
 
 - (IBAction)login:(id)sender;
 
@@ -35,6 +38,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // setup progress view
+    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    
+    self.activityIndicatorBarItem = [[UIBarButtonItem alloc] initWithCustomView:self.activityIndicator];
+
 }
 
 #pragma mark - Action methods
@@ -55,10 +64,9 @@
         return;
     }
     
-    // disable login button to avoid repetition
-    // when login is 'in-process..'
-    self.loginBut.enabled = NO;
-
+    // show progress view
+    [self startProgressAnimation];
+    
     // attempt to login to backend
     [[AGContactsNetworker shared] loginWithUsername:username password:password
                                   completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
@@ -103,8 +111,7 @@
                 // if we reach here, time to move to the main Contacts view
                 [self performSegueWithIdentifier:@"ContactsViewSegue" sender:self];
                 
-                // re-enable login button
-                self.loginBut.enabled = YES;
+                [self stopProgressAnimation];
                 
             } failure:^(NSError *error) {
                 // An error occurred during registration.
@@ -116,8 +123,7 @@
                 
                 [alert show];
                 
-                // re-enable login button
-                self.loginBut.enabled = YES;
+                [self stopProgressAnimation];
             }];
             
         } else {
@@ -128,10 +134,25 @@
                                                   otherButtonTitles:nil];
             [alert show];
             
-            // re-enable login button
-            self.loginBut.enabled = YES;
+            [self stopProgressAnimation];
         }
     }];
+}
+
+#pragma mark - Utility methods to display progress view
+
+- (void)startProgressAnimation {
+    // assign the progress view to the navigator controller
+    self.navigationItem.rightBarButtonItem = self.activityIndicatorBarItem;
+    
+    [self.activityIndicator startAnimating];
+}
+
+- (void)stopProgressAnimation {
+    [self.activityIndicator stopAnimating];
+
+    // replace with login button upon stop
+    self.navigationItem.rightBarButtonItem = self.loginButtonBarItem;
 }
 
 @end
