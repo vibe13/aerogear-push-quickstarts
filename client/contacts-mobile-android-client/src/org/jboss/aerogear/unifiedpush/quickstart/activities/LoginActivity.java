@@ -76,7 +76,7 @@ public class LoginActivity extends Activity {
             @Override
             protected void onPostExecute(User loggedUser) {
                 if (loggedUser != null) {
-                    registerLoogedUserInUnifiedPushServer(loggedUser);
+                    registerLoggedUserInUnifiedPushServer(loggedUser);
                 } else {
                     dialog.dismiss();
                     Toast.makeText(getApplicationContext(),
@@ -86,7 +86,7 @@ public class LoginActivity extends Activity {
         }.execute();
     }
 
-    private void registerLoogedUserInUnifiedPushServer(User user) {
+    private void registerLoggedUserInUnifiedPushServer(User user) {
         try {
 
             PushConfig config = new PushConfig(new URI(UNIFIED_PUSH_URL), GCM_SENDER_ID);
