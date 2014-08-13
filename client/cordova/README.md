@@ -30,6 +30,11 @@ To deploy on ios you need to install the ios-deploy package as well
 npm install -g ios-deploy
 ```
 
+### Cordova-Android
+
+To deploy and run Cordova applications on Android the Apache Ant tool needs to be [installed](http://ant.apache.org/manual/install.html).
+
+
 Build and deploy the backend
 ----------------------------
 
