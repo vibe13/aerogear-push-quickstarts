@@ -10,7 +10,7 @@
           <input type="text" placeholder="Enter your first name" ng-model="model.firstName" name="firstName" required ng-pattern="/^[A-Za-z-']{1,25}$/">
           <div ng-show="form.firstName.$dirty && form.firstName.$invalid">
             <span ng-show="form.firstName.$error.required" class="error">Please specify a first name.</span>
-            <span ng-show="form.firstName.$error.pattern" class="error">Please use a name without numbers or specials</span>
+            <span ng-show="form.firstName.$error.pattern" class="error">Use a name without numbers or specials</span>
           </div>
         </label>
         <label class="item item-input item-stacked-label">
@@ -18,7 +18,7 @@
           <input type="text" placeholder="Enter your last name" ng-model="model.lastName" name="lastName" required ng-pattern="/^[A-Za-z-']{1,25}$/">
           <div ng-show="form.lastName.$dirty && form.lastName.$invalid">
             <span ng-show="form.lastName.$error.required" class="error">Please specify a last name.</span>
-            <span ng-show="form.lastName.$error.pattern" class="error">Please use a name without numbers or specials</span>
+            <span ng-show="form.lastName.$error.pattern" class="error">Use a name without numbers or specials</span>
           </div>
         </label>
         <label class="item item-input item-stacked-label">
