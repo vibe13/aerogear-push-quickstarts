@@ -20,6 +20,11 @@ a:active .contact-details li {
   float:left;
 }
 
+/* bug on android 4.4 buttons in header not beside each other */ 
+.left-buttons button {
+  float:left;
+}
+
 .notification {
     position: absolute;
 /*    display: none;*/
