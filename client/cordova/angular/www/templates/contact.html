@@ -45,7 +45,7 @@
             <a href="#/app/playlists" class="button button-block">Cancel</a>
           </div>
           <div class="col col-33">
-            <button class="button button-block icon-right ion-chevron-right button-calm" ng-click="save(model)" ng-disabled="form.$invalid">
+            <button class="button button-block icon-right ion-chevron-right button-calm" ng-click="save(model)" ng-disabled="form.$invalid || !form.$dirty">
               Save
             </button>
           </div>
