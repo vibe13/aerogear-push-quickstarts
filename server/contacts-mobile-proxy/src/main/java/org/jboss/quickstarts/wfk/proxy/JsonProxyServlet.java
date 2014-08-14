@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.jboss.quickstarts.wfk.proxy;
+package org.jboss.aerogear.quickstarts.proxy;
 
 import io.fabric8.gateway.model.HttpProxyRuleBase;
 import io.fabric8.gateway.servlet.ProxyServlet;
