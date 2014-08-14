@@ -23,7 +23,7 @@ Configure Maven
 
 The quickstarts use artifacts located in the JBoss GA and Early Access repositories. You must configure Maven to use these repositories before you build and deploy the quickstarts.
 
-_Note: These instructions assume you are working with a released version of the quickstarts. If you are working with the quickstarts located in the GitHub master branch, follow the instructions located in the [Contributing Guide](https://github.com/jboss-developer/jboss-wfk-quickstarts/blob/2.7.x-develop/CONTRIBUTING.md#configure-maven)._
+_Note: These instructions assume you are working with a released version of the quickstarts. If you are working with the quickstarts located in the GitHub master branch, follow the instructions located in the [Contributing Guide](http://aerogear.org/docs/guides/Contributing/)._
 
 
 1. Clone the repository

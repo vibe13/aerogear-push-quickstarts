@@ -1,15 +1,15 @@
 # quickstart-push-android: CRUD Mobile Application showing the AeroGear Push feature on Android
 
-Author: Daniel Passos (dpassos)   
-Level: Beginner   
-Technologies: Java, Android   
-Summary: A Contacts CRUD mobile application with Push notification integration.   
-Target Product: Mobile   
+Author: Daniel Passos (dpassos)
+Level: Beginner
+Technologies: Java, Android
+Summary: A Contacts CRUD mobile application with Push notification integration.
+Target Product: Mobile
 Product Versions: EAP 6.1, EAP 6.2, EAP 6.3
 
 ## What is it?
 
-This project is an Android mobile front-end to the [Contacts](https://github.com/jboss-developer/jboss-wfk-quickstarts/contacts-mobile-picketlink-secured) server application found in the [quickstarts](https://github.com/jboss-developer/jboss-wfk-quickstarts) of the Red Hat [JBoss Web Framework Kit](http://www.jboss.org/jdf/). All CRUD features are supported, as well as integration with the Push notification mechanism to instantly retrieve a new Contact when it is created on the server. A video demonstrating the application 'in-action' can be found [here](https://vimeo.com/97464515). 
+This project is an Android mobile front-end to the [Contacts](https://github.com/aerogear/aerogear-push-quickstarts/contacts-mobile-picketlink-secured) server application found in the [quickstarts](https://github.com/aerogear/aerogear-push-quickstarts) of the Red Hat [JBoss Web Framework Kit](http://www.jboss.org/jdf/). All CRUD features are supported, as well as integration with the Push notification mechanism to instantly retrieve a new Contact when it is created on the server. A video demonstrating the application 'in-action' can be found [here](https://vimeo.com/97464515).
 
 ## System requirements
 
@@ -22,7 +22,7 @@ This project is an Android mobile front-end to the [Contacts](https://github.com
 
 ## Pre-requisites
 
-* Both the [Contacts](https://github.com/jboss-developer/jboss-wfk-quickstarts/contacts-mobile-picketlink-secured) and the [AeroGear UnifiedPush Server](https://github.com/aerogear/aerogear-unifiedpush-server) applications up and running. Follow the documentation of each respective project to set them up.
+* Both the [Contacts](https://github.com/aerogear/aerogear-push-quickstarts/contacts-mobile-picketlink-secured) and the [AeroGear UnifiedPush Server](https://github.com/aerogear/aerogear-unifiedpush-server) applications up and running. Follow the documentation of each respective project to set them up.
 * A valid configured variant on the UPS admin console as well as a valid Google API Key, and a device (Push notifications are not available on simulator). Follow the documentation on the [UPS guide](http://aerogear.org/docs/unifiedpush/aerogear-push-android/) to set them up.
 
 
