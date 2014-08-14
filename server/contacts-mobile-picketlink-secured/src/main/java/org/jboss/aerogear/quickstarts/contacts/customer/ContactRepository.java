@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.quickstarts.wfk.contacts.customer;
+package org.jboss.aerogear.quickstarts.contacts.customer;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;

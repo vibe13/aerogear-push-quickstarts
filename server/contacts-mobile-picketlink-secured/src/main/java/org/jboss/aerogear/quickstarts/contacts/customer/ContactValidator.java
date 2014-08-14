@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.quickstarts.wfk.contacts.customer;
+package org.jboss.aerogear.quickstarts.contacts.customer;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -14,10 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.quickstarts.wfk.contacts.security;
+package org.jboss.aerogear.quickstarts.contacts.security;
 
-import org.jboss.quickstarts.wfk.contacts.security.authorization.AuthorizationManager;
-import org.jboss.quickstarts.wfk.contacts.security.authorization.RequiresAccount;
+import org.jboss.aerogear.quickstarts.contacts.security.authorization.RequiresAccount;
 import org.picketlink.Identity;
 import org.picketlink.idm.IdentityManager;
 import org.picketlink.idm.model.Account;

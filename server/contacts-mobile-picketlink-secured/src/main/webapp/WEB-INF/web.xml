@@ -20,7 +20,7 @@
 
     <filter>
         <filter-name>AccessDeniedFilter</filter-name>
-        <filter-class>org.jboss.quickstarts.wfk.contacts.util.AccessDeniedFilter</filter-class>
+        <filter-class>org.jboss.aerogear.quickstarts.contacts.util.AccessDeniedFilter</filter-class>
     </filter>
 
     <!-- This filter is responsible for providing support for HTTP authentication schemes, such as BASIC, DIGEST,
@@ -45,7 +45,7 @@
 
     <filter>
         <filter-name>CORS Filter</filter-name>
-        <filter-class>org.jboss.quickstarts.wfk.contacts.util.CORSFilter</filter-class>
+        <filter-class>org.jboss.aerogear.quickstarts.contacts.util.CORSFilter</filter-class>
         <init-param>
             <description>A comma separated list of HTTP verbs, using which a CORS request can be made.</description>
             <param-name>cors.allowed.headers</param-name>

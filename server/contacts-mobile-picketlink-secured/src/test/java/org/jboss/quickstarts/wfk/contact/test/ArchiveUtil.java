@@ -49,7 +49,7 @@ public class ArchiveUtil {
 
         WebArchive archive = ShrinkWrap
             .create(WebArchive.class, "test.war")
-            .addPackages(true, "org.jboss.quickstarts.wfk.contacts")
+            .addPackages(true, "org.jboss.aerogear.quickstarts.contacts")
             .addAsLibraries(libs)
             .addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
             .addAsWebInfResource("arquillian-ds.xml")

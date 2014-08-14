@@ -19,8 +19,8 @@ package org.jboss.quickstarts.wfk.contact.test;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
-import org.jboss.quickstarts.wfk.contacts.customer.Contact;
-import org.jboss.quickstarts.wfk.contacts.customer.ContactRESTService;
+import org.jboss.aerogear.quickstarts.contacts.customer.Contact;
+import org.jboss.aerogear.quickstarts.contacts.customer.ContactRESTService;
 import org.jboss.shrinkwrap.api.Archive;
 import org.junit.After;
 import org.junit.Before;
@@ -77,7 +77,7 @@ public class ContactRegistrationTest {
     }
 
     /**
-     * <p>The {@link org.jboss.quickstarts.wfk.contacts.customer.ContactRESTService} is protected by PicketLink. Before invoking
+     * <p>The {@link org.jboss.aerogear.quickstarts.contacts.customer.ContactRESTService} is protected by PicketLink. Before invoking
      * its methods we first need to perform an authentication.</p>
      *
      * <p>This method performs an authentication before each test execution.</p>
