@@ -69,15 +69,32 @@ angular.module('quickstart.controllers', [])
       $scope.model = contact;
     });
   }
+  var form;
+  $scope.setFormScope= function(scope) {
+    form = scope;
+  };
+  
+  $scope.clearErrors = function(field) {
+    form.form[field].$setValidity('server', true);
+  };
+  
   $scope.save = function (contact) {
     if ($stateParams.id) {
-      contacts.update(contact, onSuccess);
+      contacts.update(contact, onSuccess, onFailure);
     } else {
-      contacts.save(contact, onSuccess);
+      contacts.save(contact, onSuccess, onFailure);
     }
 
     function onSuccess() {
       $location.url('/app/contacts');
+    }
+    
+    function onFailure(response) {
+      angular.forEach(response.data, function(error, key) {
+        form.form[key].$dirty = true;
+        form.form[key].$setValidity('server', false);
+        form.form[key].error = error;
+      });    
     }
   };
 })
