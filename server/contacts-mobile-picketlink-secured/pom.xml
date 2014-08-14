@@ -19,7 +19,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.jboss.quickstarts.wfk</groupId>
+    <groupId>org.jboss.aerogear.quickstarts</groupId>
     <artifactId>jboss-contacts-mobile-picketlink-secured</artifactId>
     <version>1.0.0.Beta2-SNAPSHOT</version>
     <packaging>war</packaging>
@@ -51,7 +51,7 @@
         <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
 
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
-        <version.jboss.bom.eap>6.2.2.GA</version.jboss.bom.eap>
+        <version.jboss.bom.eap>6.2.0-redhat-1</version.jboss.bom.eap>
         <version.jboss.bom.wfk>2.6.0-redhat-1</version.jboss.bom.wfk>
 
         <!-- Define the version of the PicketLink BOM -->
@@ -82,9 +82,9 @@
                 stack you can read this as the JBoss stack of the Java EE 6 APIs, with extras
                 from the Hibernate family of projects) -->
             <dependency>
-                <groupId>org.jboss.bom.wfk</groupId>
+                <groupId>org.jboss.bom.eap</groupId>
                 <artifactId>jboss-javaee-6.0-with-tools</artifactId>
-                <version>${version.jboss.bom.wfk}</version>
+                <version>${version.jboss.bom.eap}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
