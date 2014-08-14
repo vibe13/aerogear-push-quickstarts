@@ -21,20 +21,23 @@ angular.module('quickstart.controllers', [])
 .controller('ContactsCtrl', function ($scope, contacts) {
   $scope.details = false;
   $scope.showDelete = false;
-  contacts.query({}, function (data) {
-    var first,
-      length = data.length;
-    $scope.groupedContacts = {};
+  $scope.refresh = function() {
+    contacts.query({}, function (data) {
+      var first,
+        length = data.length;
+      $scope.groupedContacts = {};
 
-    for (var i = 0; i < length; i++) {
-      first = data[i].firstName.substring(0, 1).toUpperCase();
-      if (!$scope.groupedContacts[first]) {
-        $scope.groupedContacts[first] = [];
+      for (var i = 0; i < length; i++) {
+        first = data[i].firstName.substring(0, 1).toUpperCase();
+        if (!$scope.groupedContacts[first]) {
+          $scope.groupedContacts[first] = [];
+        }
+
+        $scope.groupedContacts[first].push(data[i]);
       }
-
-      $scope.groupedContacts[first].push(data[i]);
-    }
-  });
+    });    
+  };
+  $scope.refresh();
   $scope.delete = function (contact) {
     contacts.delete({
       id: contact.id

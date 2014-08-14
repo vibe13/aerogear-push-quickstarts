@@ -25,7 +25,7 @@ CONTACTS.namespace("CONTACTS.app.restEndpoint");
 CONTACTS.app.baseUrl = "< backend URL e.g http(s)//host:port >/jboss-contacts-mobile-picketlink-secured";
 CONTACTS.app.restEndpoint = CONTACTS.app.baseUrl + "/rest/contacts";
 
-$( document ).on( "deviceready", function() {
+CONTACTS.app.registerWithUPS = function() {
     var pushConfig = {
         pushServerURL: "<pushServerURL e.g http(s)//host:port/context >",
         alias: "<alias e.g. a username or an email address optional>",
@@ -48,7 +48,7 @@ $( document ).on( "deviceready", function() {
     function errorHandler(error) {
         alert('error registering ' + error);
     }
-});
+};
 
 CONTACTS.app.onNotification = function(event) {
     var notify = $('#notification');
