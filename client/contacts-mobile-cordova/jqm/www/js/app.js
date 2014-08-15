@@ -87,7 +87,7 @@ $( document ).on( "pagecreate", function(mainEvent) {
         As suggested by this comment in the gist https://gist.github.com/shazron/6602131#comment-916032
         Move the Footer up in iOS 7
     */
-    if(navigator.userAgent.match(/iPhone OS 7/)) {
+    if(navigator.userAgent.match(/(?:iPhone|iPad).*OS 7/)) {
         $('div[data-role="footer"][role="contentinfo"][data-position="fixed"]')
             .css({'-webkit-transform': 'translate3d(0,-20px,0)'});
     }

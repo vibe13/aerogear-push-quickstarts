@@ -64,7 +64,7 @@
 <!--     <script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.js"></script> -->
     <script>
         // As suggested by this comment in the gist https://gist.github.com/shazron/6602131#comment-916032
-        if(navigator.userAgent.match(/iPhone OS 7/)) {
+        if(navigator.userAgent.match(/(?:iPhone|iPad).*OS 7/)) {
             document.write('<style type="text/css">body{-webkit-transform: translate3d(0,20px,0)}</style>');
         }
     </script>
@@ -90,7 +90,7 @@
         <div data-role="header" data-position="fixed" >
             <a href="#contacts-list-page-menu-panel" id="contacts-list-page-menu-button" class="ui-btn ui-corner-all ui-shadow ui-icon-bars ui-btn-icon-notext ui-mini ui-btn-inline">Menu</a>
             <h1>Welcome <span id="user-name-page-message"></span>.</h1>
-            <div data-type="horizontal" data-role="controlgroup" class="ui-btn-right"> 
+            <div data-type="horizontal" data-role="controlgroup" class="ui-btn-right">
               <button id="contacts-refresh-list-button" class="ui-btn ui-corner-all ui-shadow ui-icon-refresh ui-btn-icon-notext ui-mini ui-btn-inline" onclick="CONTACTS.app.getContacts()">Refresh</button>
               <a href="#contacts-detail-list-page" id="contacts-detail-list-page-button" class="ui-btn ui-corner-all ui-shadow ui-icon-arrow-d ui-btn-icon-notext ui-mini ui-btn-inline">Details</a>
             </div>
