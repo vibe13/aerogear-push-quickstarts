@@ -100,9 +100,42 @@ angular.module('quickstart.controllers', [])
 })
 
 .controller('LoginCtrl', function ($scope, $location, authz, users) {
+  function registerWithUPS() {
+    var pushConfig = {
+      pushServerURL: "<pushServerURL e.g http(s)//host:port/context >",
+      android: {
+        senderID: "<senderID e.g Google Project ID only for android>",
+        variantID: "<variantID e.g. 1234456-234320>",
+        variantSecret: "<variantSecret e.g. 1234456-234320>"
+      },
+      ios: {
+        variantID: "<variantID e.g. 1234456-234320>",
+        variantSecret: "<variantSecret e.g. 1234456-234320>"
+      }
+    };
+
+    //to be able to test this in your browser where there is no push plugin installed
+    if (typeof push !== "undefined") {
+      push.register(onNotification, successHandler, errorHandler, pushConfig);
+    }
+
+    function successHandler() {
+      console.log('successful registered');
+    }
+
+    function errorHandler(error) {
+      alert('error registering ' + error);
+    }
+
+    function onNotification(event) {
+      angular.element(document.getElementById('root')).scope().$broadcast('notification', event);
+    }
+  }
+  
   $scope.login = function (user) {
     authz.setCredentials(user.name, user.password);
     users.login({}, function () {
+      registerWithUPS();
       $location.url('/app/contacts');
     });
   };

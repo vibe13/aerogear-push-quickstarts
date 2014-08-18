@@ -23,39 +23,6 @@ angular.module('quickstart', [
   'ngResource'
 ])
 
-.run(function ($ionicPlatform) {
-  $ionicPlatform.ready(function () {
-    var pushConfig = {
-      pushServerURL: "<pushServerURL e.g http(s)//host:port/context >",
-      android: {
-        senderID: "<senderID e.g Google Project ID only for android>",
-        variantID: "<variantID e.g. 1234456-234320>",
-        variantSecret: "<variantSecret e.g. 1234456-234320>"
-      },
-      ios: {
-        variantID: "<variantID e.g. 1234456-234320>",
-        variantSecret: "<variantSecret e.g. 1234456-234320>"
-    }
-    };
-
-    //to be able to test this in your browser where there is no push plugin installed
-    if (typeof push !== "undefined") {
-      push.register(onNotification, successHandler, errorHandler, pushConfig);
-    }
-
-    function successHandler() {
-      console.log('successful registered');
-    }
-
-    function errorHandler(error) {
-      alert('error registering ' + error);
-    }
-
-    function onNotification(event) {
-      angular.element(document.getElementById('root')).scope().$broadcast('notification', event);
-    }
-  });
-})
 .constant('BACKEND_URL','< backend URL e.g http(s)//host:port >/jboss-contacts-mobile-picketlink-secured/')
 
 .config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
