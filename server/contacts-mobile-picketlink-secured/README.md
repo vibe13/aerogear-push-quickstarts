@@ -5,7 +5,7 @@ Level: Beginner
 Technologies: REST, UnifiedPush Java Client, PicketLink
 Summary: A PicketLink secured example of CRUD REST endpoints.
 Target Product: MP
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3
+Product Version: MP 1.0
 Source: <https://github.com/aerogear/aerogear-push-quickstarts/tree/master/server/contacts-mobile-picketlink-secured>
 
 What is it?

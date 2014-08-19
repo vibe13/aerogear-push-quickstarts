@@ -5,7 +5,7 @@ Level: Beginner
 Technologies: Objective-C, iOS
 Summary: A Contacts CRUD mobile application with Push notification integration.
 Target Product: Mobile
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3
+Product Version: MP 1.0
 Source: https://github.com/aerogear/aerogear-push-quickstarts/tree/master/client/contacts-mobile-ios-client
 
 What is it?

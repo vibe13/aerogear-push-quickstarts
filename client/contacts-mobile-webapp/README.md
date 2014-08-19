@@ -5,7 +5,7 @@ Level: Beginner
 Technologies: jQuery Mobile, jQuery, JavaScript, HTML5, REST
 Summary: A basic example of CRUD operations in a mobile only website.
 Target Product: AeroGear
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3
+Product Version: MP 1.0
 Source: <https://github.com/aerogear/aerogear-push-quickstarts/tree/master/client/contacts-mobile-webapp>
 
 What is it?
