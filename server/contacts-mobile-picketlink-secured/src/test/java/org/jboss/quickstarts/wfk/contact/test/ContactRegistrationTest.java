@@ -14,13 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.quickstarts.wfk.contact.test;
+package org.jboss.aerogear.quickstarts.contact.test;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
-import org.jboss.quickstarts.wfk.contacts.customer.Contact;
-import org.jboss.quickstarts.wfk.contacts.customer.ContactRESTService;
+import org.jboss.aerogear.quickstarts.contacts.customer.Contact;
+import org.jboss.aerogear.quickstarts.contacts.customer.ContactRESTService;
 import org.jboss.shrinkwrap.api.Archive;
 import org.junit.After;
 import org.junit.Before;
@@ -43,16 +43,16 @@ import static org.junit.Assert.assertNotNull;
 
 /**
  * Uses Arquilian to test the JAX-RS processing class for contact registration.
- * 
+ *
  * @author balunasj
  * @author Joshua Wilson
  */
 @RunWith(Arquillian.class)
 public class ContactRegistrationTest {
-    
+
     @Inject
     private ContactRESTService contactRESTService;
-    
+
     @Inject
     private Logger log;
 
@@ -64,7 +64,7 @@ public class ContactRegistrationTest {
 
     // The URI is needed for the JAX-RS 2.0 tests.
 //  private static URI uri = UriBuilder.fromUri("http://localhost/jboss-contacts-mobile-picketlink-secured/rest/contact").port(8080).build();
-  
+
   // JAX-RS 2.0 Client API
 //  private static Client client = ClientBuilder.newClient();
 
@@ -77,7 +77,7 @@ public class ContactRegistrationTest {
     }
 
     /**
-     * <p>The {@link org.jboss.quickstarts.wfk.contacts.customer.ContactRESTService} is protected by PicketLink. Before invoking
+     * <p>The {@link org.jboss.aerogear.quickstarts.contacts.customer.ContactRESTService} is protected by PicketLink. Before invoking
      * its methods we first need to perform an authentication.</p>
      *
      * <p>This method performs an authentication before each test execution.</p>
@@ -125,7 +125,7 @@ public class ContactRegistrationTest {
 //        Response response = client.target(uri).request().post(Entity.entity(null, MediaType.APPLICATION_JSON));
 //        assertEquals(Response.Status.BAD_REQUEST, response.getStatusInfo());
 //    }
-//    
+//
 //    @Test
 //    @InSequence(5)
 //    public void shouldNotFindTheContactID() throws JAXBException {
@@ -133,35 +133,35 @@ public class ContactRegistrationTest {
 //        Response response = client.target(uri).path("unknownID").request().get();
 //        assertEquals(Response.Status.NOT_FOUND, response.getStatusInfo());
 //    }
-//    
+//
 //    @Test
 //    @InSequence(6)
 //    public void shouldCreateAndDeleteAContact() throws JAXBException {
-//        
+//
 //        Contact contact = createContactInstance("Jason", "Smith", "jason@mailinator.com", "2125551234", date);
-//        
+//
 //        // POSTs a Contact
 //        Response response = client.target(uri).request().post(Entity.entity(contact, MediaType.APPLICATION_JSON));
-//        
+//
 //        assertEquals(Response.Status.CREATED, response.getStatusInfo());
 //        URI contactURI = response.getLocation();
-//        
+//
 //        // With the location, GETs the Contact
 //        response = client.target(contactURI).request().get();
 //        contact = response.readEntity(Contact.class);
 //        assertEquals(Response.Status.OK, response.getStatusInfo());
 //        assertEquals("Jason", contact.getFirstName());
-//        
+//
 //        // GETs the Contact ID and DELETEs it
 //        String contactID = contactURI.toString().split("/")[6];
 //        response = client.target(uri).path(contactID).request().delete();
 //        assertEquals(Response.Status.NO_CONTENT, response.getStatusInfo());
-//        
+//
 //        // GETs the Contact and checks if it has been deleted
 //        response = client.target(bookURI).request().get();
 //        assertEquals(Response.Status.NOT_FOUND, response.getStatusInfo());
 //    }
-    
+
     private Contact createContactInstance(String firstName, String lastName, String email, String phone, Date birthDate) {
         Contact contact = new Contact();
         contact.setFirstName(firstName);

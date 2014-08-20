@@ -24,7 +24,7 @@
 
   <servlet>
     <servlet-name>gateway-servlet</servlet-name>
-    <servlet-class>org.jboss.quickstarts.wfk.proxy.JsonProxyServlet</servlet-class>
+    <servlet-class>org.jboss.aerogear.quickstarts.proxy.JsonProxyServlet</servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>

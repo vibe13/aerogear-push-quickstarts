@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.quickstarts.wfk.contacts.customer;
+package org.jboss.aerogear.quickstarts.contacts.customer;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -39,7 +39,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.jboss.quickstarts.wfk.contacts.ContactCreationPushNotifier;
+import org.jboss.aerogear.quickstarts.contacts.ContactCreationPushNotifier;
 
 /**
  * This is a Domain Object.   

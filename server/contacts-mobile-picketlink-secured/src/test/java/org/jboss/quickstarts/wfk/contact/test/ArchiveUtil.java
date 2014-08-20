@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.quickstarts.wfk.contact.test;
+package org.jboss.aerogear.quickstarts.contact.test;
 
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -49,7 +49,7 @@ public class ArchiveUtil {
 
         WebArchive archive = ShrinkWrap
             .create(WebArchive.class, "test.war")
-            .addPackages(true, "org.jboss.quickstarts.wfk.contacts")
+            .addPackages(true, "org.jboss.aerogear.quickstarts.contacts")
             .addAsLibraries(libs)
             .addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
             .addAsWebInfResource("arquillian-ds.xml")

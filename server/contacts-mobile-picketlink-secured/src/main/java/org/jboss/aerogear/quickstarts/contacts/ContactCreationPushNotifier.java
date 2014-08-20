@@ -14,14 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.quickstarts.wfk.contacts;
+package org.jboss.aerogear.quickstarts.contacts;
 
 import org.jboss.aerogear.unifiedpush.JavaSender;
 import org.jboss.aerogear.unifiedpush.SenderClient;
 import org.jboss.aerogear.unifiedpush.message.MessageResponseCallback;
 import org.jboss.aerogear.unifiedpush.message.UnifiedMessage;
-import org.jboss.quickstarts.wfk.contacts.customer.Contact;
-import org.jboss.quickstarts.wfk.contacts.util.QuickStartConfiguration;
+import org.jboss.aerogear.quickstarts.contacts.customer.Contact;
+import org.jboss.aerogear.quickstarts.contacts.util.QuickStartConfiguration;
 
 import javax.persistence.PostPersist;
 import java.util.logging.Level;

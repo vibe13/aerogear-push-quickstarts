@@ -5,7 +5,7 @@ Level: Beginner
 Technologies: JavaScript Cordova              
 Summary: A crud mobile app with push integrated       
 Target Product: Mobile  
-Product Versions: EAP 6.1, EAP 6.2, EAP 6.3
+Product Version: MP 1.0
 Source: https://github.com/aerogear/aerogear-push-quickstarts/
 
 What is it?

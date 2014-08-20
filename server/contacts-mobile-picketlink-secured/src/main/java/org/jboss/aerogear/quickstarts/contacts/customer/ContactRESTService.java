@@ -14,9 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.quickstarts.wfk.contacts.customer;
+package org.jboss.aerogear.quickstarts.contacts.customer;
 
-import org.jboss.quickstarts.wfk.contacts.security.authorization.RequiresAccount;
+import org.jboss.aerogear.quickstarts.contacts.security.authorization.RequiresAccount;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -36,19 +36,19 @@ import java.util.logging.Logger;
  * JAX-RS Example
  * <p/>
  * This class produces a RESTful service to read/write the contents of the contacts table.
- * 
+ *
  * @author Joshua Wilson
  *
  */
 /*
  * The Path annotation defines this as a REST Web Service using JAX-RS.
- * 
- * By placing the Consumes and Produces annotations at the class level the methods all default to JSON.  However, they 
+ *
+ * By placing the Consumes and Produces annotations at the class level the methods all default to JSON.  However, they
  * can be overriden by adding the Consumes or Produces annotations to the individual method.
- * 
- * It is Stateless to "inform the container that this RESTful web service should also be treated as an EJB and allow 
+ *
+ * It is Stateless to "inform the container that this RESTful web service should also be treated as an EJB and allow
  * transaction demarcation when accessing the database." - Antonio Goncalves
- * 
+ *
  */
 @Path("/contacts")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -57,13 +57,13 @@ import java.util.logging.Logger;
 public class ContactRESTService {
     @Inject
     private Logger log;
-    
+
     @Inject
     private ContactService service;
-    
+
     /**
      * Search for and return all the Contacts.  They are sorted alphabetically by name.
-     * 
+     *
      * @return List of Contacts
      */
     @GET
@@ -78,7 +78,7 @@ public class ContactRESTService {
 
     /**
      * Search for and return all the Contacts.  They are sorted alphabetically by name.
-     * 
+     *
      * @return List of Contacts
      */
     @GET
@@ -91,10 +91,10 @@ public class ContactRESTService {
         }
         return Response.ok(contact).build();
     }
-    
+
     /**
      * Search for just one Contact by it's ID.
-     * 
+     *
      * @param id of the Contact
      * @return Response
      */
@@ -108,14 +108,14 @@ public class ContactRESTService {
         }
         log.info("findById " + id + ": found Contact = " + contact.getFirstName() + " " + contact.getLastName() + " " + contact.getEmail() + " " + contact.getPhoneNumber() + " "
                 + contact.getBirthDate() + " " + contact.getId());
-        
+
         return Response.ok(contact).build();
     }
 
     /**
      * Creates a new contact from the values provided. Performs validation and will return a JAX-RS response with either 200 (ok)
      * or with a map of fields, and related errors.
-     * 
+     *
      * @param contact
      * @return Response
      */
@@ -127,7 +127,7 @@ public class ContactRESTService {
         if (contact == null) {
             throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }
-        
+
         Response.ResponseBuilder builder = null;
 
         try {
@@ -136,7 +136,7 @@ public class ContactRESTService {
 
             // Create an OK Response and pass the contact back in case it is needed.
             builder = Response.ok(contact);
-            
+
             log.info("createContact completed. Contact = " + contact.getFirstName() + " " + contact.getLastName() + " " + contact.getEmail() + " " + contact.getPhoneNumber() + " "
                 + contact.getBirthDate() + " " + contact.getId());
         } catch (ConstraintViolationException ce) {
@@ -163,7 +163,7 @@ public class ContactRESTService {
     /**
      * Updates a contact with the ID provided in the Contact. Performs validation, and will return a JAX-RS response with either 200 ok,
      * or with a map of fields, and related errors.
-     * 
+     *
      * @param id
      * @param contact
      * @return Response
@@ -186,9 +186,9 @@ public class ContactRESTService {
             // Verify if the contact exists. Return 404, if not present.
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
-        
+
         Response.ResponseBuilder builder = null;
-        
+
         try {
             // Apply the changes the Contact.
             service.update(contact);
@@ -208,7 +208,7 @@ public class ContactRESTService {
             Map<String, String> responseObj = new HashMap<String, String>();
             responseObj.put("email", "That email is already used, please use a unique email");
             responseObj.put("error", "This is where errors are displayed that are not related to a specific field");
-            responseObj.put("anotherError", "You can find this error message in /src/main/java/org/jboss/quickstarts/wfk/rest/ContactRESTService.java line 242.");
+            responseObj.put("anotherError", "You can find this error message in /src/main/java/org/jboss/aerogear/quickstarts/rest/ContactRESTService.java line 242.");
             builder = Response.status(Response.Status.CONFLICT).entity(responseObj);
         } catch (Exception e) {
             log.info("Exception - " + e.toString());
@@ -222,9 +222,9 @@ public class ContactRESTService {
     }
 
     /**
-     * Deletes a contact using the ID provided. If the ID is not present then nothing can be deleted, and will return a 
+     * Deletes a contact using the ID provided. If the ID is not present then nothing can be deleted, and will return a
      * JAX-RS response with either 200 OK or with a map of fields, and related errors.
-     * 
+     *
      * @param id
      * @return Response
      */
@@ -256,11 +256,11 @@ public class ContactRESTService {
 
         return builder.build();
     }
-    
+
     /**
      * Creates a JAX-RS "Bad Request" response including a map of all violation fields, and their message. This can be used
      * by clients to show violations.
-     * 
+     *
      * @param violations A set of violations that needs to be reported
      * @return JAX-RS response containing all violations
      */

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.quickstarts.wfk.contacts.security;
+package org.jboss.aerogear.quickstarts.contacts.security;
 
 import org.picketlink.idm.IdentityManager;
 import org.picketlink.idm.PartitionManager;

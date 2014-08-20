@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.quickstarts.wfk.contacts.security.authorization;
+package org.jboss.aerogear.quickstarts.contacts.security.authorization;
 
 import org.apache.deltaspike.security.api.authorization.Secures;
 import org.picketlink.Identity;
