@@ -27,7 +27,7 @@ public interface Constants {
     String BASE_URL = "";
 
     /**
-     * This is the URL to the Unified Push Server.
+     * This is the URL of the UnifiedPush Server.
      *
      * For example (your IP/hostname will differ):
      * String UNIFIED_PUSH_URL = "http://192.168.1.157:8080/ag-push";
@@ -36,13 +36,13 @@ public interface Constants {
     String UNIFIED_PUSH_URL = "";
 
     /**
-     * The variant id that which was generated when registering the variant with
+     * The variant id which was generated when creating the variant with
      * the UnifiedPush Server.
      */
     String VARIANT_ID = "";
 
     /**
-     * The secret that which was generated when registering the variant with
+     * The secret which was generated when creating the variant with
      * the UnifiedPush Server
      */
     String SECRET = "";
