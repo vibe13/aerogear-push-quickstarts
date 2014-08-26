@@ -48,7 +48,7 @@ Profiles are used by Maven to customize the build environment. The `pom.xml` in 
 Use JBoss Developer Studio or Eclipse to Run the Quickstarts
 ------------------------------------------------------------
 
-You can also deploy the quickstarts from Eclipse using JBoss tools. For more information on how to set up Maven and the JBoss tools, refer to the [JBoss Enterprise Application Platform Development Guide](https://access.redhat.com/site/documentation/JBoss_Enterprise_Application_Platform/) or [Get Started Developing Applications](http://www.jboss.org/jdf/quickstarts/jboss-as-quickstart/guide/Introduction/ "Get Started Developing Applications").
+You can also deploy the quickstarts from Eclipse using JBoss tools. For more information on how to set up Maven and the JBoss tools, see the [JBoss Enterprise Application Platform Documentation](https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/) or [Get Started with JBoss Developer Studio](http://www.jboss.org/products/devstudio/get-started/).
 
 ### Run the Arquillian Tests
 ----------------------------
