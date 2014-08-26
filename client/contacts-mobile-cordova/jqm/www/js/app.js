@@ -131,7 +131,15 @@ $( document ).on( "pagecreate", function(mainEvent) {
             url: restEndpoint,
             xhrFields: {withCredentials: true},
             cache: false,
-            type: "GET"
+            type: "GET",
+            statusCode: {
+              404: function() {
+                alert('Backend server not responding, please check your backend URL settings');
+              },
+              401: function() {
+                $("body").pagecontainer("change", "#signin-page");
+              }
+            }
         }).done(function(data, textStatus, jqXHR) {
             console.log(getCurrentTime() + " [js/app.js] (getContacts) - succes on ajax call");
             CONTACTS.app.buildContactList(data);
@@ -140,11 +148,6 @@ $( document ).on( "pagecreate", function(mainEvent) {
                         " - jqXHR = " + jqXHR.status +
                         " - textStatus = " + textStatus +
                         " - errorThrown = " + errorThrown);
-            if (jqXHR.status === 404) {
-                alert('No contact with backend server check backend url setting');
-            } else  if (jqXHR.status === 401) {
-                $("body").pagecontainer("change", "#signin-page");
-            }
         });
         console.log(getCurrentTime() + " [js/app.js] (getContacts) - end");
     };
