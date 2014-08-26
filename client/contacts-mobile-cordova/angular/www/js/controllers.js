@@ -100,7 +100,6 @@ angular.module('quickstart.controllers', [])
   };
 })
 
-.controller('LoginCtrl', function ($scope, $location, authz, users) {
 .controller('LoginCtrl', function ($scope, $rootScope, $location, authz, users) {
   function registerWithUPS() {
     var pushConfig = {
