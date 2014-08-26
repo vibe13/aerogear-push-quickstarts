@@ -38,6 +38,7 @@ angular.module('quickstart.controllers', [])
     });    
   };
   $scope.refresh();
+  $scope.$on('refresh', $scope.refresh);
   $scope.delete = function (contact) {
     contacts.delete({
       id: contact.id
@@ -100,6 +101,7 @@ angular.module('quickstart.controllers', [])
 })
 
 .controller('LoginCtrl', function ($scope, $location, authz, users) {
+.controller('LoginCtrl', function ($scope, $rootScope, $location, authz, users) {
   function registerWithUPS() {
     var pushConfig = {
       pushServerURL: "<pushServerURL e.g http(s)//host:port/context >",
@@ -128,7 +130,17 @@ angular.module('quickstart.controllers', [])
     }
 
     function onNotification(event) {
-      angular.element(document.getElementById('root')).scope().$broadcast('notification', event);
+      if (event['content-available'] === 1) {
+        if (!event.foreground) {
+          $location.url('/app/contact/' + event.payload.id);
+          $scope.$apply();
+        } else {
+          $rootScope.$broadcast('refresh');
+          push.setContentAvailable(push.FetchResult.NewData);
+        }
+      } else {
+        $scope.$broadcast('notification', event);
+      }
     }
   }
   
