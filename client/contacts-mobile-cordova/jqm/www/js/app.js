@@ -127,15 +127,17 @@ $( document ).on( "pagecreate", function(mainEvent) {
     // Uses JAX-RS GET to retrieve current contact list.
     CONTACTS.app.getContacts = function () {
         console.log(getCurrentTime() + " [js/app.js] (getContacts) - start");
+        var notFound = function() {
+            alert('Backend server not responding, please check your backend URL settings');
+        };
         var jqxhr = $.ajax({
             url: restEndpoint,
             xhrFields: {withCredentials: true},
             cache: false,
             type: "GET",
+            timeout: 4000, 
             statusCode: {
-              404: function() {
-                alert('Backend server not responding, please check your backend URL settings');
-              },
+              404: notFound,
               401: function() {
                 $("body").pagecontainer("change", "#signin-page");
               }
@@ -148,6 +150,9 @@ $( document ).on( "pagecreate", function(mainEvent) {
                         " - jqXHR = " + jqXHR.status +
                         " - textStatus = " + textStatus +
                         " - errorThrown = " + errorThrown);
+            if (textStatus === 'timeout') {
+              notFound();
+            }
         });
         console.log(getCurrentTime() + " [js/app.js] (getContacts) - end");
     };

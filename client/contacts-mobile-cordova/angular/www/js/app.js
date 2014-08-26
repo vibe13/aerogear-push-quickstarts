@@ -84,7 +84,7 @@ angular.module('quickstart', [
 
     function error(response) {
       var status = response.status;
-      if (status === 404) {
+      if (status === 404 || status === 0) {
         alert('Backend server not responding, please check your backend URL settings');
       } else if (status === 401) {
         $location.url("/app/login");

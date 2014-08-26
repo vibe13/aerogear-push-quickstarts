@@ -71,7 +71,8 @@ backend.factory('contacts', function ($resource, BACKEND_URL) {
     },
     query: {
       method: 'GET',
-      isArray: true
+      isArray: true,
+      timeout: 4000
     },
     delete: {
       method: 'DELETE'
