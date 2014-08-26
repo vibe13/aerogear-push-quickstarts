@@ -23,7 +23,7 @@ angular.module('quickstart', [
   'ngResource'
 ])
 
-.constant('BACKEND_URL','< backend URL e.g http(s)//host:port >/jboss-contacts-mobile-picketlink-secured/')
+.constant('BACKEND_URL', '< backend URL e.g http(s)//host:port >/jboss-contacts-mobile-picketlink-secured/')
 
 .config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
   $stateProvider
@@ -84,7 +84,9 @@ angular.module('quickstart', [
 
     function error(response) {
       var status = response.status;
-      if (status === 401) {
+      if (status === 404) {
+        alert('No contact with backend server check backend url setting');
+      } else if (status === 401) {
         $location.url("/app/login");
         return;
       }

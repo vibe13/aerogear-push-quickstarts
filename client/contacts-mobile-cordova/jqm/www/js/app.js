@@ -140,7 +140,9 @@ $( document ).on( "pagecreate", function(mainEvent) {
                         " - jqXHR = " + jqXHR.status +
                         " - textStatus = " + textStatus +
                         " - errorThrown = " + errorThrown);
-            if (jqXHR.status === 401) {
+            if (jqXHR.status === 404) {
+                alert('No contact with backend server check backend url setting');
+            } else  if (jqXHR.status === 401) {
                 $("body").pagecontainer("change", "#signin-page");
             }
         });
