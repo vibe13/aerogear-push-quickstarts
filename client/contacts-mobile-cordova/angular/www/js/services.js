@@ -32,7 +32,7 @@ backend.factory('authz', function ($http, $resource) {
 });
 
 backend.factory('users', function ($resource, BACKEND_URL) {
-  return $resource(BACKEND_URL + 'rest/security/:method/:verb', {}, {
+  return $resource(BACKEND_URL.replace(/\/+$/, '') + '/rest/security/:method/:verb', {}, {
     login: {
       method: 'GET',
       params: {
@@ -63,7 +63,7 @@ backend.factory('users', function ($resource, BACKEND_URL) {
 });
 
 backend.factory('contacts', function ($resource, BACKEND_URL) {
-  return $resource(BACKEND_URL + 'rest/contacts/:id', {
+  return $resource(BACKEND_URL.replace(/\/+$/, '') + '/rest/contacts/:id', {
     id: '@id'
   }, {
     get: {
