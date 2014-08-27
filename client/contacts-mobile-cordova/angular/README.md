@@ -5,7 +5,7 @@ First follow the general example located in this [README](../README.md)
 
 ## Change Push Configuration
 
-In www/js/app.js find the pushConfig (at the top) and change the server url to your openshift instance alias and variant/secret:
+In `www/js/controllers.js` find the pushConfig (at the top) and change the server url to your openshift instance alias and variant/secret:
 
 ```javascript
 var pushConfig = {
@@ -24,7 +24,7 @@ var pushConfig = {
 ```
 You can also copy/paste these settings from your UnifiedPush console
 
-You'll also need to install the war file and add the url of your jboss to the www/js/app.js. Be sure that it must be reachable from your device so start jboss-as with `-b 0.0.0.0` and use and ip or hostname and not `localhost`
+You'll also need to install the war file and add the url of your jboss to the `www/js/app.js`. Be sure that it must be reachable from your device so start jboss-as with `-b 0.0.0.0` and use and ip or hostname and not `localhost`
 
 ```javascript
 //app.js    

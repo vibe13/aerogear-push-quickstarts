@@ -34,11 +34,11 @@ CONTACTS.app.registerWithUPS = function() {
           variantID: "<variantID e.g. 1234456-234320>",
           variantSecret: "<variantSecret e.g. 1234456-234320>"
         },
-        ios: {
+      ios: {
           variantID: "<variantID e.g. 1234456-234320>",
           variantSecret: "<variantSecret e.g. 1234456-234320>"
-        }
-    };
+      }
+    };    
     push.register(CONTACTS.app.onNotification, successHandler, errorHandler, pushConfig);
 
     function successHandler() {
@@ -51,21 +51,31 @@ CONTACTS.app.registerWithUPS = function() {
 };
 
 CONTACTS.app.onNotification = function(event) {
-    var notify = $('#notification');
-    $('#notification span').text(event.alert);
-    notify.show();
-    setTimeout(function() {
-        notify.fadeOut();
-    }, 10000);
-
     CONTACTS.app.contactId = event.payload.id;
-    $('#notification a').on("click", function(e) {
-        if(e.handled !== true) {
-            CONTACTS.app.getContactById(CONTACTS.app.contactId);
-            $.mobile.navigate("#contacts-edit-page");
-            e.handled = true;
-        }
-    });
+    if (event['content-available'] === 1) {
+      if (!event.foreground) {
+          CONTACTS.app.getContactById(CONTACTS.app.contactId);
+          $.mobile.navigate("#contacts-edit-page");
+      } else {
+        CONTACTS.app.getContacts()
+        push.setContentAvailable(push.FetchResult.NewData);
+      }
+    } else {
+      var notify = $('#notification');
+      $('#notification span').text(event.alert);
+      notify.show();
+      setTimeout(function() {
+          notify.fadeOut();
+      }, 10000);
+
+      $('#notification a').on("click", function(e) {
+          if(e.handled !== true) {
+              CONTACTS.app.getContactById(CONTACTS.app.contactId);
+              $.mobile.navigate("#contacts-edit-page");
+              e.handled = true;
+          }
+      });
+    }
 };
 /**
  * It is recommended to bind to this event instead of DOM ready() because this will work regardless of whether
