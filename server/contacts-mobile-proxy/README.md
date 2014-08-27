@@ -58,7 +58,7 @@ contacts-mobile-webapp quickstart
         For Windows: EAP_HOME\bin\standalone.bat -Djboss.socket.binding.port-offset=100
 
 4. The following shows the command line to start the servers with the server instance that will host the
-contacts-mobile-webapp quickstart
+contacts-mobile-proxy quickstart
 
         For Linux:   EAP_HOME/bin/standalone.sh -Djboss.socket.binding.port-offset=200
         For Windows: EAP_HOME\bin\standalone.bat -Djboss.socket.binding.port-offset=200
