@@ -20,7 +20,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jboss.aerogear.quickstarts</groupId>
     <artifactId>jboss-contacts-mobile-proxy</artifactId>
-    <version>1.0.0.Beta2-SNAPSHOT</version>
+    <version>1.0.0.Final</version>
     <packaging>war</packaging>
     <name>JBoss AeroGear Quickstart: contacts-mobile-proxy</name>
     <description>A Java EE 6 HTML5 mobile web application for use with JBoss.</description>
