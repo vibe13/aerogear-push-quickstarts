@@ -23,7 +23,7 @@ CONTACTS.namespace("CONTACTS.app.restEndpoint");
 
 //Set this variable for all Contacts REST APIs base URL.
 CONTACTS.app.baseUrl = "< backend URL e.g http(s)//host:port >/jboss-contacts-mobile-picketlink-secured";
-CONTACTS.app.restEndpoint = CONTACTS.app.baseUrl + "/rest/contacts";
+CONTACTS.app.restEndpoint = CONTACTS.app.baseUrl.replace(/\/+$/, "") + "/rest/contacts";
 
 CONTACTS.app.registerWithUPS = function() {
     var pushConfig = {
