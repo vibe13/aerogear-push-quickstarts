@@ -21,7 +21,7 @@
 
     <groupId>org.jboss.aerogear.quickstarts</groupId>
     <artifactId>jboss-contacts-mobile-picketlink-secured</artifactId>
-    <version>1.0.0.Final</version>
+    <version>1.1.0.Final-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <name>JBoss AeroGear Quickstart: contacts-mobile-picketlink-secured</name>
