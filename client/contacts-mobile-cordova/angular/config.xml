@@ -34,4 +34,8 @@
          to be sent to iCloud. Note: enabling this could result in Apple rejecting your app.
     -->
     <preference name="BackupWebStorage" value="none" />
+    <!-- enable restore -->
+    <feature name="AeroGear PushPlugin">
+		  <param name="id" value="org.jboss.aerogear.cordova.push" />
+	  </feature>
 </widget>
