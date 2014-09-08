@@ -65,7 +65,6 @@ Add the plugin
 cordova plugin add org.jboss.aerogear.cordova.push
 ```
 
-
 Run the application on a device
 ```
 cordova run <android or ios>
@@ -94,9 +93,9 @@ Run the HelloWorld in JBoss Developer Studio or Eclipse
 
 ![import-helloworld](doc/import-helloworld.png)
 
-- Add the plugin  
+- When prompted accept the plugin installation  
 
-![add plugin](doc/plugin-add.png)
+![add plugin](doc/plugin_restore.png)
 
 - Run the project on a device
 

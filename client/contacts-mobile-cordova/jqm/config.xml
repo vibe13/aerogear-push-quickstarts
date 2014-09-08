@@ -25,4 +25,10 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
+    
+    <!-- enable restore -->
+    <feature name="AeroGear PushPlugin">
+		  <param name="id" value="org.jboss.aerogear.cordova.push" />
+	  </feature>
+
 </widget>
