@@ -1,15 +1,13 @@
-Build and Deploy the Example
-----------------------------
+###3. Customize and Build Application for JQuery Mobile
 
-First follow the general example located in this [README](../README.md)
+Please first refer to the Cordova guide located in this [README](../README.md)
 
-## Change Push Configuration
-
-In www/js/app.js find the pushConfig (at the bottom) and change the server url to your openshift instance alias and variant/secret:
+* In ```www/js/app.js``` find the _pushConfig_ (at the bottom) and change _pushServerURL_ with the url of your UnifiedPush Server instance. You also need to change _senderID_, _variantID_ and _variantSecret_ with the values assigned by UnifiedPush Server and GCM or APNS:
 
 ```javascript
 var pushConfig = {
    pushServerURL: "<pushServerURL e.g http(s)//host:port/context >",
+   alias: "<alias e.g. a username or an email address optional>",
    android: {
       senderID: "<senderID e.g Google Project ID only for android>",
       variantID: "<variantID e.g. 1234456-234320>",
@@ -20,14 +18,14 @@ var pushConfig = {
       variantSecret: "<variantSecret e.g. 1234456-234320>"
    }
 };
-
 ```
-You can also copy/paste these settings from your UnifiedPush console
+**Note:** You can also copy/paste these settings from your UnifiedPush Server console
 
-You'll also need to install the war file and add the url of your jboss to the www/js/app.js file. Be sure that it must be reachable from your device so start jboss-as with `-b 0.0.0.0` and use and ip or hostname and not `localhost`
+* In ```www/js/app.js``` change the value of _CONTACTS.app.baseUrl_ with the url of your UnifiedPush Server instance. Use ```ip``` or ```hostname``` and not ```localhost``` for the ```host``` value:
 
 ```javascript
-//app.js    
+//app.js  
 CONTACTS.app.baseUrl = "< backend URL e.g http(s)//host:port >/jboss-contacts-mobile-picketlink-secured/";
-
 ```
+
+**Important:** Make sure that the UnifiedPush Server instance can be reached from your device (start the JBoss EAP server with the parameters ```-b 0.0.0.0```).
