@@ -43,7 +43,7 @@ You must register the application with the AeroGear UnifiedPush Server. This req
 ###3. Customize AeroGear UnifiedPush Java Sender and Build Application
 The project source code must be customized with the unique metadata assigned to the application by the AeroGear UnifiedPush Server. 
 
-1. Open ```[quickstarts-config.json](./src/main/resources/META-INF/quickstarts-config.json) configuration file.``` for editing.
+1. Open [quickstarts-config.json](./src/main/resources/META-INF/quickstarts-config.json) configuration file for editing.
 2. Enter the ``` serverUrl ```,  ``` pushApplicationId ``` and ``` masterSecret ``` parameters.
 3. Save the file.
 4. Build the application
