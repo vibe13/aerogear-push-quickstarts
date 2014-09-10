@@ -97,11 +97,11 @@ Please refer to the documentation for [contacts-mobile-webapp](../../client/cont
 2. Open a command line and navigate to the root directory of this quickstart
 3. From the ```contacts-mobile-webapp``` directory run the following command to undeploy the quickstart:
 ```shell
-mvn jboss-as:undeploy
+mvn jboss-as:undeploy -Djboss-as.port=10099
 ```
 4. From the ```contacts-mobile-proxy``` directory run the following command to undeploy the quickstart:
 ```shell
-mvn jboss-as:undeploy
+mvn jboss-as:undeploy -Djboss-as.port=10199
 ```
 5. From the ```contacts-mobile-picketlink-secured``` directory run the following command to undeploy the quickstart:
 ```shell
